@@ -10,7 +10,7 @@ const TopBar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -27,7 +27,6 @@ const TopBar = () => {
   const closeMenu = () => setIsOpen(false);
   
   useEffect(() => {
-    // lock body scroll when mobile menu is open
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -46,47 +45,47 @@ const TopBar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "" : ""}`}>
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-3 md:pt-4">
       <div
-        className={`container mx-auto transition-all duration-300 ${isScrolled ? "max-w-4xl" : "max-w-7xl"}`}>
+        className={`container mx-auto transition-all duration-300 ${isScrolled ? "max-w-4xl px-4" : "max-w-7xl px-6"}`}>
         <nav
-          className={`flex items-center justify-between px-6 py-2 md:py-2.5 transition-all duration-300 ${
+          className={`flex items-center justify-between px-6 py-2.5 md:py-3 transition-all duration-300 ${
             isScrolled
-              ? "bg-[var(--color-surface)]/80 backdrop-blur-md rounded-full border border-[var(--color-border)]/30 shadow-2xl shadow-black/80"
+              ? "bg-[#FAF7C8]/90 backdrop-blur-md rounded-full border border-[#713600]/15 shadow-md shadow-[#713600]/5"
               : "bg-transparent border-b border-transparent"
           }`}>
           {/* Logo */}
-          <div className="flex-1 md:flex-initial md:w-[150px]">
-            <Link href="/" className="text-xl font-serif italic tracking-wide hover:text-[var(--color-primary)] transition-colors duration-300">
-              Drai <span className="not-italic text-lg">ッ</span>
+          <div className="flex-1 md:flex-initial md:w-[160px]">
+            <Link href="/" className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300">
+              David <span className="not-italic text-lg text-[#713600]">ッ</span>
             </Link>
           </div>
 
           {/* Centered Desktop Nav Items */}
-          <div className="hidden md:flex flex-1 justify-center items-center gap-12">
+          <div className="hidden md:flex flex-1 justify-center items-center gap-10">
             {navItems
               .filter(item => item.label !== "Contact")
               .map((item) => (
                 <Link
                   key={item.to}
                   href={item.to}
-                  className="relative text-xs uppercase tracking-[0.2em] font-bold text-white/80 hover:text-[var(--color-primary)] transition-colors duration-300 group py-1.5"
+                  className="relative text-xs uppercase tracking-[0.2em] font-semibold text-[#38240D]/80 hover:text-[#713600] transition-colors duration-300 group py-1.5"
                 >
                   {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[var(--color-primary)] transition-all duration-300 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#713600] transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
           </div>
 
-          {/* Right Side: Contact Button/Link on Desktop, Menu Button on Mobile */}
-          <div className="flex items-center justify-end md:w-[150px]">
+          {/* Right Side: Contact Button on Desktop, Menu Button on Mobile */}
+          <div className="flex items-center justify-end md:w-[160px]">
             {navItems
               .filter(item => item.label === "Contact")
               .map((item) => (
                 <Link
                   key={item.to}
                   href={item.to}
-                  className="hidden md:inline-flex items-center justify-center bg-[var(--color-primary)] hover:bg-[var(--color-primary-light)] text-black font-bold tracking-widest uppercase text-[10px] px-5 py-2.5 rounded-full shadow-sm transition-all duration-300 hover:scale-[1.03]"
+                  className="hidden md:inline-flex items-center justify-center bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] font-semibold tracking-widest uppercase text-[11px] px-5 py-2.5 rounded-full shadow-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {item.label}
                 </Link>
@@ -94,7 +93,7 @@ const TopBar = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden p-2 text-white/80 hover:text-[var(--color-primary)] transition-colors"
+              className="md:hidden p-2 text-[#38240D] hover:text-[#713600] transition-colors"
               onClick={toggleMenu}
               aria-label="Toggle menu"
               type="button"
@@ -107,34 +106,34 @@ const TopBar = () => {
         {/* Mobile Menu */}
         {isOpen && (
           <div className="md:hidden fixed inset-0 z-40" role="dialog" aria-modal="true">
-            {/* backdrop - clicking closes */}
+            {/* backdrop */}
             <div
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-[#38240D]/40 backdrop-blur-xs"
               onClick={closeMenu}
             />
 
             {/* panel */}
             <div className="absolute top-[20px] left-4 right-4 mx-auto max-w-md">
               <div
-                className="bg-[var(--color-surface)]/90 backdrop-blur-xl rounded-3xl shadow-2xl shadow-black/90 p-6 border border-[var(--color-border)]/30 transform transition duration-250"
+                className="bg-[#FAF7C8] backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-[#713600]/20 transform transition duration-250"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-                  <Link href="/" onClick={closeMenu} className="text-xl font-serif italic tracking-wide text-white hover:text-[var(--color-primary)] transition-colors duration-300">
-                    Drai <span className="not-italic text-lg">ッ</span>
+                <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#713600]/15">
+                  <Link href="/" onClick={closeMenu} className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300">
+                    David <span className="not-italic text-lg text-[#713600]">ッ</span>
                   </Link>
-                  <button onClick={closeMenu} aria-label="Close menu" className="p-2 text-white/60 hover:text-[var(--color-primary)] hover:bg-white/5 rounded-full transition-colors">
+                  <button onClick={closeMenu} aria-label="Close menu" className="p-2 text-[#38240D]/70 hover:text-[#713600] hover:bg-[#713600]/5 rounded-full transition-colors">
                     <X className="h-6 w-6" />
                   </button>
                 </div>
 
-                <nav className="flex flex-col gap-4">
+                <nav className="flex flex-col gap-3">
                   {navItems.map((item) => (
                     <Link
                       key={item.to}
                       href={item.to}
                       onClick={closeMenu}
-                      className="block text-white/80 hover:text-[var(--color-primary)] text-sm uppercase tracking-[0.2em] py-4 px-4 rounded-xl text-center font-bold hover:bg-white/5 transition-all duration-300"
+                      className="block text-[#38240D] hover:text-[#713600] text-xs uppercase tracking-[0.2em] py-3.5 px-4 rounded-lg font-semibold hover:bg-[#713600]/8 transition-all duration-300"
                     >
                       {item.label}
                     </Link>

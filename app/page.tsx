@@ -1,5 +1,4 @@
 import SplitHero from "@/components/SplitHero";
-
 import Footer from "@/components/Footer";
 import Blog from "@/components/Blog";
 import WhoAmI from "@/components/WhoAmI";
@@ -9,22 +8,27 @@ import { prisma } from "@/lib/prisma";
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const posts = await prisma.post.findMany({
-    where: {
-      published: true,
-    },
-    orderBy: {
-      date: 'desc',
-    },
-    take: 6,
-  });
+  let posts: any[] = [];
+  try {
+    posts = await prisma.post.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: {
+        date: 'desc',
+      },
+      take: 6,
+    });
+  } catch (error) {
+    console.error("Error fetching posts on homepage:", error);
+    posts = [];
+  }
 
-  
   const blogPosts = posts.map((post) => ({
     ...post,
     category: post.category || "Uncategorized",
-    date: post.date.toISOString(),
-    image: post.image || "/dry.png", // Fallback image
+    date: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
+    image: post.image || "/dry.png",
     excerpt: post.excerpt || "",
     content: post.content || "",
   }));

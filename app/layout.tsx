@@ -68,12 +68,12 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Mawusi Drai | Engineer, Public Speaker & Researcher",
-  description: "Official portfolio of Mawusi Drai - Engineer, Public Speaker, and Researcher.",
-  keywords: "Mawusi Drai, Engineer, Public Speaker, Researcher, Ghana",
-  authors: [{ name: "Mawusi Drai" }],
+  title: "John David | Engineer, Public Speaker & Researcher",
+  description: "Official portfolio of John David - Engineer, Public Speaker, and Researcher.",
+  keywords: "John David, Engineer, Public Speaker, Researcher, Ghana",
+  authors: [{ name: "John David" }],
   openGraph: {
-    title: "Mawusi Drai ",
+    title: "John David ",
     type: "website",
   },
 };
@@ -86,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${oswald.variable} ${raleway.variable} ${imFellEnglish.variable} ${brotheric.variable} ${cormorant.variable} font-sans antialiased text-[var(--color-mba-text-primary)] overflow-x-hidden`}
+        className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${oswald.variable} ${raleway.variable} ${imFellEnglish.variable} ${brotheric.variable} ${cormorant.variable} font-sans antialiased bg-[#FDFBD4] text-[#38240D] overflow-x-hidden`}
       >
         <AmbientBackground />
         <div className="relative z-10 flex flex-col min-h-screen">
@@ -100,3 +100,6 @@ export default function RootLayout({
     </html>
   );
 }
+
+
+

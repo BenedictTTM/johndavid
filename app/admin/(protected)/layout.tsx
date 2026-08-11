@@ -28,10 +28,10 @@ export default function ProtectedAdminLayout({
     // Render a luxurious loading state until client-side verification completes
     if (!isAuthorized) {
         return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF9F6] font-sans">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-[#FDFBD4] font-sans">
                 <div className="flex flex-col items-center gap-4">
-                    <Loader2 className="animate-spin h-10 w-10 text-[#C5A576]" />
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#888A93] font-bold select-none">
+                    <Loader2 className="animate-spin h-10 w-10 text-[#713600]" />
+                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#38240D]/70 font-bold select-none">
                         Verifying Clearance
                     </span>
                 </div>

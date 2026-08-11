@@ -1,47 +1,45 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #C5A576;
-  /* Premium muted champagne gold */
-  --color-primary-light: #DFCAA9;
-  --color-primary-dark: #A58455;
+  --color-primary: #713600;
+  --color-primary-hover: #592a00;
+  --color-primary-light: rgba(113, 54, 0, 0.08);
 
-  --color-background: #08080C;
-  /* Deep cinematic charcoal/black */
-  --color-background-secondary: #0F1015;
-  --color-background-tertiary: #17181F;
+  --color-accent: #C05800;
+  --color-accent-hover: #9e4800;
+  --color-accent-light: rgba(192, 88, 0, 0.1);
 
-  --color-surface: #12131A;
-  --color-surface-elevated: #1B1C24;
-  --color-surface-light: #242630;
+  --color-background: #FDFBD4;
+  --color-background-secondary: #FAF7C8;
+  --color-background-tertiary: #F5F1BC;
 
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #E3E4E6;
-  --color-text-muted: #8E919A;
+  --color-surface: #FAF7C8;
+  --color-surface-elevated: #F5F1BC;
+  --color-surface-light: #FFFEE3;
 
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-light: rgba(255, 255, 255, 0.12);
+  --color-foreground: #38240D;
+  --color-foreground-muted: rgba(56, 36, 13, 0.65);
+  --color-foreground-subtle: rgba(56, 36, 13, 0.45);
 
-  --color-accent-blue: #C5A576;
-  --color-accent-softBlue: #DFCAA9;
-  --color-accent-gray: #E3E4E6;
+  --color-border: rgba(56, 36, 13, 0.12);
+  --color-border-light: rgba(56, 36, 13, 0.06);
+  --color-border-strong: rgba(56, 36, 13, 0.25);
 
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-info: #C5A576;
+  --color-success: #2D6A4F;
+  --color-warning: #D97706;
+  --color-error: #B91C1C;
+  --color-info: #713600;
 
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 30px rgba(197, 165, 118, 0.15);
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-sm: 0 1px 2px 0 rgba(56, 36, 13, 0.05);
+  --shadow-md: 0 4px 12px rgba(56, 36, 13, 0.08);
+  --shadow-lg: 0 12px 30px rgba(56, 36, 13, 0.12);
+  --shadow-glow: 0 0 30px rgba(113, 54, 0, 0.15);
+  --shadow-card: 0 4px 20px rgba(56, 36, 13, 0.05), 0 1px 2px rgba(56, 36, 13, 0.04);
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.375rem;
-  --radius-lg: 0.5rem;
-  --radius-xl: 0.75rem;
-  --radius-2xl: 1rem;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
   --transition-base: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -52,15 +50,15 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* Legacy Design Variables Mapping to the new cinematic luxury theme */
+  /* Legacy Design Variables Mapping */
   --color-mba-gold: var(--color-primary);
-  --color-mba-gold-glow: rgba(197, 165, 118, 0.2);
+  --color-mba-gold-glow: rgba(113, 54, 0, 0.15);
 
   --color-mba-navy: var(--color-background);
   --color-mba-background: var(--color-background);
-  --color-mba-background-dark: var(--color-background);
+  --color-mba-background-dark: var(--color-surface);
 
   --color-mba-surface: var(--color-surface);
   --color-mba-surface-light: var(--color-surface-light);
@@ -69,14 +67,14 @@
   --color-mba-border: var(--color-border);
   --color-mba-border-light: var(--color-border-light);
 
-  --color-mba-text-primary: var(--color-text-primary);
-  --color-mba-text-grey: var(--color-text-secondary);
-  --color-mba-text-muted: var(--color-text-muted);
-  --color-mba-white: #ffffff;
+  --color-mba-text-primary: var(--color-foreground);
+  --color-mba-text-grey: var(--color-foreground-muted);
+  --color-mba-text-muted: var(--color-foreground-subtle);
+  --color-mba-white: #38240D;
 
   --color-mba-blue: var(--color-primary);
-  --color-mba-blue-hover: var(--color-primary-light);
-  --color-mba-blue-glow: rgba(197, 165, 118, 0.25);
+  --color-mba-blue-hover: var(--color-primary-hover);
+  --color-mba-blue-glow: rgba(113, 54, 0, 0.15);
 }
 
 @layer base {
@@ -89,11 +87,12 @@
   html {
     scroll-behavior: smooth;
     background-color: var(--color-background);
+    color: var(--color-foreground);
   }
 
   body {
-    background-color: transparent;
-    color: var(--color-text-primary);
+    background-color: #FDFBD4;
+    color: #38240D;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -109,14 +108,13 @@
   h6 {
     letter-spacing: 0.02em;
     font-weight: 600;
+    color: #38240D;
   }
 
   ::selection {
-    background: var(--color-primary-light);
-    color: var(--color-text-primary);
+    background: rgba(192, 88, 0, 0.15);
+    color: #38240D;
   }
-
-
 }
 
 @layer utilities {
@@ -137,39 +135,39 @@
     transform: translateY(-1px);
   }
 
-  /* Premium Card Styles */
+  /* Refined Design System Card */
   .premium-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
     transition: all var(--transition-smooth);
   }
 
   .premium-card:hover {
-    border-color: var(--color-border-light);
+    border-color: rgba(113, 54, 0, 0.25);
     background-color: var(--color-surface-light);
   }
 
   .section-padding {
-    padding: 5rem 1rem; /* 80px mobile */
+    padding: 5rem 1rem;
   }
 
   @media (min-width: 768px) {
     .section-padding {
-      padding: 7rem 1.5rem; /* 112px tablet */
+      padding: 7rem 1.5rem;
     }
   }
 
   @media (min-width: 1024px) {
     .section-padding {
-      padding: 9rem 3rem; /* 144px laptop */
+      padding: 9rem 3rem;
     }
   }
 
   @media (min-width: 1440px) {
     .section-padding {
-      padding: 10rem 5rem; /* 160px desktop */
+      padding: 10rem 5rem;
     }
   }
 
@@ -201,7 +199,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
 
   to {
@@ -211,5 +209,5 @@
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

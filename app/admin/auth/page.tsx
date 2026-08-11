@@ -43,7 +43,6 @@ function AuthForm() {
     }
 
     try {
-      // Call the authentication API
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,7 +55,6 @@ function AuthForm() {
         throw new Error(result.error || 'Authentication failed');
       }
       
-      // Store token in local storage
       localStorage.setItem('admin_token', result.token);
 
       toast.success('Authentication Successful', {
@@ -76,164 +74,151 @@ function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#FAF9F6] font-sans">
-      {/* 🖼️ Premium Branding Section (Left) */}
-      <div className="relative hidden md:flex md:w-1/2 lg:w-3/5 bg-[#111116] overflow-hidden flex-col justify-between p-12 lg:p-20">
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#FDFBD4] font-sans">
+      {/* Premium Branding Section (Left) */}
+      <div className="relative hidden md:flex md:w-1/2 lg:w-3/5 bg-[#713600] overflow-hidden flex-col justify-between p-12 lg:p-20 text-[#FDFBD4]">
         {/* Architectural Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(197,165,118,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(197,165,118,0.05)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(253,251,212,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(253,251,212,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
         
         {/* Glow effect */}
-        <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-[#C5A576]/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-[#C05800]/25 rounded-full blur-[140px] pointer-events-none" />
         
         {/* Header Branding */}
         <div className="relative z-10 flex items-center gap-3">
-            <div className="w-8 h-[1px] bg-[#C5A576]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#C5A576]">Jeffrey Drai</span>
+            <div className="w-8 h-[2px] bg-[#C05800]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#FDFBD4]">John David</span>
         </div>
 
         {/* Center Copy */}
         <div className="relative z-10 max-w-lg">
-            <h1 className="font-display font-extrabold uppercase leading-none tracking-tight select-none text-5xl lg:text-7xl text-white mb-6">
+            <h1 className="font-display font-extrabold uppercase leading-none tracking-tight select-none text-5xl lg:text-7xl text-[#FDFBD4] mb-6">
                 System <br/>
-                <span className="font-serif italic font-normal tracking-wide text-[#C5A576]">Access</span>
+                <span className="font-serif italic font-normal tracking-wide text-[#FAF7C8]">Access</span>
             </h1>
-            <p className="text-[#888A93]/90 text-[1.1rem] md:text-[1.2rem] leading-relaxed tracking-wide font-serif italic font-light">
+            <p className="text-[#FAF7C8]/90 text-[1.1rem] md:text-[1.25rem] leading-relaxed tracking-wide font-serif italic font-light">
                 Secure portal for content management, ledger revisions, and system administration. Authorized personnel only.
             </p>
         </div>
         
         {/* Footer Coordinate Markers */}
-        <div className="relative z-10 flex justify-between items-center text-[9px] text-[#C5A576]/60 tracking-[0.3em] uppercase select-none font-mono">
+        <div className="relative z-10 flex justify-between items-center text-[9px] text-[#FDFBD4]/70 tracking-[0.3em] uppercase select-none font-mono">
             <span>01 // AUTH_PORTAL</span>
             <span>SYS_VER: 2026.05</span>
         </div>
       </div>
 
-      {/* 🧾 Form Section (Right) */}
-      <div className="flex w-full md:w-1/2 lg:w-2/5 items-center justify-center p-6 sm:p-8 md:p-12 lg:p-16 bg-[#FAF9F6] relative">
+      {/* Form Section (Right) */}
+      <div className="flex w-full md:w-1/2 lg:w-2/5 items-center justify-center p-6 sm:p-8 md:p-12 lg:p-16 bg-[#FDFBD4] relative">
         
         {/* Mobile Header Branding */}
         <div className="absolute top-6 left-6 md:hidden flex items-center gap-3">
-            <div className="w-5 h-[1px] bg-[#C5A576]" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#C5A576]">JD Ledger</span>
+            <div className="w-5 h-[2px] bg-[#713600]" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#713600]">JD Ledger</span>
         </div>
 
-        <div className="w-full max-w-sm space-y-10 relative z-10 mt-12 md:mt-0">
+        <div className="w-full max-w-sm space-y-8 relative z-10 mt-12 md:mt-0">
           
           {/* Header */}
           <div>
-            <div className="flex items-center gap-2 mb-3">
-                <Lock size={14} className="text-[#C5A576]" />
-                <h2 className="text-sm font-bold text-[#111116] uppercase tracking-widest">Authentication</h2>
+            <div className="flex items-center gap-2 mb-2">
+                <Lock size={16} className="text-[#713600]" />
+                <h2 className="text-sm font-bold text-[#38240D] uppercase tracking-widest">Authentication</h2>
             </div>
-            <p className="text-xs text-[#888A93] uppercase tracking-wider font-bold">
+            <p className="text-xs text-[#38240D]/70 uppercase tracking-wider font-bold">
               Enter your credentials to proceed
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={onSubmit} className="space-y-6">
+          <form onSubmit={onSubmit} className="space-y-5">
             <div className="space-y-2">
-                <label htmlFor="email" className="block text-[9px] font-bold uppercase tracking-[0.25em] text-[#C5A576]">
+                <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600]">
                     Email Address
                 </label>
                 <input
                     type="email"
                     name="email"
                     id="email"
-                    className={`w-full px-4 py-3.5 bg-white border rounded-lg focus:ring-2 focus:ring-[#C5A576]/10 focus:border-[#C5A576] outline-none transition-all duration-300 text-gray-900 placeholder-[#888A93]/50 text-sm shadow-xs ${
-                        errors.email ? 'border-red-400' : 'border-[#C5A576]/15'
+                    className={`w-full px-4 py-3 bg-[#FAF7C8] border rounded-lg focus:ring-2 focus:ring-[#713600]/20 focus:border-[#713600] outline-none transition-all duration-300 text-[#38240D] placeholder-[#38240D]/40 text-sm shadow-xs ${
+                        errors.email ? 'border-red-600' : 'border-[#713600]/20'
                     }`}
-                    placeholder="admin@jeffreydrai.com"
+                    placeholder="admin@johndavid.com"
                 />
-                {errors.email && <p className="text-red-500 text-[10px] font-medium font-mono uppercase tracking-wider mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-red-700 text-[10px] font-medium font-mono uppercase tracking-wider mt-1">{errors.email}</p>}
             </div>
 
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-[9px] font-bold uppercase tracking-[0.25em] text-[#C5A576]">
+                    <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600]">
                         Password
                     </label>
-                    <a href="#" className="text-[9px] font-bold uppercase tracking-wider text-[#888A93] hover:text-[#C5A576] transition-colors">
-                        Forgot?
-                    </a>
                 </div>
                 <input
                     type="password"
                     name="password"
                     id="password"
-                    className={`w-full px-4 py-3.5 bg-white border rounded-lg focus:ring-2 focus:ring-[#C5A576]/10 focus:border-[#C5A576] outline-none transition-all duration-300 text-gray-900 placeholder-[#888A93]/50 text-sm shadow-xs ${
-                        errors.password ? 'border-red-400' : 'border-[#C5A576]/15'
+                    className={`w-full px-4 py-3 bg-[#FAF7C8] border rounded-lg focus:ring-2 focus:ring-[#713600]/20 focus:border-[#713600] outline-none transition-all duration-300 text-[#38240D] placeholder-[#38240D]/40 text-sm shadow-xs ${
+                        errors.password ? 'border-red-600' : 'border-[#713600]/20'
                     }`}
                     placeholder="••••••••"
                 />
-                {errors.password && <p className="text-red-500 text-[10px] font-medium font-mono uppercase tracking-wider mt-1">{errors.password}</p>}
+                {errors.password && <p className="text-red-700 text-[10px] font-medium font-mono uppercase tracking-wider mt-1">{errors.password}</p>}
             </div>
 
             <button
                 type="submit"
                 disabled={isSubmitting}
                 className="
-                    relative
-                    group
                     w-full
-                    py-4
-                    rounded-md
-                    overflow-hidden
-                    border
-                    border-[#C5A576]/35
-                    bg-[#111116]
-                    text-white
-                    text-[10px]
+                    py-3.5
+                    rounded-lg
+                    bg-[#713600]
+                    text-[#FDFBD4]
+                    text-[11px]
                     uppercase
                     tracking-[0.2em]
                     font-bold
                     transition-all
-                    duration-500
+                    duration-300
                     flex
                     items-center
                     justify-center
                     gap-2.5
-                    shadow-xs
-                    hover:border-[#C5A576]
-                    hover:shadow-[0_10px_30px_rgba(197,165,118,0.12)]
+                    shadow-sm
+                    hover:bg-[#C05800]
                     disabled:opacity-70
                     disabled:cursor-not-allowed
+                    cursor-pointer
                 "
             >
-                <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors duration-500">
-                    {isSubmitting ? (
-                        <>
-                            <Loader2 className="w-3.5 h-3.5 animate-spin text-[#C5A576] group-hover:text-black" />
-                            Authenticating...
-                        </>
-                    ) : (
-                        <>
-                            <Sparkles size={11} className="text-[#C5A576] group-hover:text-black transition-colors duration-500" />
-                            Initialize Session
-                        </>
-                    )}
-                </span>
-                
-                {/* Gold Spring Background */}
-                <div className="absolute inset-0 bg-[#C5A576] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] -z-10" />
+                {isSubmitting ? (
+                    <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FDFBD4]" />
+                        Authenticating...
+                    </>
+                ) : (
+                    <>
+                        <Sparkles size={13} className="text-[#FDFBD4]" />
+                        Initialize Session
+                    </>
+                )}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="relative my-8">
+          <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#C5A576]/15"></div>
+              <div className="w-full border-t border-[#713600]/15"></div>
             </div>
             <div className="relative flex justify-center text-[9px] uppercase tracking-[0.2em] font-bold">
-              <span className="px-4 bg-[#FAF9F6] text-[#888A93]">Or</span>
+              <span className="px-4 bg-[#FDFBD4] text-[#38240D]/60">Or</span>
             </div>
           </div>
 
           <button
             type="button"
-            onClick={() => toast('comming soon 🌚')}
-            className="w-full py-3.5 px-4 bg-white border border-[#C5A576]/20 rounded-md flex items-center justify-center gap-3 text-[10px] uppercase tracking-wider font-bold text-[#111116] hover:bg-[#FAF9F6] hover:border-[#C5A576]/40 transition-all shadow-xs"
+            onClick={() => toast('Google authentication coming soon.')}
+            className="w-full py-3 px-4 bg-[#FAF7C8] border border-[#713600]/20 rounded-lg flex items-center justify-center gap-3 text-[10px] uppercase tracking-wider font-bold text-[#38240D] hover:bg-[#713600]/10 transition-all shadow-xs cursor-pointer"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
               <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
@@ -253,7 +238,7 @@ function AuthForm() {
 
 export default function LogInPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-[#C5A576]" /></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FDFBD4] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-[#713600]" /></div>}>
       <AuthForm />
     </Suspense>
   );

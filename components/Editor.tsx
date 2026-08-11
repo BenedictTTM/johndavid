@@ -30,14 +30,14 @@ const formats = [
 
 export default function Editor({ value, onChange }: EditorProps) {
     return (
-        <div className="bg-white [&_.ql-editor]:text-gray-900">
+        <div className="bg-[#FAF7C8] rounded-lg border border-[#713600]/20 [&_.ql-toolbar]:border-[#713600]/15 [&_.ql-toolbar]:bg-[#FAF7C8] [&_.ql-container]:border-[#713600]/15 [&_.ql-editor]:text-[#38240D] [&_.ql-editor]:min-h-[220px]">
             <ReactQuill
                 theme="snow"
                 value={value}
                 onChange={onChange}
                 modules={modules}
                 formats={formats}
-                className="h-64 mb-12"
+                className="mb-10 text-[#38240D]"
             />
         </div>
     );
