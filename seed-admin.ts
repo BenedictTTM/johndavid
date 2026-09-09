@@ -7,12 +7,16 @@ async function main() {
   if (!existingAdmin) {
     await prisma.admin.create({
       data: {
-        password: 'draiaquinas2023',
+        password: 'thejd12',
       },
     });
     console.log('Admin password seeded successfully.');
   } else {
-    console.log('Admin password already exists.');
+    await prisma.admin.update({
+      where: { id: existingAdmin.id },
+      data: { password: 'thejd12' },
+    });
+    console.log('Admin password updated successfully.');
   }
 }
 

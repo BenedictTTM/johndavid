@@ -12,6 +12,8 @@ model Post {
   title     String
   excerpt   String?
   content   String?
+  /** Structured block document — see types/content.ts PostDocument */
+  contentBlocks Json?
   date      DateTime @default(now())
   updatedAt DateTime @updatedAt
 

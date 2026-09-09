@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import BlogPostContent from './BlogPostContent';
+import type { PostDocument } from '@/types/content';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,6 +44,9 @@ export default async function SingleBlogPage({
             image: post.image || '',
             category: post.category || 'Uncategorized',
             date: post.date.toISOString(),
+            updatedAt: post.updatedAt.toISOString(),
+            // Prisma returns Json as JsonValue; we own the write path so this cast is safe.
+            contentBlocks: (post.contentBlocks ?? null) as PostDocument | null,
         };
 
         return <BlogPostContent post={serializedPost} />;

@@ -1,25 +1,32 @@
 import { z } from 'zod';
 
-// Base schema: Loose validation for saving drafts
+// ── Base schema: loose validation for saving drafts ───────────────────────────
 export const postSchema = z.object({
-    title: z.string().min(1, 'Title is required for draft'),
-    excerpt: z.string().optional(),
-    content: z.string().optional(),
-    readTime: z.string().optional(),
-    category: z.string().optional().default('Uncategorized'),
-    image: z.any().optional(),
-    published: z.boolean().optional().default(false),
+    title         : z.string().min(1, 'Title is required'),
+    excerpt       : z.string().optional(),
+    content       : z.string().optional(),
+    /** Structured PostDocument — validated loosely here, typed on the client */
+    contentBlocks : z.any().optional(),
+    readTime      : z.string().optional(),
+    category      : z.string().optional().default('Uncategorized'),
+    image         : z.any().optional(),
+    published     : z.boolean().optional().default(false),
 });
 
-// Strict validation for publishing
+// ── Strict validation for publishing ─────────────────────────────────────────
 export const publishSchema = postSchema.refine((data) => {
     if (data.published) {
-        return !!data.excerpt && !!data.content && (!!data.image || data.image instanceof File);
+        // Accept either legacy HTML content or at least one structured block
+        const hasContent =
+            !!data.content ||
+            (Array.isArray(data.contentBlocks?.blocks) && data.contentBlocks.blocks.length > 0);
+
+        return !!data.excerpt && hasContent && (!!data.image || data.image instanceof File);
     }
     return true;
 }, {
-    message: "Excerpt, Content, and Image are required to publish.",
-    path: ["published"], // Error will be attached to 'published' field or general
+    message: 'Excerpt, Content blocks, and Image are required to publish.',
+    path   : ['content'],
 });
 
 export const createPostSchema = publishSchema;

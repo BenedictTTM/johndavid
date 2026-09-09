@@ -8,6 +8,7 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { BlogPost } from "@/types/blog";
 import { useRef, useState } from "react";
 import LikeButton from "@/components/LikeButton";
+import { PostRenderer } from "@/components/post-renderer";
 
 interface BlogPostContentProps {
     post: BlogPost;
@@ -187,43 +188,62 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                     </motion.div>
                                 )}
 
-                                {/* Main Body Content */}
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.8, delay: 0.1 }}
-                                    className={`
-                                        prose prose-neutral
-                                        w-full max-w-full overflow-x-hidden
-                                        break-words
-                                        [word-break:break-word]
-                                        [overflow-wrap:anywhere]
+                                {/* Main Body Content
+                                 *
+                                 * Rendering strategy:
+                                 *   1. If the post has structured contentBlocks → PostRenderer
+                                 *      (type-safe, XSS-free, block-level components)
+                                 *   2. Fallback → legacy Quill HTML string via dangerouslySetInnerHTML
+                                 *      (all existing posts; preserved indefinitely for backward compat)
+                                 */}
+                                {post.contentBlocks?.blocks?.length ? (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.8, delay: 0.1 }}
+                                    >
+                                        <PostRenderer content={post.contentBlocks} />
+                                    </motion.div>
+                                ) : (
+                                    /* ── Legacy HTML fallback (Quill-authored posts) ── */
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        whileInView={{ opacity: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.8, delay: 0.1 }}
+                                        className={`
+                                            prose prose-neutral
+                                            w-full max-w-full overflow-x-hidden
+                                            break-words
+                                            [word-break:break-word]
+                                            [overflow-wrap:anywhere]
 
-                                        prose-headings:font-serif prose-headings:text-[#38240D] prose-headings:font-semibold prose-headings:tracking-tight
-                                        prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#713600]/15
-                                        prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
+                                            prose-headings:font-serif prose-headings:text-[#38240D] prose-headings:font-semibold prose-headings:tracking-tight
+                                            prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#713600]/15
+                                            prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
 
-                                        prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#38240D]/85 prose-p:mb-6 prose-p:font-normal
+                                            prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#38240D]/85 prose-p:mb-6 prose-p:font-normal
 
-                                        prose-a:text-[#713600] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#713600]/30 hover:prose-a:border-[#C05800] hover:prose-a:text-[#C05800] prose-a:transition-all
+                                            prose-a:text-[#713600] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#713600]/30 hover:prose-a:border-[#C05800] hover:prose-a:text-[#C05800] prose-a:transition-all
 
-                                        prose-blockquote:border-l-3 prose-blockquote:border-[#713600] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#38240D] prose-blockquote:bg-[#FAF7C8] prose-blockquote:rounded-r-lg
+                                            prose-blockquote:border-l-3 prose-blockquote:border-[#713600] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#38240D] prose-blockquote:bg-[#FAF7C8] prose-blockquote:rounded-r-lg
 
-                                        prose-strong:font-semibold prose-strong:text-[#38240D]
+                                            prose-strong:font-semibold prose-strong:text-[#38240D]
 
-                                        prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#38240D]/85
-                                        prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#38240D]/85
+                                            prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#38240D]/85
+                                            prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#38240D]/85
 
-                                        prose-code:text-[#713600] prose-code:bg-[#FAF7C8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
+                                            prose-code:text-[#713600] prose-code:bg-[#FAF7C8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
 
-                                        prose-pre:bg-[#FAF7C8] prose-pre:border prose-pre:border-[#713600]/15 prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
+                                            prose-pre:bg-[#FAF7C8] prose-pre:border prose-pre:border-[#713600]/15 prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
 
-                                        prose-img:max-w-full prose-img:h-auto prose-img:rounded-lg
-                                    `}
-                                >
-                                    <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
-                                </motion.div>
+                                            prose-img:max-w-full prose-img:h-auto prose-img:rounded-lg
+                                        `}
+                                    >
+                                        <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+                                    </motion.div>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
 // ─── Warm Atmospheric Blob Config ──────────────────────────────────────────
 // Custom warm ambient lights floating gracefully on #FDFBD4 background
@@ -21,7 +22,12 @@ const GRAIN_SIZE = 192;
 const GRAIN_UPDATE = 3;
 
 export default function AmbientBackground() {
+  const pathname = usePathname();
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
   const grainRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const tickRef = useRef(0);

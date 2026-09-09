@@ -35,6 +35,10 @@ export async function POST(request: Request) {
     const content = formData.get('content') as string;
     const category = (formData.get('category') as string) || 'Uncategorized';
 
+    // Structured block document (JSON string) — may be absent for legacy posts
+    const contentBlocksRaw = formData.get('contentBlocks') as string | null;
+    const contentBlocks = contentBlocksRaw ? JSON.parse(contentBlocksRaw) : undefined;
+
     // Safer file retrieval
     const imageEntry = formData.get('image');
     const image = (imageEntry && typeof imageEntry === 'object' && 'arrayBuffer' in imageEntry) ? imageEntry as File : null;
@@ -113,6 +117,7 @@ export async function POST(request: Request) {
         title,
         excerpt: excerpt || '',
         content: content || '',
+        contentBlocks: contentBlocks ?? undefined,
         category,
         image: imageUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
         readTime,
