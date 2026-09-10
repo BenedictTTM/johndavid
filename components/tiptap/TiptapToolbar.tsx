@@ -719,12 +719,21 @@ function AlignDropdown({ editor }: { editor: Editor }) {
 
 function ButtonDropdown({ editor }: { editor: Editor }) {
     const [open, setOpen] = useState(false);
+    const [customOpen, setCustomOpen] = useState(false);
+    const [customLabel, setCustomLabel] = useState('Read More');
+    const [customUrl, setCustomUrl] = useState('https://');
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        if (!open) return;
+        if (!open) {
+            setCustomOpen(false);
+            return;
+        }
         const handler = (e: MouseEvent) => {
-            if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+            if (ref.current && !ref.current.contains(e.target as Node)) {
+                setOpen(false);
+                setCustomOpen(false);
+            }
         };
         document.addEventListener('mousedown', handler);
         return () => document.removeEventListener('mousedown', handler);
@@ -740,6 +749,7 @@ function ButtonDropdown({ editor }: { editor: Editor }) {
 <p></p>
 `).run();
         setOpen(false);
+        setCustomOpen(false);
     };
 
     return (
@@ -760,42 +770,81 @@ function ButtonDropdown({ editor }: { editor: Editor }) {
             </button>
 
             {open && (
-                <div className="absolute top-full left-0 mt-1 w-44 bg-white border border-gray-200 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] overflow-hidden z-50 py-1">
-                    <button
-                        type="button"
-                        onMouseDown={(e) => { e.preventDefault(); insertButton('Subscribe now', '#subscribe'); }}
-                        className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 transition-colors cursor-pointer"
-                    >
-                        Subscribe now
-                    </button>
-                    <button
-                        type="button"
-                        onMouseDown={(e) => { e.preventDefault(); insertButton('Leave a comment', '#comments'); }}
-                        className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 transition-colors cursor-pointer"
-                    >
-                        Leave a comment
-                    </button>
-                    <button
-                        type="button"
-                        onMouseDown={(e) => { e.preventDefault(); insertButton('Share post', '#share'); }}
-                        className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 transition-colors cursor-pointer"
-                    >
-                        Share this post
-                    </button>
-                    <button
-                        type="button"
-                        onMouseDown={(e) => {
-                            e.preventDefault();
-                            const title = window.prompt('Button Label', 'Read More');
-                            if (!title) return;
-                            const url = window.prompt('Button Link URL', 'https://');
-                            if (!url) return;
-                            insertButton(title, url);
-                        }}
-                        className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 transition-colors border-t border-gray-100 cursor-pointer"
-                    >
-                        Custom button…
-                    </button>
+                <div className="absolute top-full left-0 mt-1 w-56 bg-white border border-gray-200 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.12)] overflow-hidden z-50 p-1.5">
+                    {customOpen ? (
+                        <div className="p-2 space-y-2.5">
+                            <p className="text-[11px] font-semibold text-gray-700">Custom Button</p>
+                            <input
+                                type="text"
+                                value={customLabel}
+                                onChange={(e) => setCustomLabel(e.target.value)}
+                                placeholder="Button Label"
+                                className="w-full px-2.5 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-lg outline-none focus:bg-white focus:border-gray-400 text-gray-800"
+                            />
+                            <input
+                                type="text"
+                                value={customUrl}
+                                onChange={(e) => setCustomUrl(e.target.value)}
+                                placeholder="https://"
+                                className="w-full px-2.5 py-1.5 text-xs bg-gray-50 border border-gray-200 rounded-lg outline-none focus:bg-white focus:border-gray-400 text-gray-800"
+                            />
+                            <div className="flex justify-end gap-1.5 pt-1">
+                                <button
+                                    type="button"
+                                    onClick={() => setCustomOpen(false)}
+                                    className="px-2 py-1 text-xs text-gray-500 hover:text-gray-700 rounded cursor-pointer"
+                                >
+                                    Back
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        if (customLabel.trim() && customUrl.trim()) {
+                                            insertButton(customLabel.trim(), customUrl.trim());
+                                        }
+                                    }}
+                                    className="px-3 py-1 bg-[#FF6719] hover:bg-[#e65a12] text-white text-xs font-semibold rounded-md transition-colors cursor-pointer"
+                                >
+                                    Insert
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <button
+                                type="button"
+                                onMouseDown={(e) => { e.preventDefault(); insertButton('Subscribe now', '#subscribe'); }}
+                                className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 rounded-md transition-colors cursor-pointer"
+                            >
+                                Subscribe now
+                            </button>
+                            <button
+                                type="button"
+                                onMouseDown={(e) => { e.preventDefault(); insertButton('Leave a comment', '#comments'); }}
+                                className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 rounded-md transition-colors cursor-pointer"
+                            >
+                                Leave a comment
+                            </button>
+                            <button
+                                type="button"
+                                onMouseDown={(e) => { e.preventDefault(); insertButton('Share post', '#share'); }}
+                                className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-gray-700 rounded-md transition-colors cursor-pointer"
+                            >
+                                Share this post
+                            </button>
+                            <div className="my-1 border-t border-gray-100" />
+                            <button
+                                type="button"
+                                onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    setCustomOpen(true);
+                                }}
+                                className="w-full text-left px-3 py-1.5 text-[13px] hover:bg-gray-50 text-[#FF6719] font-medium rounded-md transition-colors cursor-pointer"
+                            >
+                                Custom button…
+                            </button>
+                        </>
+                    )}
                 </div>
             )}
         </div>
@@ -1024,7 +1073,7 @@ export function TiptapToolbar({ editor }: { editor: Editor | null }) {
 
     return (
         <div
-            className="flex items-center gap-0.5 px-4 h-[44px] overflow-x-auto scrollbar-none select-none"
+            className="flex items-center gap-0.5 px-4 h-[44px] select-none"
             role="toolbar"
             aria-label="Text formatting"
         >

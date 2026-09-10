@@ -102,6 +102,8 @@ export default function CreatePostPage() {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [statsOpen, setStatsOpen] = useState(false);
     const [emailSettingsOpen, setEmailSettingsOpen] = useState(false);
+    const [addAuthorOpen, setAddAuthorOpen] = useState(false);
+    const [newAuthorName, setNewAuthorName] = useState('');
     const [saveStatus, setSaveStatus] = useState<SaveStatus>('saved');
     const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -215,10 +217,18 @@ export default function CreatePostPage() {
 
     // ── Author Management ────────────────────────────────────────────────────
 
-    const addAuthor = () => {
-        const name = window.prompt('Add contributor or co-author name:');
-        if (name && name.trim()) {
-            setAuthors(prev => [...prev, name.trim()]);
+    const openAddAuthor = () => {
+        setNewAuthorName('');
+        setAddAuthorOpen(true);
+    };
+
+    const handleAddAuthorSubmit = (e?: React.FormEvent) => {
+        e?.preventDefault();
+        const trimmed = newAuthorName.trim();
+        if (trimmed) {
+            setAuthors(prev => [...prev, trimmed]);
+            setNewAuthorName('');
+            setAddAuthorOpen(false);
         }
     };
 
@@ -362,8 +372,8 @@ export default function CreatePostPage() {
                         ))}
                         <button
                             type="button"
-                            onClick={addAuthor}
-                            className="w-6 h-6 rounded-full border border-gray-300 text-gray-400 hover:text-gray-700 hover:border-gray-500 transition-colors flex items-center justify-center text-sm leading-none"
+                            onClick={openAddAuthor}
+                            className="w-6 h-6 rounded-full border border-gray-300 text-gray-400 hover:text-gray-700 hover:border-gray-500 transition-colors flex items-center justify-center text-sm leading-none cursor-pointer"
                             title="Add contributor"
                             aria-label="Add contributor"
                         >
@@ -594,8 +604,8 @@ export default function CreatePostPage() {
                             </label>
                             <button
                                 type="button"
-                                onClick={addAuthor}
-                                className="text-[11px] text-[#FF6719] font-medium hover:underline flex items-center gap-1"
+                                onClick={openAddAuthor}
+                                className="text-[11px] text-[#FF6719] font-medium hover:underline flex items-center gap-1 cursor-pointer"
                             >
                                 <UserPlus className="w-3 h-3" />
                                 Add
@@ -752,11 +762,81 @@ export default function CreatePostPage() {
                             <button
                                 type="button"
                                 onClick={() => setEmailSettingsOpen(false)}
-                                className="px-4 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-medium hover:bg-gray-800"
+                                className="px-4 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-medium hover:bg-gray-800 cursor-pointer"
                             >
                                 Done
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* ═══════════════════════════════════════════════════════════════
+                ADD CONTRIBUTOR MODAL
+            ════════════════════════════════════════════════════════════════ */}
+            {addAuthorOpen && (
+                <div
+                    className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) setAddAuthorOpen(false);
+                    }}
+                >
+                    <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150 border border-gray-100">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2.5">
+                                <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#FF6719]">
+                                    <UserPlus className="w-4 h-4" />
+                                </div>
+                                <div>
+                                    <h3 className="font-semibold text-sm text-gray-900 leading-none">
+                                        Add Contributor
+                                    </h3>
+                                    <span className="text-[11px] text-gray-400">Co-author or researcher</span>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setAddAuthorOpen(false)}
+                                className="w-6 h-6 rounded-md flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                        
+                        <p className="text-xs text-gray-500 leading-relaxed">
+                            Enter the contributor's name to display their byline on this article.
+                        </p>
+
+                        <form onSubmit={handleAddAuthorSubmit} className="space-y-4">
+                            <input
+                                type="text"
+                                autoFocus
+                                value={newAuthorName}
+                                onChange={(e) => setNewAuthorName(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Escape') setAddAuthorOpen(false);
+                                }}
+                                placeholder="e.g. Dr. Jane Doe"
+                                className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 outline-none focus:border-gray-400 focus:bg-white transition-all placeholder:text-gray-400"
+                            />
+
+                            <div className="flex justify-end items-center gap-2 pt-1">
+                                <button
+                                    type="button"
+                                    onClick={() => setAddAuthorOpen(false)}
+                                    className="px-3.5 py-2 rounded-lg text-xs font-medium text-gray-600 hover:bg-gray-100 transition-colors cursor-pointer"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={!newAuthorName.trim()}
+                                    className="px-4 py-2 rounded-lg bg-[#FF6719] hover:bg-[#e65a12] text-white text-xs font-semibold transition-all shadow-xs disabled:opacity-40 cursor-pointer flex items-center gap-1.5"
+                                >
+                                    Add Contributor
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}

@@ -14,19 +14,7 @@ export const postSchema = z.object({
 });
 
 // ── Strict validation for publishing ─────────────────────────────────────────
-export const publishSchema = postSchema.refine((data) => {
-    if (data.published) {
-        // Accept either legacy HTML content or at least one structured block
-        const hasContent =
-            !!data.content ||
-            (Array.isArray(data.contentBlocks?.blocks) && data.contentBlocks.blocks.length > 0);
+// Only title is required for publishing; excerpt, content, and image are optional
+export const publishSchema = postSchema;
 
-        return !!data.excerpt && hasContent && (!!data.image || data.image instanceof File);
-    }
-    return true;
-}, {
-    message: 'Excerpt, Content blocks, and Image are required to publish.',
-    path   : ['content'],
-});
-
-export const createPostSchema = publishSchema;
+export const createPostSchema = postSchema;

@@ -52,10 +52,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
 
-    if (published && (!content || !excerpt)) {
-      return NextResponse.json({ error: 'Content and Excerpt are required to publish' }, { status: 400 });
-    }
-
     let imageUrl: string | null = null;
     if (image && image.size > 0) {
       try {

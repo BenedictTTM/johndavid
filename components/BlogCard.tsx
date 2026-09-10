@@ -14,7 +14,7 @@ export default function BlogCard({ post }: BlogCardProps) {
             {/* Featured Image */}
             <div className="relative w-full aspect-[16/10] overflow-hidden rounded-lg mb-5 border border-[#713600]/10">
                 <Image
-                    src={post.image}
+                    src={post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
                     alt={post.title}
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"

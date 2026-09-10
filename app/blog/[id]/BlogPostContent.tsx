@@ -133,7 +133,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                             <div className="relative w-full h-full overflow-hidden rounded-lg">
                                 <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
                                     <Image
-                                        src={post.image}
+                                        src={post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
                                         alt={post.title}
                                         fill
                                         className="object-cover transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/image:scale-[1.03]"

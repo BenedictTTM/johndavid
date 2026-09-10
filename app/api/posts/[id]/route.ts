@@ -78,10 +78,8 @@ export async function PUT(
     const readTime = formData.get('readTime') as string;
     const published = formData.get('published') === 'true';
 
-    console.log('Updating post:', { id, title, category, published, hasImage: !!image });
-
-    if (published && (!title || !content || !excerpt)) {
-      return NextResponse.json({ error: 'Title, Content and Excerpt are required to publish' }, { status: 400 });
+    if (!title) {
+      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
 
     const dataToUpdate: any = {

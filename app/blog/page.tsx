@@ -27,7 +27,7 @@ export default async function BlogPage() {
         ...post,
         excerpt: post.excerpt || '',
         content: post.content || '',
-        image: post.image || '',
+        image: post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
         category: post.category || 'Uncategorized',
         date: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
     }));
