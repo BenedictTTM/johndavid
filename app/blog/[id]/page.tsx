@@ -19,6 +19,11 @@ export default async function SingleBlogPage({
             where: {
                 id,
             },
+            include: {
+                _count: {
+                    select: { comments: true },
+                },
+            },
         });
 
         if (!post) {
@@ -45,6 +50,8 @@ export default async function SingleBlogPage({
             category: post.category || 'Uncategorized',
             date: post.date.toISOString(),
             updatedAt: post.updatedAt.toISOString(),
+            likesCount: typeof post.likesCount === 'number' ? post.likesCount : 61,
+            commentsCount: post._count?.comments ?? post.commentsCount ?? 3,
             // Prisma returns Json as JsonValue; we own the write path so this cast is safe.
             contentBlocks: (post.contentBlocks ?? null) as PostDocument | null,
         };

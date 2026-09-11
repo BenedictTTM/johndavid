@@ -1,15 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ThumbsUp } from "lucide-react";
+import { ThumbsUp, Heart } from "lucide-react";
 
 interface LikeButtonProps {
     postId: string;
     initialLikes: number;
     className?: string;
+    variant?: "thumbs" | "heart";
+    showZero?: boolean;
 }
 
-export default function LikeButton({ postId, initialLikes, className }: LikeButtonProps) {
+export default function LikeButton({ postId, initialLikes, className, variant = "thumbs", showZero = false }: LikeButtonProps) {
     const [likes, setLikes] = useState(initialLikes);
     const [isLiked, setIsLiked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -88,15 +90,31 @@ export default function LikeButton({ postId, initialLikes, className }: LikeButt
             className={`flex items-center gap-1.5 p-1 group transition-all duration-300 ${className || ""}`}
             aria-label={isLiked ? "Unlike" : "Like"}
         >
-            <ThumbsUp
-                className={`w-4 h-4 stroke-[1.75] transition-all duration-300 ${isLiked
-                    ? "fill-[#C05800] text-[#C05800] scale-110"
-                    : "text-[#38240D]/60 group-hover:text-[#713600]"
+            {variant === "heart" ? (
+                <Heart
+                    className={`w-[18px] h-[18px] stroke-[1.75] transition-all duration-300 ${
+                        isLiked
+                            ? "fill-[#FF3040] text-[#FF3040] scale-110"
+                            : "text-[#38240D]/60 group-hover:text-[#FF3040]"
                     }`}
-            />
-            {likes > 0 && (
-                <span className={`text-[11px] font-bold transition-colors ${isLiked ? "text-[#C05800]" : "text-[#38240D]/70 group-hover:text-[#713600]"
-                    }`}>
+                />
+            ) : (
+                <ThumbsUp
+                    className={`w-4 h-4 stroke-[1.75] transition-all duration-300 ${
+                        isLiked
+                            ? "fill-[#C05800] text-[#C05800] scale-110"
+                            : "text-[#38240D]/60 group-hover:text-[#713600]"
+                    }`}
+                />
+            )}
+            {(likes > 0 || showZero) && (
+                <span
+                    className={`text-[12px] transition-colors ${
+                        isLiked
+                            ? (variant === "heart" ? "text-[#FF3040] font-medium" : "text-[#C05800] font-bold")
+                            : "text-[#38240D]/70 group-hover:text-[#713600]"
+                    }`}
+                >
                     {likes}
                 </span>
             )}

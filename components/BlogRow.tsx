@@ -10,9 +10,10 @@ export default function BlogRow({ post }: BlogRowProps) {
     return (
         <article className="group flex flex-col sm:flex-row items-start gap-4 p-4 rounded-xl bg-[#FAF7C8] border border-[#713600]/10 hover:border-[#713600]/25 transition-all duration-300 mb-4 last:mb-0">
             {/* Image (Left) */}
+            {post.image && (
             <div className="relative w-full sm:w-1/3 aspect-[16/10] sm:aspect-[4/3] overflow-hidden rounded-lg flex-shrink-0 border border-[#713600]/10">
                 <Image
-                    src={post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
+                    src={post.image}
                     alt={post.title}
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -20,6 +21,7 @@ export default function BlogRow({ post }: BlogRowProps) {
                     loading="lazy"
                 />
             </div>
+            )}
 
             {/* Content (Right) */}
             <div className="flex flex-col flex-1 min-w-0 py-1">

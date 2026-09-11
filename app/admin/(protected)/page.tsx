@@ -1,11 +1,12 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Edit, Trash2, Plus, Loader2, BookOpen, LogOut } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Edit, Trash2, Plus, Loader2, BookOpen, LogOut, ChevronDown, FileText, MessageSquareQuote } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 
 interface Post {
@@ -20,6 +21,19 @@ interface Post {
 export default function AdminPage() {
     const router = useRouter();
     const queryClient = useQueryClient();
+
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const createMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (createMenuRef.current && !createMenuRef.current.contains(event.target as Node)) {
+                setIsCreateOpen(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     const { data: posts = [], isLoading, isError, error } = useQuery<Post[]>({
         queryKey: ['posts'],
@@ -136,10 +150,11 @@ export default function AdminPage() {
                         </h1>
                     </div>
 
-                    <Link href="/admin/create" className="w-full lg:w-auto">
+                    <div className="relative w-full lg:w-auto" ref={createMenuRef}>
                         <motion.button
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.99 }}
+                            onClick={() => setIsCreateOpen(!isCreateOpen)}
                             className="
                                 relative
                                 group
@@ -167,9 +182,66 @@ export default function AdminPage() {
                             "
                         >
                             <Plus size={15} className="text-[#FDFBD4]" />
-                            Create New Post
+                            <span>Create New Post</span>
+                            <ChevronDown
+                                size={14}
+                                className={`text-[#FDFBD4] transition-transform duration-200 ${
+                                    isCreateOpen ? 'rotate-180' : ''
+                                }`}
+                            />
                         </motion.button>
-                    </Link>
+
+                        {/* Dropdown Popdown Menu */}
+                        <AnimatePresence>
+                            {isCreateOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                                    exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="absolute right-0 top-full mt-2 w-72 bg-[#FAF7C8] border-2 border-[#713600]/25 rounded-xl shadow-[0_12px_36px_rgba(56,36,13,0.18)] p-2 z-50 overflow-hidden"
+                                >
+                                    <Link
+                                        href="/admin/article"
+                                        onClick={() => setIsCreateOpen(false)}
+                                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#713600]/10 transition-colors group cursor-pointer"
+                                    >
+                                        <div className="w-9 h-9 rounded-lg bg-[#713600]/10 text-[#713600] flex items-center justify-center shrink-0 group-hover:bg-[#713600] group-hover:text-[#FDFBD4] transition-colors">
+                                            <FileText className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold uppercase tracking-wider text-[#38240D] group-hover:text-[#713600]">
+                                                Article
+                                            </div>
+                                            <div className="text-[11px] text-[#38240D]/60 leading-snug mt-0.5 font-normal normal-case">
+                                                Long-form editorial publication with rich editor & imagery
+                                            </div>
+                                        </div>
+                                    </Link>
+
+                                    <div className="h-[1px] bg-[#713600]/10 my-1" />
+
+                                    <Link
+                                        href="/admin/note"
+                                        onClick={() => setIsCreateOpen(false)}
+                                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#FF6719]/10 transition-colors group cursor-pointer"
+                                    >
+                                        <div className="w-9 h-9 rounded-lg bg-[#FF6719]/15 text-[#FF6719] flex items-center justify-center shrink-0 group-hover:bg-[#FF6719] group-hover:text-white transition-colors">
+                                            <MessageSquareQuote className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs font-bold uppercase tracking-wider text-[#38240D] group-hover:text-[#FF6719]">
+                                                Note
+                                            </div>
+                                            <div className="text-[11px] text-[#38240D]/60 leading-snug mt-0.5 font-normal normal-case">
+                                                Quick short-form thought or update for your feed
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </motion.div>
 
                 {/* Desktop View */}
@@ -359,12 +431,23 @@ export default function AdminPage() {
                         <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-[#713600]" />
 
                         <p className="text-[#38240D]/70 text-lg font-serif italic mb-4">No editorial stories compiled yet.</p>
-                        <Link
-                            href="/admin/create"
-                            className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600] hover:text-[#C05800] border-b border-[#713600]/30 transition-all pb-1 cursor-pointer"
-                        >
-                            Compose Your First Resource
-                        </Link>
+                        <div className="flex items-center justify-center gap-4 flex-wrap">
+                            <Link
+                                href="/admin/article"
+                                className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600] hover:text-[#C05800] border-b border-[#713600]/30 transition-all pb-1 cursor-pointer"
+                            >
+                                <FileText className="w-3.5 h-3.5" />
+                                Compose Article
+                            </Link>
+                            <span className="text-[#38240D]/30">•</span>
+                            <Link
+                                href="/admin/note"
+                                className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.25em] text-[#FF6719] hover:text-[#e0540d] border-b border-[#FF6719]/30 transition-all pb-1 cursor-pointer"
+                            >
+                                <MessageSquareQuote className="w-3.5 h-3.5" />
+                                Compose Note
+                            </Link>
+                        </div>
                     </motion.div>
                 )}
 

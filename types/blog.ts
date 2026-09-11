@@ -12,6 +12,7 @@ export interface BlogPost {
     readTime: string;
     category: string;
     likesCount?: number;
+    commentsCount?: number;
     published?: boolean;
     updatedAt?: string;
 
@@ -27,4 +28,13 @@ export interface BlogPost {
     publishedAt?: string | null;
     /** Per-post SEO meta description. Falls back to `excerpt` when absent. */
     seoDescription?: string | null;
+}
+
+export interface BlogComment {
+    id: string;
+    postId: string;
+    name: string;
+    email?: string | null;
+    body: string;
+    createdAt: string;
 }

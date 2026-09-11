@@ -8,7 +8,12 @@ export const postSchema = z.object({
     /** Structured PostDocument — validated loosely here, typed on the client */
     contentBlocks : z.any().optional(),
     readTime      : z.string().optional(),
-    category      : z.string().optional().default('Uncategorized'),
+    category      : z
+        .string()
+        .min(1, 'Category is required')
+        .refine(val => val.trim().length > 0 && val !== 'Uncategorized', {
+            message: 'Category is required',
+        }),
     image         : z.any().optional(),
     published     : z.boolean().optional().default(false),
 });

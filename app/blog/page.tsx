@@ -14,6 +14,11 @@ export default async function BlogPage() {
             where: {
                 published: true,
             },
+            include: {
+                _count: {
+                    select: { comments: true },
+                },
+            },
             orderBy: {
                 date: 'desc',
             },
@@ -27,9 +32,11 @@ export default async function BlogPage() {
         ...post,
         excerpt: post.excerpt || '',
         content: post.content || '',
-        image: post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
+        image: post.image || '',
         category: post.category || 'Uncategorized',
         date: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
+        likesCount: typeof post.likesCount === 'number' ? post.likesCount : 61,
+        commentsCount: post._count?.comments ?? post.commentsCount ?? 3,
     }));
 
     return (
@@ -92,13 +99,8 @@ export default async function BlogPage() {
                             {/* Featured Post (Left) */}
                             <div className="lg:col-span-7">
                                 {blogPosts.length > 0 && (
-                                    <div className="relative group bg-[#FAF7C8] border border-[#713600]/15 rounded-xl p-6 sm:p-8 shadow-[0_4px_20px_rgba(56,36,13,0.05)] transition-all duration-500 hover:border-[#713600]/30 h-full">
-                                        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#713600]" />
-                                        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#713600]" />
-                                        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#713600]" />
-                                        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#713600]" />
-                                        
-                                        <div className="flex items-center gap-2 mb-4 text-[#713600] font-mono text-[10px] uppercase tracking-widest font-bold">
+                                    <div className="h-full flex flex-col">
+                                        <div className="flex items-center gap-2 mb-3 text-[#713600] font-mono text-[10px] uppercase tracking-widest font-bold">
                                             <Sparkles size={12} />
                                             Featured Research
                                         </div>
@@ -139,17 +141,7 @@ export default async function BlogPage() {
                         {blogPosts.length > 4 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                                 {blogPosts.slice(4).map((post) => (
-                                    <div 
-                                        key={post.id} 
-                                        className="relative group bg-[#FAF7C8] border border-[#713600]/15 rounded-xl p-6 shadow-[0_4px_20px_rgba(56,36,13,0.05)] transition-all duration-500 hover:border-[#713600]/30 h-full"
-                                    >
-                                        <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-[#713600]" />
-                                        <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t-2 border-r-2 border-[#713600]" />
-                                        <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b-2 border-l-2 border-[#713600]" />
-                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#713600]" />
-                                        
-                                        <BlogCard post={post} />
-                                    </div>
+                                    <BlogCard key={post.id} post={post} />
                                 ))}
                             </div>
                         ) : blogPosts.length <= 1 ? (

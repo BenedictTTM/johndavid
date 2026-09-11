@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     const title = formData.get('title') as string;
     const excerpt = formData.get('excerpt') as string;
     const content = formData.get('content') as string;
-    const category = (formData.get('category') as string) || 'Uncategorized';
+    const category = (formData.get('category') as string)?.trim() || '';
 
     // Structured block document (JSON string) — may be absent for legacy posts
     const contentBlocksRaw = formData.get('contentBlocks') as string | null;
@@ -52,6 +52,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
 
+    if (!category || category === 'Uncategorized') {
+      return NextResponse.json({ error: 'Category is required' }, { status: 400 });
+    }
+
     let imageUrl: string | null = null;
     if (image && image.size > 0) {
       try {
@@ -64,11 +68,11 @@ export async function POST(request: Request) {
           process.env.CLOUDINARY_API_SECRET;
 
         if (isCloudinaryConfigured) {
-          console.log('Uploading image to Cloudinary...');
+          console.log('Uploading media to Cloudinary...');
           // Upload to Cloudinary using a promise wrapper
           const uploadResult = await new Promise<any>((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
-              { folder: 'blog-posts' },
+              { folder: 'blog-posts', resource_type: 'auto' },
               (error, result) => {
                 if (error) {
                   console.error('Cloudinary upload error:', error);
@@ -80,9 +84,9 @@ export async function POST(request: Request) {
           });
 
           imageUrl = uploadResult.secure_url;
-          console.log('Image uploaded to Cloudinary:', imageUrl);
+          console.log('Media uploaded to Cloudinary:', imageUrl);
         } else {
-          console.log('Cloudinary credentials not detected. Saving image locally...');
+          console.log('Cloudinary credentials not detected. Saving file locally...');
           // Fallback to local storage in public/uploads
           const fs = await import('fs/promises');
           const path = await import('path');
@@ -99,13 +103,16 @@ export async function POST(request: Request) {
           // Write file
           await fs.writeFile(filePath, buffer);
           imageUrl = `/uploads/${filename}`;
-          console.log('Saved image locally to:', imageUrl);
+          console.log('Saved media locally to:', imageUrl);
         }
       } catch (uploadError) {
         console.error('Failed to process image upload:', uploadError);
         return NextResponse.json({ error: 'Failed to process image upload', details: uploadError }, { status: 500 });
       }
     }
+
+    const dateRaw = formData.get('date') as string | null;
+    const date = dateRaw ? new Date(dateRaw) : undefined;
 
     console.log('Saving to database...');
     const post = await prisma.post.create({
@@ -118,6 +125,7 @@ export async function POST(request: Request) {
         image: imageUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
         readTime,
         published,
+        ...(date && !isNaN(date.getTime()) ? { date } : {}),
       },
     });
     console.log('Post created:', post.id);

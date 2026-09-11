@@ -24,6 +24,7 @@ import type { Editor } from '@tiptap/react';
 import { TiptapEditor } from '@/components/tiptap/TiptapEditor';
 import { TiptapToolbar } from '@/components/tiptap/TiptapToolbar';
 import { createPostSchema, postSchema } from '@/lib/schemas';
+import { CategorySelect } from '@/components/admin/CategorySelect';
 
 // ─── Save Status Chip ─────────────────────────────────────────────────────────
 
@@ -94,7 +95,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
     // Post settings
     const [readTime, setReadTime] = useState('3');
-    const [category, setCategory] = useState('Uncategorized');
+    const [category, setCategory] = useState('');
     const [visibility, setVisibility] = useState<'public' | 'private'>('public');
     const [featuredFile, setFeaturedFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -131,7 +132,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                 setExcerpt(data.excerpt || '');
                 setContentHtml(data.content || '');
                 contentRef.current = data.content || '';
-                setCategory(data.category || 'Uncategorized');
+                setCategory(data.category === 'Uncategorized' ? '' : (data.category || ''));
                 setReadTime(data.readTime?.replace(/[^0-9]/g, '') || '3');
                 setVisibility(data.published ? 'public' : 'private');
                 if (data.image) {
@@ -225,6 +226,9 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                 errs[issue.path[0] as string] = issue.message;
             });
             setErrors(errs);
+            if (errs.image || errs.category) {
+                setSettingsOpen(true);
+            }
             toast.error('Please complete required fields');
             return;
         }
@@ -613,25 +617,20 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                     </div>
 
                     {/* Category */}
-                    <div className="space-y-2">
-                        <label htmlFor="category" className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500">
-                            <Folder className="w-3.5 h-3.5 text-gray-400" />
-                            <span>Category</span>
-                        </label>
-                        <div className="relative">
-                            <select
-                                id="category"
-                                value={category}
-                                onChange={e => setCategory(e.target.value)}
-                                className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm text-gray-800 outline-none focus:border-gray-400 focus:bg-white transition-colors appearance-none cursor-pointer"
-                            >
-                                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                            </select>
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
-                                <ChevronLeft className="w-4 h-4 -rotate-90" />
-                            </div>
-                        </div>
-                    </div>
+                    <CategorySelect
+                        value={category}
+                        onChange={val => {
+                            setCategory(val);
+                            if (errors.category) {
+                                setErrors(prev => {
+                                    const next = { ...prev };
+                                    delete next.category;
+                                    return next;
+                                });
+                            }
+                        }}
+                        error={errors.category}
+                    />
 
                     {/* Visibility */}
                     <div className="space-y-2.5">

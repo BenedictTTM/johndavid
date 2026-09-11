@@ -69,7 +69,7 @@ export async function PUT(
     const title = formData.get('title') as string;
     const excerpt = formData.get('excerpt') as string;
     const content = formData.get('content') as string;
-    const category = formData.get('category') as string;
+    const category = (formData.get('category') as string)?.trim() || '';
 
     // Safer file retrieval
     const imageEntry = formData.get('image');
@@ -78,8 +78,26 @@ export async function PUT(
     const readTime = formData.get('readTime') as string;
     const published = formData.get('published') === 'true';
 
+    // Structured block document (JSON string)
+    const contentBlocksRaw = formData.get('contentBlocks') as string | null;
+    let contentBlocks: any = undefined;
+    if (contentBlocksRaw) {
+      try {
+        contentBlocks = JSON.parse(contentBlocksRaw);
+      } catch (e) {
+        console.error('Failed to parse contentBlocks:', e);
+      }
+    }
+
+    const dateRaw = formData.get('date') as string | null;
+    const date = dateRaw ? new Date(dateRaw) : undefined;
+
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
+    }
+
+    if (!category || category === 'Uncategorized') {
+      return NextResponse.json({ error: 'Category is required' }, { status: 400 });
     }
 
     const dataToUpdate: any = {
@@ -89,6 +107,8 @@ export async function PUT(
       category,
       readTime,
       published,
+      ...(contentBlocks !== undefined ? { contentBlocks } : {}),
+      ...(date && !isNaN(date.getTime()) ? { date } : {}),
     };
 
     if (image && image.size > 0) {
@@ -102,11 +122,11 @@ export async function PUT(
           process.env.CLOUDINARY_API_SECRET;
 
         if (isCloudinaryConfigured) {
-          console.log('Uploading image for update to Cloudinary...');
+          console.log('Uploading media for update to Cloudinary...');
           // Upload to Cloudinary
           const uploadResult = await new Promise<any>((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(
-              { folder: 'blog-posts' },
+              { folder: 'blog-posts', resource_type: 'auto' },
               (error, result) => {
                 if (error) {
                   console.error('Cloudinary upload error:', error);
@@ -118,7 +138,7 @@ export async function PUT(
           });
 
           dataToUpdate.image = uploadResult.secure_url;
-          console.log('Image uploaded to Cloudinary:', dataToUpdate.image);
+          console.log('Media uploaded to Cloudinary:', dataToUpdate.image);
         } else {
           console.log('Cloudinary credentials not detected. Saving image locally for update...');
           // Fallback to local storage in public/uploads

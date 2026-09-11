@@ -24,6 +24,9 @@ model Post {
 
   likes      Like[]
   likesCount Int    @default(0)
+
+  comments      Comment[]
+  commentsCount Int       @default(0)
 }
 
 model Like {
@@ -36,6 +39,20 @@ model Like {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@unique([postId, userId]) // Enforce one like per user per post
+  @@index([postId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  name      String
+  email     String?
+  body      String
+  approved  Boolean  @default(true)
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
   @@index([postId])
 }
 

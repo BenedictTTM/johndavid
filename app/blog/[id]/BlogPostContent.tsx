@@ -9,6 +9,7 @@ import { BlogPost } from "@/types/blog";
 import { useRef, useState } from "react";
 import LikeButton from "@/components/LikeButton";
 import { PostRenderer } from "@/components/post-renderer";
+import PostCommentsSection from "@/components/PostCommentsSection";
 
 interface BlogPostContentProps {
     post: BlogPost;
@@ -244,6 +245,12 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                         <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
                                     </motion.div>
                                 )}
+
+                                {/* Discussion & Comments Section */}
+                                <PostCommentsSection
+                                    postId={post.id}
+                                    initialCommentsCount={post.commentsCount}
+                                />
                             </div>
                         </div>
                     </div>

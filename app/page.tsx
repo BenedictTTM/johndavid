@@ -14,6 +14,11 @@ export default async function Home() {
       where: {
         published: true,
       },
+      include: {
+        _count: {
+          select: { comments: true },
+        },
+      },
       orderBy: {
         date: 'desc',
       },
@@ -24,13 +29,16 @@ export default async function Home() {
     posts = [];
   }
 
+  
   const blogPosts = posts.map((post) => ({
     ...post,
     category: post.category || "Uncategorized",
     date: post.date ? new Date(post.date).toISOString() : new Date().toISOString(),
-    image: post.image || "/dry.png",
+    image: post.image || "",
     excerpt: post.excerpt || "",
     content: post.content || "",
+    likesCount: typeof post.likesCount === 'number' ? post.likesCount : 61,
+    commentsCount: post._count?.comments ?? post.commentsCount ?? 3,
   }));
 
   return (
