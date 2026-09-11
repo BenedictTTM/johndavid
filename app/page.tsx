@@ -29,7 +29,7 @@ export default async function Home() {
     posts = [];
   }
 
-  
+  add up 
   const blogPosts = posts.map((post) => ({
     ...post,
     category: post.category || "Uncategorized",
