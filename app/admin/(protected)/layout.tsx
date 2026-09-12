@@ -14,15 +14,15 @@ export default function ProtectedAdminLayout({
 
     useEffect(() => {
         // Run this check purely on the client side
-        const token = localStorage.getItem('admin_token');
-        
-        if (!token) {
-            // Not authorized, redirect to login page
-            router.push('/admin/auth');
-        } else {
-            // Token found, proceed
-            setIsAuthorized(true);
-        }
+        const timer = setTimeout(() => {
+            const token = localStorage.getItem('admin_token');
+            if (!token) {
+                router.push('/admin/auth');
+            } else {
+                setIsAuthorized(true);
+            }
+        }, 0);
+        return () => clearTimeout(timer);
     }, [router]);
 
     // Render a luxurious loading state until client-side verification completes

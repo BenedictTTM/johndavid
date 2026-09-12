@@ -128,7 +128,7 @@ export default function WhoAmI() {
               </p>
 
               <p className="text-[13px] md:text-[14px] text-[#38240D]/75 leading-[1.75] font-sans font-normal tracking-wide">
-                Identifying as a <span className="text-[#713600] font-medium">"mindset engineer,"</span> I help founders, executives, academics, entrepreneurs, and ministers transform their messaging to command credibility and authority. Having completed over six full-length book manuscripts and spoken at high-level platforms including the <span className="text-[#713600] font-medium">Career Expo Africa at the Google AI Center in Accra</span>, I equip leaders with recruiter-verified strategies, ATS optimization, and enduring personal legacies.
+                Identifying as a <span className="text-[#713600] font-medium">&ldquo;mindset engineer,&rdquo;</span> I help founders, executives, academics, entrepreneurs, and ministers transform their messaging to command credibility and authority. Having completed over six full-length book manuscripts and spoken at high-level platforms including the <span className="text-[#713600] font-medium">Career Expo Africa at the Google AI Center in Accra</span>, I equip leaders with recruiter-verified strategies, ATS optimization, and enduring personal legacies.
               </p>
             </div>
 

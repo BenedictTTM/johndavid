@@ -20,15 +20,16 @@ export function SchedulePopover({
 }: SchedulePopoverProps) {
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Format default date and time
-    const initial = scheduledDate || new Date(Date.now() + 24 * 60 * 60 * 1000); // tomorrow
-    const defaultDateStr = initial.toISOString().split('T')[0];
-    const defaultTimeStr = `${String(initial.getHours()).padStart(2, '0')}:${String(
-        initial.getMinutes()
-    ).padStart(2, '0')}`;
-
-    const [dateStr, setDateStr] = useState(defaultDateStr);
-    const [timeStr, setTimeStr] = useState(defaultTimeStr);
+    const [dateStr, setDateStr] = useState(() => {
+        const initial = scheduledDate || new Date(Date.now() + 24 * 60 * 60 * 1000);
+        return initial.toISOString().split('T')[0];
+    });
+    const [timeStr, setTimeStr] = useState(() => {
+        const initial = scheduledDate || new Date(Date.now() + 24 * 60 * 60 * 1000);
+        return `${String(initial.getHours()).padStart(2, '0')}:${String(
+            initial.getMinutes()
+        ).padStart(2, '0')}`;
+    });
 
     useEffect(() => {
         if (scheduledDate) {

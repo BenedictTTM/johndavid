@@ -10,10 +10,6 @@ const TopBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
@@ -48,6 +44,10 @@ const TopBar = () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
+
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
 
   return (
     <header

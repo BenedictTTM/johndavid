@@ -23,14 +23,12 @@ const GRAIN_UPDATE = 3;
 
 export default function AmbientBackground() {
   const pathname = usePathname();
+  const isAdmin = pathname?.startsWith('/admin');
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
   const grainRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
   const tickRef = useRef(0);
+  const drawFrameRef = useRef<((ts: number) => void) | null>(null);
 
   const grainTileRef = useRef<string[]>([]);
 
@@ -127,10 +125,12 @@ export default function AmbientBackground() {
       grain.style.backgroundPosition = `${(Math.random() * GRAIN_SIZE) | 0}px ${(Math.random() * GRAIN_SIZE) | 0}px`;
     }
 
-    rafRef.current = requestAnimationFrame(drawFrame);
+    rafRef.current = requestAnimationFrame((nextTs) => drawFrameRef.current?.(nextTs));
   }, []);
 
   useEffect(() => {
+    drawFrameRef.current = drawFrame;
+    if (isAdmin) return;
     buildGrainPool();
     resize();
     rafRef.current = requestAnimationFrame(drawFrame);
@@ -142,7 +142,11 @@ export default function AmbientBackground() {
       cancelAnimationFrame(rafRef.current);
       ro.disconnect();
     };
-  }, [buildGrainPool, resize, drawFrame]);
+  }, [isAdmin, buildGrainPool, resize, drawFrame]);
+
+  if (isAdmin) {
+    return null;
+  }
 
   return (
     <div

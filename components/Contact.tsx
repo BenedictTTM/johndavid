@@ -20,7 +20,7 @@ export default function Contact() {
                         className="text-lg md:text-xl text-[#38240D]/80 italic font-serif leading-relaxed"
                         style={{ fontFamily: "var(--font-cormorant)" }}
                     >
-                        "Available for academic collaboration, speaking engagements, and consultation."
+                        &ldquo;Available for academic collaboration, speaking engagements, and consultation.&rdquo;
                     </p>
                 </div>
 

@@ -171,7 +171,10 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     // Keep readTime synced if not manually edited
     useEffect(() => {
         if (stats.estMinutes > 0 && !loading) {
-            setReadTime(String(stats.estMinutes));
+            const timer = setTimeout(() => {
+                setReadTime(String(stats.estMinutes));
+            }, 0);
+            return () => clearTimeout(timer);
         }
     }, [stats.estMinutes, loading]);
 
@@ -768,7 +771,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                             {/* Rendered HTML */}
                             <div
                                 className="tiptap-editor-root prose prose-neutral max-w-none"
-                                dangerouslySetInnerHTML={{ __html: editor?.getHTML() || contentRef.current || '<p class="text-gray-400 italic">No content written yet.</p>' }}
+                                dangerouslySetInnerHTML={{ __html: contentHtml || '<p class="text-gray-400 italic">No content written yet.</p>' }}
                             />
                         </div>
 
@@ -810,7 +813,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                             </button>
                         </div>
                         <p className="text-xs text-gray-500 leading-relaxed">
-                            Substack newsletters include your publication's standard email header (logo and publication name) and footer (unsubscribe link and author profile).
+                            Substack newsletters include your publication&apos;s standard email header (logo and publication name) and footer (unsubscribe link and author profile).
                         </p>
                         <div className="p-3 bg-gray-50 rounded-lg text-xs space-y-1 text-gray-600">
                             <p className="font-medium text-gray-800">Newsletter Delivery:</p>
@@ -864,7 +867,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                         </div>
                         
                         <p className="text-xs text-gray-500 leading-relaxed">
-                            Enter the contributor's name to display their byline on this article.
+                            Enter the contributor&apos;s name to display their byline on this article.
                         </p>
 
                         <form onSubmit={handleAddAuthorSubmit} className="space-y-4">
