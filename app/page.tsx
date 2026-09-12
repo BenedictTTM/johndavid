@@ -22,14 +22,13 @@ export default async function Home() {
       orderBy: {
         date: 'desc',
       },
-      take: 6,
+      take: 50,
     });
   } catch (error) {
     console.error("Error fetching posts on homepage:", error);
     posts = [];
   }
 
-  add up 
   const blogPosts = posts.map((post) => ({
     ...post,
     category: post.category || "Uncategorized",
@@ -37,8 +36,8 @@ export default async function Home() {
     image: post.image || "",
     excerpt: post.excerpt || "",
     content: post.content || "",
-    likesCount: typeof post.likesCount === 'number' ? post.likesCount : 61,
-    commentsCount: post._count?.comments ?? post.commentsCount ?? 3,
+    likesCount: typeof post.likesCount === 'number' ? post.likesCount : 0,
+    commentsCount: post._count?.comments ?? post.commentsCount ?? 0,
   }));
 
   return (

@@ -20,7 +20,7 @@ export default function Footer() {
                             </span>
                         </div>
                         <p className="text-[14px] text-[#38240D]/80 leading-[1.8] font-serif italic max-w-md" style={{ fontFamily: "var(--font-cormorant)" }}>
-                            Ghanaian bioengineering researcher and scholar based at York University. Dedicated to bridging the gap between biological complexity, technological precision, and advanced computational engineering.
+                            Founder &amp; Lead Consultant of JADE Consult, professional writer, mindset engineer, and executive career coach based in Ghana. Dedicated to structuring messaging that builds credibility and influence.
                         </p>
                         <div className="pt-2">
                             <Link

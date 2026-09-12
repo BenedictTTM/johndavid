@@ -60,3 +60,13 @@ model Admin {
   id       String @id @default(cuid())
   password String
 }
+
+model Message {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  sender    String?
+  body      String
+  read      Boolean  @default(false)
+
+  @@index([createdAt])
+}

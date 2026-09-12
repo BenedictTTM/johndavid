@@ -2,22 +2,22 @@
 
 export default function Contact() {
     return (
-        <section id="contact" className="relative py-24 md:py-32 flex flex-col items-center justify-center bg-transparent overflow-hidden">
+        <section id="contact" className="relative pt-10 md:pt-14 pb-16 md:pb-20 flex flex-col items-center justify-center bg-transparent overflow-hidden">
             <div className="relative z-10 w-full max-w-5xl px-6 flex flex-col items-center">
                 {/* Header */}
-                <div className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
-                    <div className="flex items-center justify-center gap-3 mb-3 select-none">
+                <div className="text-center mb-8 md:mb-10 max-w-3xl mx-auto">
+                    <div className="flex items-center justify-center gap-3 mb-2.5 select-none">
                         <div className="w-6 h-[2px] bg-[#713600]" />
                         <span className="text-[11px] font-bold uppercase tracking-[0.35em] text-[#713600]">
                             Inquiries & Engagements
                         </span>
                         <div className="w-6 h-[2px] bg-[#713600]" />
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-display font-extrabold text-[#38240D] mb-6 uppercase tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-[#38240D] mb-4 uppercase tracking-tight">
                         Get in Touch
                     </h2>
                     <p 
-                        className="text-xl md:text-2xl text-[#38240D]/80 italic font-serif leading-relaxed"
+                        className="text-lg md:text-xl text-[#38240D]/80 italic font-serif leading-relaxed"
                         style={{ fontFamily: "var(--font-cormorant)" }}
                     >
                         "Available for academic collaboration, speaking engagements, and consultation."

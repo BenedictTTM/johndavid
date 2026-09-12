@@ -55,13 +55,13 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
             {/* Fine grid lines */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,54,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,54,0,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
 
-            {/* Index Markers */}
-            <div className="max-w-[1200px] mx-auto px-4 md:px-6 pt-24 md:pt-24 flex justify-between items-center text-[9px] text-[#38240D]/60 tracking-[0.35em] uppercase select-none pointer-events-none font-mono">
+            {/* Header Coordinate */}
+            <div className="max-w-[1200px] mx-auto px-4 md:px-6 pt-24 md:pt-24 flex justify-between items-center text-[9px] text-[#38240D]/50 tracking-[0.35em] uppercase select-none pointer-events-none font-mono">
                 <span className="flex items-center gap-2">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#713600] animate-pulse" />
-                    Seq. 06 <span className="hidden sm:inline">// Editorial Journal</span>
+                    03 // ARTICLE DISPATCH
                 </span>
-                <span>Index Ledger <span className="hidden sm:inline">// Vol. 2.6</span></span>
+                <span>{post.category || "BIOENGINEERING"}</span>
             </div>
 
             <main className="pb-24 relative w-full overflow-x-hidden">
@@ -80,7 +80,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                         >
                             <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5 text-[#713600]" />
                         </motion.span>
-                        Back to Journal
+                        Back to Blog
                     </Link>
                 </nav>
 
@@ -124,14 +124,9 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                     >
                         <div
                             ref={targetRef}
-                            className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-xl bg-[#FAF7C8] border border-[#713600]/15 p-1.5 group/image shadow-[0_12px_40px_rgba(56,36,13,0.06)]"
+                            className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl bg-[#FAF7C8] border border-[#713600]/15 group/image shadow-[0_12px_40px_rgba(56,36,13,0.06)]"
                         >
-                            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#713600]/40 z-20 pointer-events-none" />
-                            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#713600]/40 z-20 pointer-events-none" />
-                            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#713600]/40 z-20 pointer-events-none" />
-                            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#713600]/40 z-20 pointer-events-none" />
-
-                            <div className="relative w-full h-full overflow-hidden rounded-lg">
+                            <div className="relative w-full h-full overflow-hidden rounded-2xl">
                                 <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
                                     <Image
                                         src={post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
@@ -150,23 +145,38 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                     <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 relative overflow-x-hidden">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-                            {/* Sticky Sidebar */}
-                            <div className="hidden lg:block lg:col-span-3 sticky top-32 space-y-8 text-[#38240D]">
-                                <div className="space-y-2 border-l-2 border-[#713600] pl-4 font-mono">
-                                    <span className="text-[10px] text-[#38240D]/60 tracking-wider uppercase block">Reading Status</span>
-                                    <span className="text-xs font-semibold uppercase tracking-widest text-[#713600]">In Progress</span>
-                                </div>
+                            {/* Sticky Editorial Sidebar Card */}
+                            <div className="hidden lg:block lg:col-span-3 sticky top-32 space-y-4 text-[#38240D]">
+                                <div className="rounded-2xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-sm p-5 shadow-[0_2px_12px_rgba(56,36,13,0.06)] space-y-5">
+                                    <div className="space-y-1 pb-4 border-b border-[#713600]/10">
+                                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#713600]/60 block select-none">
+                                            Author
+                                        </span>
+                                        <p className="text-sm font-serif font-bold text-[#38240D]">John David</p>
+                                        <p className="text-[11px] text-[#38240D]/65 leading-normal">Bioengineering Scholar</p>
+                                    </div>
 
-                                <div className="space-y-1">
-                                    <h4 className="text-[11px] font-mono tracking-widest uppercase text-[#38240D]/60">Author</h4>
-                                    <p className="text-sm font-serif font-semibold text-[#38240D]">John David</p>
-                                    <p className="text-[11px] text-[#38240D]/60 leading-normal">Bioengineering Scholar</p>
-                                </div>
+                                    <div className="space-y-2 pb-4 border-b border-[#713600]/10 font-mono text-[11px]">
+                                        <div className="flex items-center justify-between text-[#38240D]/70">
+                                            <span>Read Time</span>
+                                            <span className="font-semibold text-[#713600]">{post.readTime || "5 min"}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between text-[#38240D]/70">
+                                            <span>Category</span>
+                                            <span className="font-semibold text-[#713600]">{post.category || "General"}</span>
+                                        </div>
+                                    </div>
 
-                                <div className="pt-6 border-t border-[#713600]/15 space-y-6">
-                                    <div className="flex items-center gap-3">
-                                        <LikeButton postId={post.id} initialLikes={post.likesCount || 0} className="scale-110" />
-                                        <span className="text-[10px] font-mono tracking-widest uppercase text-[#38240D]/70 font-semibold">Appreciate</span>
+                                    <div className="pt-1 flex items-center justify-between">
+                                        <LikeButton
+                                            postId={post.id}
+                                            initialLikes={typeof post.likesCount === 'number' ? post.likesCount : 0}
+                                            variant="heart"
+                                            className="scale-110"
+                                        />
+                                        <span className="text-[10px] font-mono tracking-widest uppercase text-[#38240D]/60 font-semibold">
+                                            Like Post
+                                        </span>
                                     </div>
                                 </div>
                             </div>

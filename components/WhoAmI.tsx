@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 
 export default function WhoAmI() {
   return (
-    <section className="relative py-20 md:py-28 lg:py-36 px-4 md:px-6 lg:px-12 xl:px-20 bg-transparent overflow-hidden">
+    <section className="relative pt-8 md:pt-12 pb-10 md:pb-14 px-4 md:px-6 lg:px-12 xl:px-20 bg-transparent overflow-hidden">
       
       {/* SECTION COORDINATES */}
-      <div className="absolute left-6 top-12 hidden md:block text-[9px] text-[#38240D]/30 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
+      <div className="absolute left-6 top-8 hidden md:block text-[9px] text-[#38240D]/30 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
         02 // ABOUT
       </div>
       
@@ -37,16 +37,16 @@ export default function WhoAmI() {
       </div>
 
       {/* MAIN TWO-COLUMN ELEGANT COMPOSITION */}
-      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16 xl:gap-20">
+      <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-14 xl:gap-18">
         
-        {/* COLUMN 1 - LUXURY PORTRAIT FRAMING */}
-        <div className="w-full lg:w-[42%] flex justify-center lg:justify-start relative z-10">
+        {/* COLUMN 1 - LUXURY PORTRAIT FRAMING (Hidden on mobile) */}
+        <div className="hidden lg:flex w-full lg:w-[42%] justify-center lg:justify-start relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[360px] sm:max-w-[400px] aspect-[3/4] group"
+            className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[3/4] group"
           >
             {/* Glassmorphic background container */}
             <div className="absolute inset-0 bg-[#FAF7C8] border border-[#713600]/15 rounded-2xl shadow-[0_8px_30px_rgba(56,36,13,0.06)] backdrop-blur-3xl transition-all duration-500 group-hover:border-[#713600]/30 group-hover:shadow-[0_12px_40px_rgba(113,54,0,0.1)]"></div>
@@ -71,14 +71,14 @@ export default function WhoAmI() {
 
             {/* Coordinate info */}
             <div className="absolute bottom-6 left-8 right-8 flex justify-between items-center z-20 select-none opacity-60 group-hover:opacity-90 transition-opacity duration-300">
-              <span className="text-[8px] tracking-[0.25em] text-[#38240D] font-mono uppercase">POS: 43.6532° N, 79.3832° W</span>
-              <span className="text-[8px] tracking-[0.25em] text-[#713600] font-mono uppercase font-bold">WHO_AM_I_02</span>
+              <span className="text-[8px] tracking-[0.25em] text-[#38240D] font-mono uppercase">POS: 5.6037° N, 0.1870° W (ACCRA)</span>
+              <span className="text-[8px] tracking-[0.25em] text-[#713600] font-mono uppercase font-bold">FOUNDER // JADE_CONSULT</span>
             </div>
           </motion.div>
         </div>
 
         {/* COLUMN 2 - TYPOGRAPHY & BIOGRAPHY */}
-        <div className="flex-1 w-full relative z-10 mt-12 lg:mt-0">
+        <div className="flex-1 w-full relative z-10 mt-0">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ export default function WhoAmI() {
             className="flex flex-col"
           >
             {/* Section Label */}
-            <div className="flex items-center gap-3 mb-4 select-none">
+            <div className="flex items-center gap-3 mb-3 select-none">
               <div className="w-6 h-[2px] bg-[#713600]" />
               <span className="text-[11px] font-bold uppercase tracking-[0.35em] text-[#713600]">
                 Who I Am
@@ -96,59 +96,72 @@ export default function WhoAmI() {
 
             {/* Display Headline */}
             <h2 
-              className="font-display font-extrabold uppercase leading-[0.95] tracking-tight text-[#38240D] mb-6 text-balance select-none"
+              className="font-display font-extrabold uppercase leading-[0.95] tracking-tight text-[#38240D] mb-5 text-balance select-none"
               style={{
-                fontSize: "clamp(36px, 5vw, 62px)",
+                fontSize: "clamp(32px, 4.2vw, 52px)",
               }}
             >
-              Bioengineering <br />
+              Mindset Engineer <br />
               <span 
-                className="block text-[#713600] font-serif italic font-normal tracking-wide mt-2"
+                className="block text-[#713600] font-serif italic font-normal tracking-wide mt-1.5"
                 style={{
                   fontFamily: "var(--font-cormorant)",
                 }}
               >
-                Researcher
+                &amp; Lead Consultant
               </span>
             </h2>
 
             {/* Editorial Content */}
-            <div className="flex flex-col gap-4 max-w-[700px] mb-8">
-              <p className="text-[14px] md:text-[15px] text-[#38240D]/85 leading-[1.8] font-sans font-normal tracking-wide">
-                I am a{" "}
-                <span className="text-[#713600] font-semibold">
-                  Ghanaian Bioengineering Researcher
-                </span>
-                , scholar, and innovator based at{" "}
-                <span className="text-[#713600] font-semibold">
-                  York University
-                </span>
-                . Driven by a passion for medical discovery and technological precision, my work bridges the gap between biological complexity and advanced computational engineering.
+            <div className="flex flex-col gap-3.5 max-w-[700px] mb-5">
+              <p className="text-[14px] md:text-[15px] text-[#38240D]/85 leading-[1.75] font-sans font-normal tracking-wide">
+                I am <span className="text-[#713600] font-semibold">John David E. Afeti</span> (often referred to as John David), the Founder and Lead Consultant of{" "}
+                <a 
+                  href="https://jadeconsult.uk/about" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-[#713600] font-semibold underline underline-offset-4 decoration-[#713600]/30 hover:decoration-[#713600] transition-colors"
+                >
+                  JADE Consult
+                </a>
+                —a premier career consultancy and professional writing firm. As a professional writer, career coach, public speaker, and corporate trainer based in Ghana, I operate at the intersection of executive positioning, narrative strategy, and strategic career advancement.
               </p>
 
-              <p className="text-[13px] md:text-[14px] text-[#38240D]/70 leading-[1.8] font-sans font-normal tracking-wide">
-                Through rigorous computational analysis and state-of-the-art laboratory experimentation, my research drives major leaps in{" "}
-                <span className="text-[#713600] font-medium">
-                  Medical Discovery
-                </span>{" "}
-                and{" "}
-                <span className="text-[#713600] font-medium">
-                  Computational Engineering
-                </span>
-                , designing new modalities for high-precision diagnostic and therapeutic systems.
+              <p className="text-[13px] md:text-[14px] text-[#38240D]/75 leading-[1.75] font-sans font-normal tracking-wide">
+                Identifying as a <span className="text-[#713600] font-medium">"mindset engineer,"</span> I help founders, executives, academics, entrepreneurs, and ministers transform their messaging to command credibility and authority. Having completed over six full-length book manuscripts and spoken at high-level platforms including the <span className="text-[#713600] font-medium">Career Expo Africa at the Google AI Center in Accra</span>, I equip leaders with recruiter-verified strategies, ATS optimization, and enduring personal legacies.
               </p>
             </div>
 
+            {/* Core Pillars */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5 max-w-[660px]">
+              <div className="p-3 rounded-xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-xs">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#713600]/60 block mb-1">Pillar 01</span>
+                <p className="text-xs font-semibold text-[#38240D]">Ghostwriting &amp; Books</p>
+                <span className="text-[10px] text-[#38240D]/60">6+ Completed Manuscripts</span>
+              </div>
+              <div className="p-3 rounded-xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-xs">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#713600]/60 block mb-1">Pillar 02</span>
+                <p className="text-xs font-semibold text-[#38240D]">Career Consultancy</p>
+                <span className="text-[10px] text-[#38240D]/60">Executive Positioning &amp; ATS</span>
+              </div>
+              <div className="p-3 rounded-xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-xs col-span-2 sm:col-span-1">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-[#713600]/60 block mb-1">Pillar 03</span>
+                <p className="text-xs font-semibold text-[#38240D]">Keynote Speaking</p>
+                <span className="text-[10px] text-[#38240D]/60">Google AI Center &amp; Summits</span>
+              </div>
+            </div>
+
             {/* Quote Block */}
-            <div className="mt-2 relative pl-6 md:pl-8 py-3 border-l-[3px] border-[#713600] bg-[#FAF7C8] rounded-r-lg max-w-[650px] border border-l-0 border-[#713600]/10 shadow-xs">
+            <div className="relative pl-6 md:pl-8 py-3.5 border-l-[3px] border-[#713600] bg-[#FAF7C8] rounded-r-xl max-w-[660px] border border-l-0 border-[#713600]/10 shadow-xs">
               <p
-                className="text-[15px] md:text-[17px] text-[#38240D] italic leading-[1.7] tracking-wide mb-2 font-serif"
+                className="text-[14px] md:text-[16px] text-[#38240D] italic leading-[1.7] tracking-wide mb-2 font-serif"
                 style={{ fontFamily: "var(--font-cormorant)" }}
               >
-                "Engineering is the disciplined art of turning ideas into reality with precision, purpose, and relentless curiosity."
+                "Communication is not merely expression—it is a tool for strategic alignment. When you engineer your mindset, you structure your message to build credibility, bypass corporate hurdles, and command enduring influence."
               </p>
-              <div className="text-[12px] md:text-[13px] font-semibold text-[#713600] uppercase tracking-wider">
-                — John David
+              <div className="flex items-center justify-between text-[11px] md:text-[12px] font-semibold text-[#713600] uppercase tracking-wider">
+                <span>— John David E. Afeti</span>
+                <span className="text-[9px] font-mono font-normal text-[#38240D]/50 lowercase">founder, jade consult</span>
               </div>
             </div>
           </motion.div>

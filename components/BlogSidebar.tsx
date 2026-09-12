@@ -1,23 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { BookOpen, FileText, Layers, Tag, ChevronRight } from "lucide-react";
+import { FileText, MessageSquareQuote, Layers, Tag, ChevronRight } from "lucide-react";
+
+export type PublicationType = "all" | "article" | "note";
 
 interface BlogSidebarProps {
     posts: Array<{ category: string }>;
     activeCategory: string;
     onCategoryChange: (category: string) => void;
-    activeType: "all" | "blog" | "article";
-    onTypeChange: (type: "all" | "blog" | "article") => void;
+    activeType: PublicationType;
+    onTypeChange: (type: PublicationType) => void;
+    articlesCount: number;
+    notesCount: number;
 }
 
 const SECTION_LABEL = "03 // BLOG";
-
-const TYPE_FILTERS = [
-    { id: "all" as const, label: "All Posts", icon: Layers },
-    { id: "blog" as const, label: "Blogs", icon: BookOpen },
-    { id: "article" as const, label: "Articles", icon: FileText },
-];
 
 export default function BlogSidebar({
     posts,
@@ -25,6 +23,8 @@ export default function BlogSidebar({
     onCategoryChange,
     activeType,
     onTypeChange,
+    articlesCount,
+    notesCount,
 }: BlogSidebarProps) {
     // Derive unique categories from posts
     const allCategories = Array.from(
@@ -42,8 +42,8 @@ export default function BlogSidebar({
     });
 
     return (
-        <aside className="relative w-full lg:w-[220px] xl:w-[240px] shrink-0">
-            {/* Section coordinate label — far left, vertical */}
+        <aside className="relative w-full lg:w-[220px] xl:w-[240px] shrink-0 lg:sticky lg:top-24 self-start">
+            {/* Section coordinate label — far left, vertical (desktop only) */}
             <div
                 className="absolute -left-8 top-0 hidden lg:flex items-center justify-center"
                 style={{ height: "100%", width: "24px" }}
@@ -57,21 +57,107 @@ export default function BlogSidebar({
                 </span>
             </div>
 
+            {/* ══════════════════════════════════════════════════════════════════════
+                MOBILE FILTER BAR (< lg): Sleek 2-tier bar (~78px total)
+                Tier 1: Format pills (All, Articles, Notes)
+                Tier 2: Topic chips (All, INNATE, Pasion, nana kojo, etc.)
+                ══════════════════════════════════════════════════════════════════════ */}
+            <div className="block lg:hidden w-full mb-6">
+                <div className="rounded-2xl border border-[#713600]/12 bg-[#FAF7C8]/85 backdrop-blur-md p-2 shadow-[0_2px_12px_rgba(56,36,13,0.04)] flex flex-col gap-1.5">
+                    {/* Tier 1: Format Selector */}
+                    <div className="flex items-center gap-1 p-0.5 bg-[#713600]/[0.06] rounded-xl">
+                        {[
+                            { id: "all" as const, label: "All", count: posts.length, icon: Layers },
+                            { id: "article" as const, label: "Articles", count: articlesCount, icon: FileText },
+                            { id: "note" as const, label: "Notes", count: notesCount, icon: MessageSquareQuote },
+                        ].map(({ id, label, count, icon: Icon }) => {
+                            const active = activeType === id;
+                            return (
+                                <button
+                                    key={id}
+                                    type="button"
+                                    onClick={() => onTypeChange(id)}
+                                    className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                                        active
+                                            ? "bg-[#713600] text-[#FDFBD4] shadow-xs"
+                                            : "text-[#38240D]/70 hover:text-[#38240D]"
+                                    }`}
+                                >
+                                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                                    <span>{label}</span>
+                                    <span className={`text-[10px] font-mono ${active ? "opacity-90" : "opacity-50"}`}>
+                                        ({count})
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Tier 2: Category Pills */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 px-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden scroll-smooth">
+                        <button
+                            type="button"
+                            onClick={() => onCategoryChange("all")}
+                            className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 cursor-pointer ${
+                                activeCategory === "all"
+                                    ? "bg-[#FF6719]/15 text-[#C05800] border border-[#FF6719]/30 font-semibold"
+                                    : "bg-white/60 text-[#38240D]/70 border border-[#713600]/10 hover:bg-white/90"
+                            }`}
+                        >
+                            <Tag className="w-3 h-3 shrink-0" />
+                            <span>All Topics</span>
+                        </button>
+                        {allCategories.map((cat) => {
+                            const active = activeCategory === cat;
+                            return (
+                                <button
+                                    key={cat}
+                                    type="button"
+                                    onClick={() => onCategoryChange(cat)}
+                                    className={`shrink-0 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 cursor-pointer ${
+                                        active
+                                            ? "bg-[#FF6719]/15 text-[#C05800] border border-[#FF6719]/30 font-semibold"
+                                            : "bg-white/60 text-[#38240D]/70 border border-[#713600]/10 hover:bg-white/90"
+                                    }`}
+                                >
+                                    <span
+                                        className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                                            active ? "bg-[#FF6719]" : "bg-[#713600]/30"
+                                        }`}
+                                    />
+                                    <span className="whitespace-nowrap">{cat}</span>
+                                    <span className="text-[10px] font-mono opacity-60">
+                                        ({categoryCounts[cat] || 0})
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            </div>
+
+            {/* ══════════════════════════════════════════════════════════════════════
+                DESKTOP DESIGN (lg: and above): Full Vertical Sticky Sidebar + Stats
+                ══════════════════════════════════════════════════════════════════════ */}
             <motion.div
                 initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="sticky top-24 flex flex-col gap-6"
+                className="hidden lg:flex flex-col gap-6"
             >
-                {/* ── Type filter ────────────────────────────────── */}
+                {/* ── Format Selector ────────────────────────── */}
                 <div className="rounded-2xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-sm overflow-hidden shadow-[0_2px_12px_rgba(56,36,13,0.06)]">
-                    <div className="px-4 pt-4 pb-2">
+                    <div className="p-4">
                         <p className="text-[9px] font-mono font-bold uppercase tracking-[0.35em] text-[#713600]/50 mb-3 select-none">
-                            Filter by Type
+                            Format
                         </p>
                         <div className="flex flex-col gap-1">
-                            {TYPE_FILTERS.map(({ id, label, icon: Icon }) => {
+                            {[
+                                { id: "all" as const, label: "All Posts", count: posts.length, icon: Layers },
+                                { id: "article" as const, label: "Articles", count: articlesCount, icon: FileText },
+                                { id: "note" as const, label: "Notes", count: notesCount, icon: MessageSquareQuote },
+                            ].map(({ id, label, count, icon: Icon }) => {
                                 const active = activeType === id;
                                 return (
                                     <button
@@ -80,32 +166,29 @@ export default function BlogSidebar({
                                         onClick={() => onTypeChange(id)}
                                         className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer text-left group ${
                                             active
-                                                ? "bg-[#713600] text-[#FDFBD4] shadow-sm"
+                                                ? "bg-[#713600] text-[#FDFBD4] font-semibold shadow-xs"
                                                 : "text-[#38240D]/70 hover:bg-[#713600]/[0.08] hover:text-[#38240D]"
                                         }`}
                                     >
-                                        <Icon
-                                            className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
-                                                active ? "scale-110" : "group-hover:scale-110"
-                                            }`}
-                                        />
+                                        <Icon className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110" />
                                         <span className="flex-1">{label}</span>
-                                        {active && (
-                                            <ChevronRight className="w-3 h-3 shrink-0 opacity-70" />
-                                        )}
+                                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
+                                            active ? "bg-white/20 text-[#FDFBD4]" : "bg-[#38240D]/[0.08] text-[#38240D]/50"
+                                        }`}>
+                                            {count}
+                                        </span>
                                     </button>
                                 );
                             })}
                         </div>
                     </div>
+                </div>
 
-                    {/* Divider */}
-                    <div className="mx-4 my-3 h-px bg-[#713600]/10" />
-
-                    {/* ── Category filter ────────────────────────── */}
-                    <div className="px-4 pb-4">
+                {/* ── Category filter ────────────────────────── */}
+                <div className="rounded-2xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-sm overflow-hidden shadow-[0_2px_12px_rgba(56,36,13,0.06)]">
+                    <div className="p-4">
                         <p className="text-[9px] font-mono font-bold uppercase tracking-[0.35em] text-[#713600]/50 mb-3 select-none">
-                            Categories
+                            Topics
                         </p>
                         <div className="flex flex-col gap-1">
                             {/* "All" option */}
@@ -114,15 +197,15 @@ export default function BlogSidebar({
                                 onClick={() => onCategoryChange("all")}
                                 className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer text-left group ${
                                     activeCategory === "all"
-                                        ? "bg-[#FF6719]/15 text-[#C05800] font-semibold"
-                                        : "text-[#38240D]/65 hover:bg-[#FF6719]/[0.08] hover:text-[#38240D]"
+                                        ? "bg-[#713600] text-[#FDFBD4] font-semibold shadow-xs"
+                                        : "text-[#38240D]/65 hover:bg-[#713600]/[0.08] hover:text-[#38240D]"
                                 }`}
                             >
                                 <Tag className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-                                <span className="flex-1">All Categories</span>
+                                <span className="flex-1">All Topics</span>
                                 <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
                                     activeCategory === "all"
-                                        ? "bg-[#FF6719]/20 text-[#C05800]"
+                                        ? "bg-white/20 text-[#FDFBD4]"
                                         : "bg-[#38240D]/[0.08] text-[#38240D]/50"
                                 }`}>
                                     {posts.length}
@@ -138,21 +221,21 @@ export default function BlogSidebar({
                                         onClick={() => onCategoryChange(cat)}
                                         className={`flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer text-left group ${
                                             active
-                                                ? "bg-[#FF6719]/15 text-[#C05800] font-semibold"
-                                                : "text-[#38240D]/65 hover:bg-[#FF6719]/[0.08] hover:text-[#38240D]"
+                                                ? "bg-[#713600] text-[#FDFBD4] font-semibold shadow-xs"
+                                                : "text-[#38240D]/65 hover:bg-[#713600]/[0.08] hover:text-[#38240D]"
                                         }`}
                                     >
                                         <span
                                             className={`w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-200 ${
                                                 active
-                                                    ? "bg-[#FF6719] scale-125"
+                                                    ? "bg-[#FDFBD4] scale-125"
                                                     : "bg-[#713600]/30 group-hover:bg-[#713600]/60"
                                             }`}
                                         />
                                         <span className="flex-1 truncate">{cat}</span>
                                         <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
                                             active
-                                                ? "bg-[#FF6719]/20 text-[#C05800]"
+                                                ? "bg-white/20 text-[#FDFBD4]"
                                                 : "bg-[#38240D]/[0.08] text-[#38240D]/50"
                                         }`}>
                                             {categoryCounts[cat] || 0}

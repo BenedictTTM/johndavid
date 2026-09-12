@@ -95,7 +95,7 @@
     color: #38240D;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip;
     letter-spacing: 0.015em;
     line-height: 1.5;
   }

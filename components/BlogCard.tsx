@@ -4,9 +4,10 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookmark, MessageCircle, Repeat2, MoreHorizontal, X, ExternalLink, Share2, Check, Copy } from "lucide-react";
+import { Bookmark, MessageCircle, MoreHorizontal, ExternalLink, Share2, Check, Copy } from "lucide-react";
 import LikeButton from "./LikeButton";
 import CommentsModal from "./CommentsModal";
+import PublicationAvatar from "./PublicationAvatar";
 import { BlogPost } from "@/types/blog";
 
 interface BlogCardProps {
@@ -30,43 +31,28 @@ function cleanText(htmlOrText: string): string {
 
 export default function BlogCard({ post }: BlogCardProps) {
     const [isBookmarked, setIsBookmarked] = useState(false);
-    const [isReposted, setIsReposted] = useState(false);
-    const [repostCount, setRepostCount] = useState(5);
     const [commentsCount, setCommentsCount] = useState(post.commentsCount ?? 3);
     const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-    const [isSubscribed, setIsSubscribed] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDismissed, setIsDismissed] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // If post has a specific category, use it; otherwise default to "Pasion" to match the user's publication styling
     const displayAuthor = (post.category && post.category !== "Note" && post.category !== "Uncategorized")
         ? post.category
         : "Pasion";
-    const authorInitial = displayAuthor[0]?.toUpperCase() || "P";
     const quoteText = cleanText(post.content) || cleanText(post.excerpt) || post.title;
 
-    // Load persisted user preferences (bookmarks, reposts, subscriptions)
+    // Load persisted user preferences (bookmarks)
     useEffect(() => {
         try {
             const bookmarks = JSON.parse(localStorage.getItem("mba_bookmarks") || "[]");
             if (bookmarks.includes(post.id)) {
                 setIsBookmarked(true);
             }
-            const reposts = JSON.parse(localStorage.getItem("mba_reposts") || "[]");
-            if (reposts.includes(post.id)) {
-                setIsReposted(true);
-                setRepostCount(prev => prev + 1);
-            }
-            const subscriptions = JSON.parse(localStorage.getItem("mba_subscriptions") || "[]");
-            if (subscriptions.includes(displayAuthor)) {
-                setIsSubscribed(true);
-            }
         } catch {
             // ignore localStorage errors
         }
-    }, [post.id, displayAuthor]);
+    }, [post.id]);
 
     // Close menu when clicking outside
     useEffect(() => {
@@ -102,46 +88,6 @@ export default function BlogCard({ post }: BlogCardProps) {
         }
     };
 
-    const handleSubscribe = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        try {
-            const subscriptions = JSON.parse(localStorage.getItem("mba_subscriptions") || "[]");
-            let updated: string[];
-            if (isSubscribed) {
-                updated = subscriptions.filter((key: string) => key !== displayAuthor);
-                setIsSubscribed(false);
-            } else {
-                updated = [...subscriptions, displayAuthor];
-                setIsSubscribed(true);
-            }
-            localStorage.setItem("mba_subscriptions", JSON.stringify(updated));
-        } catch {
-            setIsSubscribed(!isSubscribed);
-        }
-    };
-
-    const handleRepost = (e: React.MouseEvent) => {
-        e.preventDefault();
-        e.stopPropagation();
-        try {
-            const reposts = JSON.parse(localStorage.getItem("mba_reposts") || "[]");
-            let updated: string[];
-            if (isReposted) {
-                updated = reposts.filter((id: string) => id !== post.id);
-                setIsReposted(false);
-                setRepostCount(prev => Math.max(0, prev - 1));
-            } else {
-                updated = [...reposts, post.id];
-                setIsReposted(true);
-                setRepostCount(prev => prev + 1);
-            }
-            localStorage.setItem("mba_reposts", JSON.stringify(updated));
-        } catch {
-            setIsReposted(!isReposted);
-            setRepostCount(prev => (isReposted ? prev - 1 : prev + 1));
-        }
-    };
 
     const handleShare = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -185,27 +131,14 @@ export default function BlogCard({ post }: BlogCardProps) {
         ? new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })
         : "Sep 10";
 
-    if (isDismissed) {
-        return (
-            <motion.div
-                initial={{ opacity: 1, height: "auto" }}
-                animate={{ opacity: 0, height: 0, overflow: "hidden" }}
-                transition={{ duration: 0.3 }}
-                className="py-1"
-            />
-        );
-    }
-
     return (
         <>
-            <article className="group flex flex-col w-full border-b border-[#713600]/10 pb-10 last:border-b-0">
-                {/* ── Substack Note Header: Author + Timestamp + Substack Orange Subscribe Button ── */}
-                <div className="flex items-center justify-between mb-3 px-1">
+            <article className="group flex flex-col w-full border-b border-[#713600]/10 pb-7 sm:pb-8 last:border-b-0">
+                {/* ── Substack Note Header: Author + Timestamp + Options Menu ── */}
+                <div className="flex items-center justify-between mb-2.5 px-1">
                     <div className="flex items-center gap-3 min-w-0">
-                        {/* Circular Avatar */}
-                        <div className="w-10 h-10 rounded-full overflow-hidden bg-[#713600]/10 flex items-center justify-center font-bold text-sm text-[#713600] shrink-0 border border-[#713600]/15 shadow-2xs">
-                            {authorInitial}
-                        </div>
+                        {/* Circular Publication Avatar */}
+                        <PublicationAvatar publication={displayAuthor} size="md" />
 
                         {/* Author Name and Date */}
                         <div className="flex items-center gap-2 min-w-0 text-sm">
@@ -220,28 +153,18 @@ export default function BlogCard({ post }: BlogCardProps) {
                     </div>
 
                     {/* Right Header Actions */}
-                    <div className="flex items-center gap-3.5 shrink-0 relative">
-                        <button
-                            type="button"
-                            onClick={handleSubscribe}
-                            className={`text-sm font-semibold transition-colors cursor-pointer ${
-                                isSubscribed
-                                    ? "text-[#38240D]/60 hover:text-[#38240D]"
-                                    : "text-[#FF6719] hover:text-[#E5570F]"
-                            }`}
-                        >
-                            {isSubscribed ? "Subscribed" : "Subscribe"}
-                        </button>
-
+                    <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 relative">
                         {/* More Options Dropdown */}
                         <div className="relative" ref={menuRef}>
                             <button
                                 type="button"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="text-[#38240D]/40 hover:text-[#38240D] transition-colors p-0.5 cursor-pointer rounded-full"
+                                className="w-7 h-7 flex items-center justify-center text-[#38240D]/50 hover:text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#713600]/30"
                                 aria-label="More options"
+                                aria-haspopup="true"
+                                aria-expanded={isMenuOpen}
                             >
-                                <MoreHorizontal className="w-4 h-4" />
+                                <MoreHorizontal className="w-4 h-4 stroke-[1.75]" />
                             </button>
 
                             <AnimatePresence>
@@ -256,7 +179,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                                         <button
                                             type="button"
                                             onClick={handleCopyLink}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
                                         >
                                             <Copy className="w-3.5 h-3.5 text-[#713600]" />
                                             <span>Copy link</span>
@@ -264,7 +187,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                                         <Link
                                             href={`/blog/${post.id}`}
                                             onClick={() => setIsMenuOpen(false)}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
                                         >
                                             <ExternalLink className="w-3.5 h-3.5 text-[#713600]" />
                                             <span>Open full post</span>
@@ -272,7 +195,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                                         <button
                                             type="button"
                                             onClick={handleShare}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
                                         >
                                             <Share2 className="w-3.5 h-3.5 text-[#713600]" />
                                             <span>Share post</span>
@@ -281,16 +204,6 @@ export default function BlogCard({ post }: BlogCardProps) {
                                 )}
                             </AnimatePresence>
                         </div>
-
-                        {/* Dismiss card button */}
-                        <button
-                            type="button"
-                            onClick={() => setIsDismissed(true)}
-                            className="text-[#38240D]/40 hover:text-[#38240D] transition-colors p-0.5 cursor-pointer rounded-full"
-                            aria-label="Dismiss post"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
                     </div>
                 </div>
 
@@ -313,27 +226,34 @@ export default function BlogCard({ post }: BlogCardProps) {
                         </Link>
 
                         {/* Dark Slate Info Banner */}
-                        <div className="px-5 py-3.5 bg-[#28313A] border-t border-white/[0.08]">
+                        <div className="px-5 py-2 sm:py-2.5 bg-[#28313A] border-t border-white/[0.08]">
                             {/* Top Row: Avatar Badge + Channel / Category & Bookmark */}
-                            <div className="flex items-center justify-between gap-3 mb-1.5">
+                            <div className="flex items-center justify-between gap-3 mb-1">
                                 <div className="flex items-center gap-2 min-w-0">
-                                    <div className="w-4.5 h-4.5 rounded-[4px] bg-[#1A2129] flex items-center justify-center shrink-0 border border-white/10 text-[10px] font-bold text-slate-300">
-                                        {authorInitial}
-                                    </div>
+                                    <PublicationAvatar publication={displayAuthor} size="sm" />
 
                                     <span className="text-xs font-medium text-slate-300 truncate tracking-tight">
                                         {displayAuthor}
                                     </span>
+
+                                    {post.readTime && (
+                                        <>
+                                            <span className="text-slate-500 text-xs shrink-0">•</span>
+                                            <span className="text-slate-400 text-[11px] shrink-0 font-normal">
+                                                {post.readTime.includes("min") ? post.readTime : `${post.readTime} min read`}
+                                            </span>
+                                        </>
+                                    )}
                                 </div>
 
                                 <button
                                     type="button"
                                     onClick={handleBookmark}
                                     aria-label={isBookmarked ? "Remove bookmark" : "Bookmark post"}
-                                    className="text-slate-300 hover:text-white transition-colors p-0.5 cursor-pointer"
+                                    className="text-slate-300 hover:text-white transition-colors p-0.5 cursor-pointer shrink-0 rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
                                 >
                                     <Bookmark
-                                        className={`w-4.5 h-4.5 transition-all duration-200 ${
+                                        className={`w-4 h-4 transition-all duration-200 ${
                                             isBookmarked
                                                 ? "fill-white text-white scale-105"
                                                 : "stroke-[1.75] hover:scale-105"
@@ -343,7 +263,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                             </div>
 
                             {/* Bottom Row: Bold Title */}
-                            <h3 className="text-base sm:text-[17px] font-bold text-white tracking-tight leading-snug line-clamp-2">
+                            <h3 className="text-sm sm:text-[15px] font-bold text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
                                 <Link
                                     href={`/blog/${post.id}`}
                                     className="hover:text-slate-200 transition-colors"
@@ -400,7 +320,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 )}
 
                 {/* ── Social Action Bar Underneath Card ── */}
-                <div className="flex items-center gap-6 sm:gap-7 pt-3 px-1 text-[#38240D]/65 select-none">
+                <div className="flex items-center gap-6 sm:gap-7 pt-2.5 px-1 text-[#38240D]/65 select-none">
                     {/* Likes (Heart with Substack Red #FF3040) */}
                     <LikeButton
                         postId={post.id}
@@ -420,21 +340,6 @@ export default function BlogCard({ post }: BlogCardProps) {
                         <span className="text-[12px] font-medium text-[#38240D]/70 group-hover:text-[#38240D]">
                             {commentsCount}
                         </span>
-                    </button>
-
-                    {/* Repost (Retweet) */}
-                    <button
-                        type="button"
-                        onClick={handleRepost}
-                        className={`flex items-center gap-1.5 p-1 group transition-colors cursor-pointer ${
-                            isReposted ? "text-emerald-600 font-medium" : "hover:text-emerald-600"
-                        }`}
-                        aria-label="Repost"
-                    >
-                        <Repeat2 className={`w-[18px] h-[18px] stroke-[1.75] transition-transform duration-300 ${
-                            isReposted ? "rotate-180" : "group-hover:rotate-180"
-                        }`} />
-                        <span className="text-[12px] font-medium">{repostCount}</span>
                     </button>
 
                     {/* Share Tray */}

@@ -86,7 +86,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${oswald.variable} ${raleway.variable} ${imFellEnglish.variable} ${brotheric.variable} ${cormorant.variable} font-sans antialiased bg-[#FDFBD4] text-[#38240D] overflow-x-hidden`}
+        className={`${inter.variable} ${poppins.variable} ${playfair.variable} ${montserrat.variable} ${oswald.variable} ${raleway.variable} ${imFellEnglish.variable} ${brotheric.variable} ${cormorant.variable} font-sans antialiased bg-[#FDFBD4] text-[#38240D] overflow-x-clip`}
       >
         <AmbientBackground />
         <div className="relative z-10 flex flex-col min-h-screen">

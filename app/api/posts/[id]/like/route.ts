@@ -19,22 +19,22 @@ export async function POST(
             return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
         }
 
-        // atomic logic
+        // Check if post exists and is published before starting transaction
+        const post = await prisma.post.findUnique({
+            where: { id: postId },
+            select: { published: true }
+        });
+
+        if (!post) {
+            return NextResponse.json({ error: 'Post not found' }, { status: 404 });
+        }
+
+        if (!post.published) {
+            return NextResponse.json({ error: 'Cannot like unpublished post' }, { status: 400 });
+        }
+
+        // Perform toggle in a transaction with extended timeout for remote database latency
         const result = await prisma.$transaction(async (tx) => {
-            // Check if post exists and is published
-            const post = await tx.post.findUnique({
-                where: { id: postId },
-                select: { published: true }
-            });
-
-            if (!post) {
-                throw new Error('Post not found');
-            }
-
-            if (!post.published) {
-                throw new Error('Cannot like unpublished post');
-            }
-
             const existingLike = await tx.like.findUnique({
                 where: {
                     postId_userId: {
@@ -91,6 +91,9 @@ export async function POST(
             }
 
             return { liked, likesCount: currentLikesCount };
+        }, {
+            maxWait: 5000,
+            timeout: 15000
         });
 
         return NextResponse.json(result);
