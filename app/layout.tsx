@@ -67,14 +67,41 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+import { getBaseUrl } from "@/lib/siteUrl";
+
+const baseUrl = getBaseUrl();
+
 export const metadata: Metadata = {
-  title: "John David | Engineer, Public Speaker & Researcher",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "John David | Engineer, Public Speaker & Researcher",
+    template: "%s | John David",
+  },
   description: "Official portfolio of John David - Engineer, Public Speaker, and Researcher.",
-  keywords: "John David, Engineer, Public Speaker, Researcher, Ghana",
+  keywords: ["John David", "Engineer", "Public Speaker", "Researcher", "Ghana", "York University"],
   authors: [{ name: "John David" }],
+  creator: "John David",
   openGraph: {
-    title: "John David ",
+    title: "John David | Engineer, Public Speaker & Researcher",
+    description: "Official portfolio of John David - Engineer, Public Speaker, and Researcher.",
+    url: baseUrl,
+    siteName: "John David Ledger",
+    locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/mba-headshot.jpg",
+        width: 1200,
+        height: 630,
+        alt: "John David",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "John David | Engineer, Public Speaker & Researcher",
+    description: "Official portfolio of John David - Engineer, Public Speaker, and Researcher.",
+    images: ["/mba-headshot.jpg"],
   },
 };
 
