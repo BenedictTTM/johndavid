@@ -23,12 +23,12 @@ export default function SplitHero() {
   };
 
   return (
-    <div className="relative w-full pt-20 sm:pt-24 lg:pt-20 pb-8 md:pb-12 overflow-hidden text-[#38240D] font-sans">
+    <div className="relative w-full pt-20 sm:pt-24 lg:pt-20 pb-8 md:pb-12 overflow-hidden text-[#2B2119] font-sans">
       {/* Visual coordinate markers */}
-      <div className="absolute left-6 top-8 hidden md:block text-[9px] text-[#38240D]/30 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
+      <div className="absolute left-6 top-8 hidden md:block text-[9px] text-[#2B2119]/35 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
         01 // PORTFOLIO HERO
       </div>
-      <div className="absolute right-6 top-8 hidden md:block text-[9px] text-[#38240D]/30 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
+      <div className="absolute right-6 top-8 hidden md:block text-[9px] text-[#2B2119]/35 tracking-[0.3em] uppercase select-none pointer-events-none font-mono">
         ACCRA // GHANA
       </div>
 
@@ -42,8 +42,8 @@ export default function SplitHero() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center justify-center lg:justify-start gap-2.5 sm:gap-3 mb-4 sm:mb-6 select-none"
           >
-            <div className="w-5 sm:w-6 h-[2px] bg-[#713600]" />
-            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#713600]">
+            <div className="w-5 sm:w-6 h-[2px] bg-[#542A00]" />
+            <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.25em] sm:tracking-[0.35em] text-[#542A00]">
               Executive Positioning &amp; Ghostwriting
             </span>
           </motion.div>
@@ -71,16 +71,16 @@ export default function SplitHero() {
                 leading-[0.9]
                 tracking-tight
                 uppercase
-                text-[#38240D]
+                text-[#2B2119]
                 mb-2
                 select-none
               "
             >
-              <span className="block text-[#38240D] font-extrabold tracking-tight">
+              <span className="block text-[#2B2119] font-extrabold tracking-tight">
                 Mindset
               </span>
               <span 
-                className="block text-[#713600] font-serif italic font-normal tracking-wide -mt-1 sm:-mt-2"
+                className="block text-[#542A00] font-serif italic font-normal tracking-wide -mt-1 sm:-mt-2"
                 style={{ fontFamily: "var(--font-cormorant)" }}
               >
                 Engineer
@@ -102,7 +102,7 @@ export default function SplitHero() {
               sm:text-[15px]
               md:text-[16px]
               leading-relaxed
-              text-[#38240D]/80
+              text-[#2B2119]/80
               max-w-md
               sm:max-w-lg
               tracking-wide
@@ -161,15 +161,15 @@ export default function SplitHero() {
                   justify-center
                   rounded-lg
                   overflow-hidden
-                  bg-[#713600]
-                  text-[#FDFBD4]
+                  bg-[#542A00]
+                  text-[#FFF8D8]
                   text-xs
                   uppercase
                   tracking-[0.2em]
                   font-bold
-                  shadow-[0_4px_16px_rgba(113,54,0,0.25)]
-                  hover:bg-[#C05800]
-                  hover:shadow-[0_6px_24px_rgba(192,88,0,0.3)]
+                  shadow-[0_4px_16px_rgba(84,42,0,0.25)]
+                  hover:bg-[#3D1E00]
+                  hover:shadow-[0_6px_24px_rgba(84,42,0,0.3)]
                   transition-all
                   duration-300
                   flex
@@ -178,29 +178,29 @@ export default function SplitHero() {
                   cursor-pointer
                 "
               >
-                <span className="relative z-10 flex items-center gap-2.5 text-[#FDFBD4]">
-                  <Calendar size={14} className="text-[#FDFBD4]" />
+                <span className="relative z-10 flex items-center gap-2.5 text-[#FFF8D8]">
+                  <Calendar size={14} className="text-[#FFF8D8]" />
                   Schedule a Call
                 </span>
               </motion.button>
             </Link>
 
             {/* METRICS - Refined editorial block */}
-            <div className="flex gap-8 sm:gap-8 md:gap-10 border-t sm:border-t-0 sm:border-l border-[#713600]/20 pt-4 sm:pt-0 pl-0 sm:pl-8 md:pl-10 py-1 justify-center sm:justify-start w-full sm:w-auto">
+            <div className="flex gap-8 sm:gap-8 md:gap-10 border-t sm:border-t-0 sm:border-l border-[#D8D0A6] pt-4 sm:pt-0 pl-0 sm:pl-8 md:pl-10 py-1 justify-center sm:justify-start w-full sm:w-auto">
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-bold text-[#713600] leading-none mb-1 font-display">
+                <span className="text-2xl sm:text-3xl font-bold text-[#542A00] leading-none mb-1 font-display">
                   6+
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#38240D]/70 font-semibold whitespace-nowrap">
+                <span className="text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#2B2119]/70 font-semibold whitespace-nowrap">
                   Manuscripts
                 </span>
               </div>
 
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-                <span className="text-2xl sm:text-3xl font-bold text-[#713600] leading-none mb-1 font-display">
+                <span className="text-2xl sm:text-3xl font-bold text-[#542A00] leading-none mb-1 font-display">
                   250+
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#38240D]/70 font-semibold whitespace-nowrap">
+                <span className="text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-[#2B2119]/70 font-semibold whitespace-nowrap">
                   Leaders Coached
                 </span>
               </div>
@@ -250,8 +250,8 @@ export default function SplitHero() {
                     className={`
                       group
                       relative
-                      ${isActive ? "text-[#713600] font-bold" : "text-[#38240D]/60 font-semibold"}
-                      hover:text-[#C05800]
+                      ${isActive ? "text-[#542A00] font-bold" : "text-[#2B2119]/60 font-semibold"}
+                      hover:text-[#542A00]
                       text-[10px]
                       tracking-[0.35em]
                       flex
@@ -273,8 +273,8 @@ export default function SplitHero() {
                         transition-all
                         duration-300
                         ${isActive
-                          ? "bg-[#713600] border-[#713600] scale-125"
-                          : "bg-transparent border-[#38240D]/40 group-hover:bg-[#C05800] group-hover:border-[#C05800] group-hover:scale-125"}
+                          ? "bg-[#542A00] border-[#542A00] scale-125"
+                          : "bg-transparent border-[#2B2119]/40 group-hover:bg-[#542A00] group-hover:border-[#542A00] group-hover:scale-125"}
                       `}
                     />
                   </Link>
@@ -308,7 +308,7 @@ export default function SplitHero() {
               className="relative w-full h-full"
             >
               {/* Soft warm background aura */}
-              <div className="absolute inset-0 bg-[#713600]/5 blur-[80px] rounded-full -z-10" />
+              <div className="absolute inset-0 bg-[#542A00]/5 blur-[80px] rounded-full -z-10" />
 
               <Image
                 src="/jade.png"
@@ -318,7 +318,7 @@ export default function SplitHero() {
                 className="
                   object-contain
                   object-bottom
-                  drop-shadow-[0_12px_32px_rgba(56,36,13,0.15)]
+                  drop-shadow-[0_12px_32px_rgba(43,33,25,0.15)]
                   z-10
                 "
               />

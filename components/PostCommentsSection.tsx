@@ -101,17 +101,17 @@ export default function PostCommentsSection({
     };
 
     return (
-        <section id="comments" className="mt-16 pt-12 border-t border-[#713600]/15">
+        <section id="comments" className="mt-16 pt-12 border-t border-[#D8D0A6]">
             <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[#713600]/10 flex items-center justify-center text-[#713600]">
+                    <div className="w-8 h-8 rounded-full bg-[#542A00]/10 flex items-center justify-center text-[#542A00]">
                         <MessageCircle className="w-4 h-4 stroke-[2]" />
                     </div>
                     <div>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#38240D]">
+                        <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#2B2119]">
                             Discussion &amp; Perspectives
                         </h3>
-                        <p className="text-xs font-mono text-[#38240D]/60 uppercase tracking-wider">
+                        <p className="text-xs font-mono text-[#2B2119]/60 uppercase tracking-wider">
                             {commentsCount} comment{commentsCount !== 1 ? "s" : ""}
                         </p>
                     </div>
@@ -121,9 +121,9 @@ export default function PostCommentsSection({
             {/* Comment Submission Form */}
             <form
                 onSubmit={handleSubmit}
-                className="mb-12 p-6 rounded-2xl bg-[#FAF7C8]/70 border border-[#713600]/15 shadow-[0_4px_20px_rgba(56,36,13,0.04)] space-y-4"
+                className="mb-12 p-6 rounded-2xl bg-[#FFF8D8]/70 border border-[#D8D0A6] shadow-[0_4px_20px_rgba(43,33,25,0.04)] space-y-4"
             >
-                <h4 className="text-xs font-bold font-mono tracking-widest uppercase text-[#713600]">
+                <h4 className="text-xs font-bold font-mono tracking-widest uppercase text-[#542A00]">
                     Join the Conversation
                 </h4>
 
@@ -134,7 +134,7 @@ export default function PostCommentsSection({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="relative">
-                        <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-[#713600]/50">
+                        <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-[#542A00]/55">
                             <User className="w-3.5 h-3.5" />
                         </div>
                         <input
@@ -143,7 +143,7 @@ export default function PostCommentsSection({
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             maxLength={60}
-                            className="w-full pl-9 pr-3.5 py-2.5 text-xs bg-[#FDFBD4] border border-[#713600]/20 rounded-xl text-[#38240D] placeholder-[#38240D]/40 focus:outline-none focus:ring-1 focus:ring-[#713600] transition-colors"
+                            className="w-full pl-9 pr-3.5 py-2.5 text-xs bg-[#F5F1D5]/60 border border-[#D8D0A6] rounded-xl text-[#2B2119] placeholder-[#2B2119]/40 focus:outline-none focus:ring-1 focus:ring-[#542A00] transition-colors"
                         />
                     </div>
                 </div>
@@ -155,18 +155,18 @@ export default function PostCommentsSection({
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         maxLength={2000}
-                        className="w-full px-4 py-3 text-xs bg-[#FDFBD4] border border-[#713600]/20 rounded-xl text-[#38240D] placeholder-[#38240D]/40 focus:outline-none focus:ring-1 focus:ring-[#713600] transition-colors resize-none leading-relaxed"
+                        className="w-full px-4 py-3 text-xs bg-[#F5F1D5]/60 border border-[#D8D0A6] rounded-xl text-[#2B2119] placeholder-[#2B2119]/40 focus:outline-none focus:ring-1 focus:ring-[#542A00] transition-colors resize-none leading-relaxed"
                     />
                 </div>
 
                 <div className="flex items-center justify-between pt-1">
-                    <span className="text-[10px] font-mono text-[#38240D]/40">
+                    <span className="text-[10px] font-mono text-[#2B2119]/45">
                         {body.length}/2000
                     </span>
                     <button
                         type="submit"
                         disabled={submitting || !body.trim() || !name.trim()}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-white bg-[#FF6719] hover:bg-[#E5570F] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xs cursor-pointer uppercase tracking-wider"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold text-[#FFF8D8] bg-[#542A00] hover:bg-[#3D1E00] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xs cursor-pointer uppercase tracking-wider"
                     >
                         {submitting ? (
                             <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -180,13 +180,13 @@ export default function PostCommentsSection({
 
             {/* List of comments */}
             {loading ? (
-                <div className="flex items-center justify-center py-12 text-[#713600]/60">
+                <div className="flex items-center justify-center py-12 text-[#542A00]/65">
                     <Loader2 className="w-6 h-6 animate-spin mr-2" />
                     <span className="text-xs font-mono">Loading perspectives...</span>
                 </div>
             ) : comments.length === 0 ? (
-                <div className="py-10 text-center bg-[#FAF7C8]/40 rounded-2xl border border-[#713600]/10">
-                    <p className="text-sm font-serif italic text-[#38240D]/70">
+                <div className="py-10 text-center bg-[#FFF8D8]/40 rounded-2xl border border-[#D8D0A6]">
+                    <p className="text-sm font-serif italic text-[#2B2119]/70">
                         No perspectives recorded yet. Share your thoughts above.
                     </p>
                 </div>
@@ -195,18 +195,18 @@ export default function PostCommentsSection({
                     {comments.map((comment) => (
                         <div
                             key={comment.id}
-                            className="p-5 rounded-2xl bg-[#FAF7C8]/60 border border-[#713600]/12 space-y-2.5"
+                            className="p-5 rounded-2xl bg-[#FFF8D8]/60 border border-[#D8D0A6] space-y-2.5"
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2.5">
-                                    <div className="w-7 h-7 rounded-full bg-[#713600]/15 flex items-center justify-center text-[11px] font-bold text-[#713600]">
+                                    <div className="w-7 h-7 rounded-full bg-[#542A00]/12 flex items-center justify-center text-[11px] font-bold text-[#542A00]">
                                         {comment.name?.[0]?.toUpperCase() || "A"}
                                     </div>
-                                    <span className="text-sm font-bold text-[#38240D]">
+                                    <span className="text-sm font-bold text-[#2B2119]">
                                         {comment.name}
                                     </span>
                                 </div>
-                                <span className="text-[10px] font-mono text-[#38240D]/50 uppercase tracking-widest">
+                                <span className="text-[10px] font-mono text-[#2B2119]/50 uppercase tracking-widest">
                                     {comment.createdAt
                                         ? new Date(comment.createdAt).toLocaleDateString("en-US", {
                                               month: "short",
@@ -216,7 +216,7 @@ export default function PostCommentsSection({
                                         : ""}
                                 </span>
                             </div>
-                            <p className="text-xs sm:text-[13px] text-[#38240D]/85 pl-9 leading-relaxed whitespace-pre-line font-sans">
+                            <p className="text-xs sm:text-[13px] text-[#2B2119]/85 pl-9 leading-relaxed whitespace-pre-line font-sans">
                                 {comment.body}
                             </p>
                         </div>

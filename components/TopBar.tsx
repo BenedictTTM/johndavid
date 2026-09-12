@@ -100,8 +100,8 @@ const TopBar = () => {
         <nav
           className={`flex items-center justify-between px-4 sm:px-6 py-1.5 sm:py-2 rounded-full transition-all duration-300 border ${
             isScrolled
-              ? "bg-[#FAF7C8]/92 backdrop-blur-xl border-[#713600]/18 shadow-[0_8px_30px_rgba(56,36,13,0.08)] ring-1 ring-white/50"
-              : "bg-[#FAF7C8]/85 backdrop-blur-lg border-[#713600]/14 shadow-[0_4px_20px_rgba(56,36,13,0.05)] ring-1 ring-white/40"
+              ? "bg-[#FFF8D8]/92 backdrop-blur-xl border-[#D8D0A6] shadow-[0_8px_30px_rgba(43,33,25,0.08)] ring-1 ring-[#FFF8D8]/60"
+              : "bg-[#FFF8D8]/85 backdrop-blur-lg border-[#D8D0A6] shadow-[0_4px_20px_rgba(43,33,25,0.05)] ring-1 ring-[#FFF8D8]/50"
           }`}>
           {/* Logo */}
           <div className="flex items-center">
@@ -110,17 +110,17 @@ const TopBar = () => {
               onClick={() => setActiveHash("")}
               className="group flex items-center gap-1.5 py-0.5 select-none"
             >
-              <span className="text-[17px] sm:text-[19px] font-serif italic tracking-wide text-[#38240D] group-hover:text-[#713600] transition-colors duration-300">
+              <span className="text-[17px] sm:text-[19px] font-serif italic tracking-wide text-[#2B2119] group-hover:text-[#542A00] transition-colors duration-300">
                 David
               </span>
-              <span className="text-base sm:text-lg text-[#713600] font-sans not-italic font-bold transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+              <span className="text-base sm:text-lg text-[#542A00] font-sans not-italic font-bold transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
                 ッ
               </span>
             </Link>
 
             {/* Subtle editorial status badge on desktop */}
-            <span className="hidden lg:inline-flex items-center gap-1.5 ml-3 pl-3 border-l border-[#713600]/15 text-[9px] font-mono uppercase tracking-[0.2em] text-[#713600]/60 font-semibold select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+            <span className="hidden lg:inline-flex items-center gap-1.5 ml-3 pl-3 border-l border-[#D8D0A6] text-[9px] font-mono uppercase tracking-[0.2em] text-[#542A00]/60 font-semibold select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D97932] animate-pulse" />
               Editorial
             </span>
           </div>
@@ -136,12 +136,12 @@ const TopBar = () => {
                     key={item.to}
                     href={item.to}
                     className={`relative text-[11px] uppercase tracking-[0.22em] font-semibold transition-colors duration-300 group py-1 ${
-                      active ? "text-[#713600]" : "text-[#38240D]/75 hover:text-[#713600]"
+                      active ? "text-[#542A00]" : "text-[#2B2119]/75 hover:text-[#542A00]"
                     }`}
                   >
                     {item.label}
                     <span 
-                      className={`absolute bottom-0 left-0 h-[1.5px] bg-[#713600] transition-all duration-300 ${
+                      className={`absolute bottom-0 left-0 h-[1.5px] bg-[#542A00] transition-all duration-300 ${
                         active ? "w-full" : "w-0 group-hover:w-full"
                       }`} 
                     />
@@ -158,7 +158,7 @@ const TopBar = () => {
                 <Link
                   key={item.to}
                   href={item.to}
-                  className="hidden md:inline-flex items-center justify-center bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] font-semibold tracking-widest uppercase text-[10px] px-4.5 py-1.5 rounded-full shadow-[0_2px_10px_rgba(113,54,0,0.18)] hover:shadow-[0_4px_16px_rgba(192,88,0,0.25)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  className="hidden md:inline-flex items-center justify-center bg-[#542A00] hover:bg-[#3D1E00] text-[#FFF8D8] font-semibold tracking-widest uppercase text-[10px] px-4.5 py-1.5 rounded-full shadow-[0_2px_10px_rgba(84,42,0,0.18)] hover:shadow-[0_4px_16px_rgba(84,42,0,0.25)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {item.label}
                 </Link>
@@ -166,7 +166,7 @@ const TopBar = () => {
 
             {/* Custom Animated Mobile Menu Trigger */}
             <button
-              className="md:hidden w-8 h-8 rounded-full flex items-center justify-center text-[#38240D] hover:text-[#713600] hover:bg-[#713600]/[0.08] active:scale-90 transition-all duration-200 cursor-pointer"
+              className="md:hidden w-8 h-8 rounded-full flex items-center justify-center text-[#2B2119] hover:text-[#542A00] hover:bg-[#542A00]/[0.08] active:scale-90 transition-all duration-200 cursor-pointer"
               onClick={toggleMenu}
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
@@ -174,17 +174,17 @@ const TopBar = () => {
             >
               <div className="w-4 h-3.5 flex flex-col justify-between items-end" aria-hidden="true">
                 <span 
-                  className={`h-[1.5px] bg-[#38240D] rounded-full transition-all duration-300 ${
+                  className={`h-[1.5px] bg-[#2B2119] rounded-full transition-all duration-300 ${
                     isOpen ? "w-4 rotate-45 translate-y-[5.5px]" : "w-4"
                   }`} 
                 />
                 <span 
-                  className={`h-[1.5px] bg-[#713600] rounded-full transition-all duration-200 ${
+                  className={`h-[1.5px] bg-[#542A00] rounded-full transition-all duration-200 ${
                     isOpen ? "opacity-0 w-0" : "w-2.5"
                   }`} 
                 />
                 <span 
-                  className={`h-[1.5px] bg-[#38240D] rounded-full transition-all duration-300 ${
+                  className={`h-[1.5px] bg-[#2B2119] rounded-full transition-all duration-300 ${
                     isOpen ? "w-4 -rotate-45 -translate-y-[5.5px]" : "w-4"
                   }`} 
                 />
@@ -203,7 +203,7 @@ const TopBar = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="fixed inset-0 bg-[#38240D]/45 backdrop-blur-sm"
+                className="fixed inset-0 bg-[#2B2119]/45 backdrop-blur-sm"
                 onClick={closeMenu}
               />
 
@@ -214,14 +214,14 @@ const TopBar = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -16, scale: 0.97 }}
                   transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative w-full max-w-md bg-[#FAF7C8] border border-[#713600]/18 rounded-[24px] shadow-[0_20px_50px_rgba(56,36,13,0.22)] overflow-hidden flex flex-col"
+                  className="relative w-full max-w-md bg-[#FFF8D8] border border-[#D8D0A6] rounded-[24px] shadow-[0_20px_50px_rgba(43,33,25,0.22)] overflow-hidden flex flex-col"
                   onClick={(e) => e.stopPropagation()}
                 >
                   {/* Subtle decorative grid lines background */}
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,54,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,54,0,0.025)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] pointer-events-none" />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(84,42,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(84,42,0,0.025)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] pointer-events-none" />
 
                   {/* Modal Header */}
-                  <div className="relative z-10 flex items-center justify-between px-5 pt-5 pb-4 border-b border-[#713600]/12">
+                  <div className="relative z-10 flex items-center justify-between px-5 pt-5 pb-4 border-b border-[#D8D0A6]">
                     <div className="flex flex-col">
                       <Link 
                         href="/" 
@@ -229,11 +229,11 @@ const TopBar = () => {
                           setActiveHash("");
                           closeMenu();
                         }} 
-                        className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300"
+                        className="text-xl font-serif italic tracking-wide text-[#2B2119] hover:text-[#542A00] transition-colors duration-300"
                       >
-                        David <span className="not-italic text-lg text-[#713600]">ッ</span>
+                        David <span className="not-italic text-lg text-[#542A00]">ッ</span>
                       </Link>
-                      <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-[#713600]/60 font-bold mt-0.5">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-[#542A00]/65 font-bold mt-0.5">
                         00 // NAVIGATION INDEX
                       </span>
                     </div>
@@ -241,7 +241,7 @@ const TopBar = () => {
                     <button 
                       onClick={closeMenu} 
                       aria-label="Close menu" 
-                      className="w-9 h-9 rounded-full border border-[#713600]/20 bg-[#FDFBD4] text-[#38240D] hover:bg-[#713600] hover:text-[#FDFBD4] hover:border-transparent flex items-center justify-center transition-all duration-200 cursor-pointer shadow-2xs active:scale-95"
+                      className="w-9 h-9 rounded-full border border-[#D8D0A6] bg-[#F5F1D5] text-[#2B2119] hover:bg-[#542A00] hover:text-[#FFF8D8] hover:border-transparent flex items-center justify-center transition-all duration-200 cursor-pointer shadow-2xs active:scale-95"
                     >
                       <X className="h-4 w-4 stroke-[2.25]" />
                     </button>
@@ -272,8 +272,8 @@ const TopBar = () => {
                             }}
                             className={`group flex items-center justify-between p-3 rounded-2xl transition-all duration-200 border ${
                               active
-                                ? "bg-[#713600]/[0.08] border-[#713600]/25 shadow-2xs"
-                                : "border-transparent hover:bg-[#713600]/[0.05] hover:border-[#713600]/12"
+                                ? "bg-[#542A00]/[0.08] border-[#542A00]/25 shadow-2xs"
+                                : "border-transparent hover:bg-[#542A00]/[0.05] hover:border-[#D8D0A6]"
                             }`}
                           >
                             <div className="flex items-center gap-3.5 min-w-0">
@@ -281,8 +281,8 @@ const TopBar = () => {
                               <div
                                 className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 transition-colors duration-200 ${
                                   active
-                                    ? "bg-[#713600] border-[#713600] text-[#FDFBD4]"
-                                    : "bg-[#FDFBD4] border-[#713600]/15 text-[#713600] group-hover:bg-[#713600] group-hover:text-[#FDFBD4] group-hover:border-[#713600]"
+                                    ? "bg-[#542A00] border-[#542A00] text-[#FFF8D8]"
+                                    : "bg-[#F5F1D5] border-[#D8D0A6] text-[#542A00] group-hover:bg-[#542A00] group-hover:text-[#FFF8D8] group-hover:border-[#542A00]"
                                 }`}
                               >
                                 <Icon className="w-4 h-4" />
@@ -291,14 +291,14 @@ const TopBar = () => {
                               {/* Label & Description */}
                               <div className="flex flex-col min-w-0 text-left">
                                 <div className="flex items-center gap-2">
-                                  <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-[#713600]/60">
+                                  <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-[#542A00]/65">
                                     {item.coord}
                                   </span>
-                                  <span className="text-sm font-semibold tracking-wide text-[#38240D] uppercase group-hover:text-[#713600] transition-colors">
+                                  <span className="text-sm font-semibold tracking-wide text-[#2B2119] uppercase group-hover:text-[#542A00] transition-colors">
                                     {item.label}
                                   </span>
                                 </div>
-                                <span className="text-[11px] text-[#38240D]/60 font-serif italic truncate mt-0.5">
+                                <span className="text-[11px] text-[#2B2119]/60 font-serif italic truncate mt-0.5">
                                   {item.desc}
                                 </span>
                               </div>
@@ -307,12 +307,12 @@ const TopBar = () => {
                             {/* Right Status / Arrow Indicator */}
                             <div className="flex items-center shrink-0 pl-2">
                               {active ? (
-                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-[#713600] text-[#FDFBD4]">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-[#542A00] text-[#FFF8D8]">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#D97932] animate-pulse" />
                                   Current
                                 </span>
                               ) : (
-                                <ArrowRight className="w-4 h-4 text-[#713600]/40 group-hover:text-[#713600] group-hover:translate-x-0.5 transition-all" />
+                                <ArrowRight className="w-4 h-4 text-[#542A00]/45 group-hover:text-[#542A00] group-hover:translate-x-0.5 transition-all" />
                               )}
                             </div>
                           </Link>
@@ -322,15 +322,15 @@ const TopBar = () => {
                   </nav>
 
                   {/* ── Bottom Section: Direct Dispatch & Socials ───────── */}
-                  <div className="relative z-10 px-4 pt-3.5 pb-4.5 bg-[#FAF7C8]/90 border-t border-[#713600]/12 flex flex-col gap-3">
+                  <div className="relative z-10 px-4 pt-3.5 pb-4.5 bg-[#FFF8D8]/90 border-t border-[#D8D0A6] flex flex-col gap-3">
                     {/* Quick Dispatch Banner */}
-                    <div className="p-3.5 rounded-2xl bg-[#FDFBD4] border border-[#713600]/12 flex flex-col gap-2">
+                    <div className="p-3.5 rounded-2xl bg-[#F5F1D5] border border-[#D8D0A6] flex flex-col gap-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#713600]/60 flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#542A00]/65 flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D97932] animate-pulse" />
                           Direct Dispatch
                         </span>
-                        <span className="text-[9px] font-mono text-[#38240D]/50 uppercase font-semibold">
+                        <span className="text-[9px] font-mono text-[#2B2119]/50 uppercase font-semibold">
                           Ghana // GMT
                         </span>
                       </div>
@@ -338,7 +338,7 @@ const TopBar = () => {
                       <div className="flex items-center justify-between gap-3">
                         <a 
                           href="mailto:johndavid@yorku.ca"
-                          className="text-xs font-semibold text-[#38240D] hover:text-[#713600] transition-colors truncate"
+                          className="text-xs font-semibold text-[#2B2119] hover:text-[#542A00] transition-colors truncate"
                         >
                           johndavid@yorku.ca
                         </a>
@@ -349,7 +349,7 @@ const TopBar = () => {
                             setActiveHash("contact");
                             closeMenu();
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] transition-all shrink-0 shadow-2xs"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#542A00] hover:bg-[#3D1E00] text-[#FFF8D8] transition-all shrink-0 shadow-2xs"
                         >
                           <Send className="w-3 h-3" />
                           <span>Write</span>
@@ -372,14 +372,14 @@ const TopBar = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={social.label}
-                            className="w-8 h-8 rounded-full border border-[#713600]/15 bg-[#FDFBD4] text-[#38240D]/75 hover:bg-[#713600] hover:text-[#FDFBD4] hover:border-transparent flex items-center justify-center transition-all duration-200"
+                            className="w-8 h-8 rounded-full border border-[#D8D0A6] bg-[#F5F1D5] text-[#2B2119]/75 hover:bg-[#542A00] hover:text-[#FFF8D8] hover:border-transparent flex items-center justify-center transition-all duration-200"
                           >
                             <social.Icon className="w-3.5 h-3.5" />
                           </a>
                         ))}
                       </div>
 
-                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#713600]/40 font-semibold select-none">
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#542A00]/45 font-semibold select-none">
                         SYS_NAV_01
                       </span>
                     </div>

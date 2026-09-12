@@ -15,7 +15,7 @@ interface PublicationIconProps {
  */
 export function PublicationIcon({
     publication,
-    className = "w-[18px] h-[18px] text-[#713600] stroke-[1.75]",
+    className = "w-[18px] h-[18px] text-[#542A00] stroke-[1.75]",
     size,
     strokeWidth,
 }: PublicationIconProps) {
@@ -54,13 +54,13 @@ export default function PublicationAvatar({
     if (size === "sm") {
         return (
             <div
-                className={`w-4.5 h-4.5 rounded-[4px] bg-[#1A2129] flex items-center justify-center shrink-0 border border-white/10 overflow-hidden ${className}`}
+                className={`w-4.5 h-4.5 rounded-[4px] bg-[#292B2B] flex items-center justify-center shrink-0 border border-white/10 overflow-hidden ${className}`}
                 title={config.name}
                 aria-label={config.name}
             >
                 <PublicationIcon
                     publication={publication}
-                    className={`w-2.5 h-2.5 text-slate-300 stroke-[2] ${iconClassName}`}
+                    className={`w-2.5 h-2.5 text-[#D8D0A6] stroke-[2] ${iconClassName}`}
                 />
             </div>
         );
@@ -69,13 +69,13 @@ export default function PublicationAvatar({
     // Default 'md' circular avatar (40px x 40px)
     return (
         <div
-            className={`w-10 h-10 rounded-full overflow-hidden bg-[#713600]/10 flex items-center justify-center shrink-0 border border-[#713600]/15 shadow-2xs ${className}`}
+            className={`w-10 h-10 rounded-full overflow-hidden bg-[#542A00]/10 flex items-center justify-center shrink-0 border border-[#D8D0A6] shadow-2xs ${className}`}
             title={config.name}
             aria-label={config.name}
         >
             <PublicationIcon
                 publication={publication}
-                className={`w-[18px] h-[18px] text-[#713600] stroke-[1.75] ${iconClassName}`}
+                className={`w-[18px] h-[18px] text-[#542A00] stroke-[1.75] ${iconClassName}`}
             />
         </div>
     );

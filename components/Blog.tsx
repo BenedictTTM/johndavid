@@ -132,13 +132,13 @@ export default function Blog({ posts }: BlogProps) {
                     className="mb-6 md:mb-8 text-center"
                 >
                     <div className="flex items-center justify-center gap-2.5 mb-2 select-none">
-                        <div className="w-5 h-[1.5px] bg-[#713600]" />
-                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-[#713600]">
+                        <div className="w-5 h-[1.5px] bg-[#542A00]" />
+                        <span className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.3em] text-[#542A00]">
                             Publications &amp; Thoughts
                         </span>
-                        <div className="w-5 h-[1.5px] bg-[#713600]" />
+                        <div className="w-5 h-[1.5px] bg-[#542A00]" />
                     </div>
-                    <h2 className="text-3xl md:text-4xl lg:text-[42px] font-display font-extrabold text-[#38240D] uppercase tracking-tight leading-tight">
+                    <h2 className="text-3xl md:text-4xl lg:text-[42px] font-display font-extrabold text-[#2B2119] uppercase tracking-tight leading-tight">
                         Blog &amp; Articles
                     </h2>
                 </motion.div>
@@ -166,7 +166,7 @@ export default function Blog({ posts }: BlogProps) {
                                 className="flex flex-wrap items-center gap-2 mb-5"
                             >
                                 {activeType !== "all" && (
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#713600] text-[#FDFBD4] shadow-xs">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#542A00] text-[#FFF8D8] shadow-xs">
                                         {activeType === "article" ? "Articles" : "Notes"}
                                         <button
                                             type="button"
@@ -179,7 +179,7 @@ export default function Blog({ posts }: BlogProps) {
                                     </span>
                                 )}
                                 {activeCategory !== "all" && (
-                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#FF6719]/15 text-[#C05800] border border-[#FF6719]/20">
+                                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#D97932]/12 text-[#D97932] border border-[#D97932]/35">
                                         {activeCategory}
                                         <button
                                             type="button"
@@ -191,7 +191,7 @@ export default function Blog({ posts }: BlogProps) {
                                         </button>
                                     </span>
                                 )}
-                                <span className="text-xs text-[#38240D]/50 font-mono">
+                                <span className="text-xs text-[#2B2119]/50 font-mono">
                                     {filteredPosts.length} result{filteredPosts.length !== 1 ? "s" : ""}
                                 </span>
                             </motion.div>
@@ -204,10 +204,10 @@ export default function Blog({ posts }: BlogProps) {
                                 animate={{ opacity: 1 }}
                                 className="flex flex-col items-center justify-center py-12 text-center"
                             >
-                                <div className="w-11 h-11 rounded-full bg-[#713600]/08 flex items-center justify-center mb-3">
+                                <div className="w-11 h-11 rounded-full bg-[#542A00]/08 flex items-center justify-center mb-3">
                                     <span className="text-xl">📭</span>
                                 </div>
-                                <p className="text-sm font-medium text-[#38240D]/60">
+                                <p className="text-sm font-medium text-[#2B2119]/60">
                                     No posts found for this filter.
                                 </p>
                                 <button
@@ -216,7 +216,7 @@ export default function Blog({ posts }: BlogProps) {
                                         handleCategoryChange("all");
                                         handleTypeChange("all");
                                     }}
-                                    className="mt-3.5 text-xs font-semibold text-[#713600] hover:text-[#C05800] transition-colors cursor-pointer"
+                                    className="mt-3.5 text-xs font-semibold text-[#542A00] hover:text-[#3D1E00] transition-colors cursor-pointer"
                                 >
                                     Clear filters
                                 </button>
@@ -267,7 +267,7 @@ export default function Blog({ posts }: BlogProps) {
                                         type="button"
                                         onClick={handleManualLoadMore}
                                         disabled={isLoadingMore}
-                                        className="px-7 py-3 text-xs font-bold text-[#713600] border border-[#713600]/30 hover:bg-[#713600]/[0.06] rounded-full transition-all duration-200 uppercase tracking-widest cursor-pointer disabled:opacity-50 shadow-2xs"
+                                        className="px-7 py-3 text-xs font-bold text-[#542A00] border border-[#D8D0A6] hover:bg-[#542A00]/[0.06] rounded-full transition-all duration-200 uppercase tracking-widest cursor-pointer disabled:opacity-50 shadow-2xs"
                                     >
                                         {isLoadingMore ? "Loading Stories..." : "Load More Stories"}
                                     </button>
@@ -277,7 +277,7 @@ export default function Blog({ posts }: BlogProps) {
                                 {!isBlogPage && (
                                     <Link
                                         href="/blog"
-                                        className="px-7 py-3.5 text-xs font-bold text-[#FDFBD4] bg-[#713600] hover:bg-[#C05800] rounded-full hover:shadow-[0_6px_24px_rgba(192,88,0,0.3)] transition-all duration-300 uppercase tracking-widest shadow-[0_4px_16px_rgba(113,54,0,0.25)]"
+                                        className="px-7 py-3.5 text-xs font-bold text-[#FFF8D8] bg-[#542A00] hover:bg-[#3D1E00] rounded-full hover:shadow-[0_6px_24px_rgba(84,42,0,0.3)] transition-all duration-300 uppercase tracking-widest shadow-[0_4px_16px_rgba(84,42,0,0.25)]"
                                     >
                                         View All Articles
                                     </Link>
@@ -285,8 +285,8 @@ export default function Blog({ posts }: BlogProps) {
 
                                 {/* End of feed marker when all stories are loaded */}
                                 {visibleCount >= filteredPosts.length && (
-                                    <div className="py-2 text-[11px] font-mono uppercase tracking-wider text-[#713600]/50 select-none flex items-center gap-2">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-[#713600]/30" />
+                                    <div className="py-2 text-[11px] font-mono uppercase tracking-wider text-[#542A00]/50 select-none flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#542A00]/30" />
                                         <span>All {filteredPosts.length} publications displayed</span>
                                     </div>
                                 )}

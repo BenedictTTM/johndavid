@@ -74,46 +74,46 @@ function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#FDFBD4] font-sans">
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#F5F1D5] font-sans">
       {/* Premium Branding Section (Left) */}
-      <div className="relative hidden md:flex md:w-1/2 lg:w-3/5 bg-[#713600] overflow-hidden flex-col justify-between p-12 lg:p-20 text-[#FDFBD4]">
+      <div className="relative hidden md:flex md:w-1/2 lg:w-3/5 bg-[#542A00] overflow-hidden flex-col justify-between p-12 lg:p-20 text-[#FFF8D8]">
         {/* Architectural Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(253,251,212,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(253,251,212,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(245,241,213,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(245,241,213,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
         
         {/* Glow effect */}
-        <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-[#C05800]/25 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/4 -left-1/4 w-[500px] h-[500px] bg-[#D97932]/20 rounded-full blur-[140px] pointer-events-none" />
         
         {/* Header Branding */}
         <div className="relative z-10 flex items-center gap-3">
-            <div className="w-8 h-[2px] bg-[#C05800]" />
-            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#FDFBD4]">John David</span>
+            <div className="w-8 h-[2px] bg-[#D97932]" />
+            <span className="text-[11px] font-bold uppercase tracking-[0.3em] text-[#FFF8D8]">John David</span>
         </div>
 
         {/* Center Copy */}
         <div className="relative z-10 max-w-lg">
-            <h1 className="font-display font-extrabold uppercase leading-none tracking-tight select-none text-5xl lg:text-7xl text-[#FDFBD4] mb-6">
+            <h1 className="font-display font-extrabold uppercase leading-none tracking-tight select-none text-5xl lg:text-7xl text-[#FFF8D8] mb-6">
                 System <br/>
-                <span className="font-serif italic font-normal tracking-wide text-[#FAF7C8]">Access</span>
+                <span className="font-serif italic font-normal tracking-wide text-[#FFF8D8]">Access</span>
             </h1>
-            <p className="text-[#FAF7C8]/90 text-[1.1rem] md:text-[1.25rem] leading-relaxed tracking-wide font-serif italic font-light">
+            <p className="text-[#FFF8D8]/90 text-[1.1rem] md:text-[1.25rem] leading-relaxed tracking-wide font-serif italic font-light">
                 Secure portal for content management, ledger revisions, and system administration. Authorized personnel only.
             </p>
         </div>
         
         {/* Footer Coordinate Markers */}
-        <div className="relative z-10 flex justify-between items-center text-[9px] text-[#FDFBD4]/70 tracking-[0.3em] uppercase select-none font-mono">
+        <div className="relative z-10 flex justify-between items-center text-[9px] text-[#FFF8D8]/70 tracking-[0.3em] uppercase select-none font-mono">
             <span>01 // AUTH_PORTAL</span>
             <span>SYS_VER: 2026.05</span>
         </div>
       </div>
 
       {/* Form Section (Right) */}
-      <div className="flex w-full md:w-1/2 lg:w-2/5 items-center justify-center p-6 sm:p-8 md:p-12 lg:p-16 bg-[#FDFBD4] relative">
+      <div className="flex w-full md:w-1/2 lg:w-2/5 items-center justify-center p-6 sm:p-8 md:p-12 lg:p-16 bg-[#F5F1D5] relative">
         
         {/* Mobile Header Branding */}
         <div className="absolute top-6 left-6 md:hidden flex items-center gap-3">
-            <div className="w-5 h-[2px] bg-[#713600]" />
-            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#713600]">JD Ledger</span>
+            <div className="w-5 h-[2px] bg-[#542A00]" />
+            <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-[#542A00]">JD Ledger</span>
         </div>
 
         <div className="w-full max-w-sm space-y-8 relative z-10 mt-12 md:mt-0">
@@ -121,10 +121,10 @@ function AuthForm() {
           {/* Header */}
           <div>
             <div className="flex items-center gap-2 mb-2">
-                <Lock size={16} className="text-[#713600]" />
-                <h2 className="text-sm font-bold text-[#38240D] uppercase tracking-widest">Authentication</h2>
+                <Lock size={16} className="text-[#542A00]" />
+                <h2 className="text-sm font-bold text-[#2B2119] uppercase tracking-widest">Authentication</h2>
             </div>
-            <p className="text-xs text-[#38240D]/70 uppercase tracking-wider font-bold">
+            <p className="text-xs text-[#2B2119]/70 uppercase tracking-wider font-bold">
               Enter your credentials to proceed
             </p>
           </div>
@@ -132,15 +132,15 @@ function AuthForm() {
           {/* Form */}
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="space-y-2">
-                <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600]">
+                <label htmlFor="email" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#542A00]">
                     Email Address
                 </label>
                 <input
                     type="email"
                     name="email"
                     id="email"
-                    className={`w-full px-4 py-3 bg-[#FAF7C8] border rounded-lg focus:ring-2 focus:ring-[#713600]/20 focus:border-[#713600] outline-none transition-all duration-300 text-[#38240D] placeholder-[#38240D]/40 text-sm shadow-xs ${
-                        errors.email ? 'border-red-600' : 'border-[#713600]/20'
+                    className={`w-full px-4 py-3 bg-[#FFF8D8] border rounded-lg focus:ring-2 focus:ring-[#542A00]/20 focus:border-[#542A00] outline-none transition-all duration-300 text-[#2B2119] placeholder-[#2B2119]/40 text-sm shadow-xs ${
+                        errors.email ? 'border-red-600' : 'border-[#D8D0A6]'
                     }`}
                     placeholder="admin@johndavid.com"
                 />
@@ -149,7 +149,7 @@ function AuthForm() {
 
             <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#713600]">
+                    <label htmlFor="password" className="block text-[10px] font-bold uppercase tracking-[0.25em] text-[#542A00]">
                         Password
                     </label>
                 </div>
@@ -157,8 +157,8 @@ function AuthForm() {
                     type="password"
                     name="password"
                     id="password"
-                    className={`w-full px-4 py-3 bg-[#FAF7C8] border rounded-lg focus:ring-2 focus:ring-[#713600]/20 focus:border-[#713600] outline-none transition-all duration-300 text-[#38240D] placeholder-[#38240D]/40 text-sm shadow-xs ${
-                        errors.password ? 'border-red-600' : 'border-[#713600]/20'
+                    className={`w-full px-4 py-3 bg-[#FFF8D8] border rounded-lg focus:ring-2 focus:ring-[#542A00]/20 focus:border-[#542A00] outline-none transition-all duration-300 text-[#2B2119] placeholder-[#2B2119]/40 text-sm shadow-xs ${
+                        errors.password ? 'border-red-600' : 'border-[#D8D0A6]'
                     }`}
                     placeholder="••••••••"
                 />
@@ -172,8 +172,8 @@ function AuthForm() {
                     w-full
                     py-3.5
                     rounded-lg
-                    bg-[#713600]
-                    text-[#FDFBD4]
+                    bg-[#542A00]
+                    text-[#FFF8D8]
                     text-[11px]
                     uppercase
                     tracking-[0.2em]
@@ -185,7 +185,7 @@ function AuthForm() {
                     justify-center
                     gap-2.5
                     shadow-sm
-                    hover:bg-[#C05800]
+                    hover:bg-[#3D1E00]
                     disabled:opacity-70
                     disabled:cursor-not-allowed
                     cursor-pointer
@@ -193,12 +193,12 @@ function AuthForm() {
             >
                 {isSubmitting ? (
                     <>
-                        <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FDFBD4]" />
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FFF8D8]" />
                         Authenticating...
                     </>
                 ) : (
                     <>
-                        <Sparkles size={13} className="text-[#FDFBD4]" />
+                        <Sparkles size={13} className="text-[#FFF8D8]" />
                         Initialize Session
                     </>
                 )}
@@ -208,17 +208,17 @@ function AuthForm() {
           {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-[#713600]/15"></div>
+              <div className="w-full border-t border-[#D8D0A6]"></div>
             </div>
             <div className="relative flex justify-center text-[9px] uppercase tracking-[0.2em] font-bold">
-              <span className="px-4 bg-[#FDFBD4] text-[#38240D]/60">Or</span>
+              <span className="px-4 bg-[#F5F1D5] text-[#2B2119]/60">Or</span>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => toast('Google authentication coming soon.')}
-            className="w-full py-3 px-4 bg-[#FAF7C8] border border-[#713600]/20 rounded-lg flex items-center justify-center gap-3 text-[10px] uppercase tracking-wider font-bold text-[#38240D] hover:bg-[#713600]/10 transition-all shadow-xs cursor-pointer"
+            className="w-full py-3 px-4 bg-[#FFF8D8] border border-[#D8D0A6] rounded-lg flex items-center justify-center gap-3 text-[10px] uppercase tracking-wider font-bold text-[#2B2119] hover:bg-[#542A00]/10 transition-all shadow-xs cursor-pointer"
           >
             <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
               <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
@@ -238,7 +238,7 @@ function AuthForm() {
 
 export default function LogInPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FDFBD4] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-[#713600]" /></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#F5F1D5] flex items-center justify-center"><Loader2 className="w-6 h-6 animate-spin text-[#542A00]" /></div>}>
       <AuthForm />
     </Suspense>
   );

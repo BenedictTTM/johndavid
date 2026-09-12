@@ -7,17 +7,17 @@ export default function Contact() {
                 {/* Header */}
                 <div className="text-center mb-8 md:mb-10 max-w-3xl mx-auto">
                     <div className="flex items-center justify-center gap-3 mb-2.5 select-none">
-                        <div className="w-6 h-[2px] bg-[#713600]" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.35em] text-[#713600]">
+                        <div className="w-6 h-[2px] bg-[#542A00]" />
+                        <span className="text-[11px] font-bold uppercase tracking-[0.35em] text-[#542A00]">
                             Inquiries & Engagements
                         </span>
-                        <div className="w-6 h-[2px] bg-[#713600]" />
+                        <div className="w-6 h-[2px] bg-[#542A00]" />
                     </div>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-[#38240D] mb-4 uppercase tracking-tight">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-[#2B2119] mb-4 uppercase tracking-tight">
                         Get in Touch
                     </h2>
                     <p 
-                        className="text-lg md:text-xl text-[#38240D]/80 italic font-serif leading-relaxed"
+                        className="text-lg md:text-xl text-[#2B2119]/80 italic font-serif leading-relaxed"
                         style={{ fontFamily: "var(--font-cormorant)" }}
                     >
                         &ldquo;Available for academic collaboration, speaking engagements, and consultation.&rdquo;
@@ -27,15 +27,15 @@ export default function Contact() {
                 {/* Email Display */}
                 <div className="flex flex-col items-center justify-center w-full">
                     <div className="text-center w-full group">
-                        <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#713600] mb-4">
+                        <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#542A00] mb-4">
                             Direct Email
                         </h3>
                         <a
                             href="mailto:johndavid@yorku.ca"
-                            className="relative inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-[#38240D] tracking-tight hover:text-[#C05800] transition-colors duration-300"
+                            className="relative inline-block text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-[#2B2119] tracking-tight hover:text-[#542A00] transition-colors duration-300"
                         >
                             johndavid@yorku.ca
-                            <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-[#C05800] transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
+                            <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-[#542A00] transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100" />
                         </a>
                     </div>
                 </div>

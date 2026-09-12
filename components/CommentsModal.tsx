@@ -140,7 +140,7 @@ export default function CommentsModal({
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-[#1D1308]/60 backdrop-blur-sm cursor-pointer"
+                        className="fixed inset-0 bg-[#2B2119]/55 backdrop-blur-sm cursor-pointer"
                     />
 
                     {/* Modal Window */}
@@ -149,20 +149,20 @@ export default function CommentsModal({
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: 16 }}
                         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full max-w-lg bg-[#FDFBD4] rounded-3xl border border-[#713600]/20 shadow-[0_24px_60px_rgba(56,36,13,0.25)] overflow-hidden z-10 flex flex-col max-h-[88vh]"
+                        className="relative w-full max-w-lg bg-[#FFF8D8] rounded-3xl border border-[#D8D0A6] shadow-[0_24px_60px_rgba(43,33,25,0.25)] overflow-hidden z-10 flex flex-col max-h-[88vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4.5 border-b border-[#713600]/12 bg-[#FAF7C8]/80">
+                        <div className="flex items-center justify-between px-6 py-4.5 border-b border-[#D8D0A6] bg-[#FFF8D8]/80">
                             <div className="flex items-center gap-2.5 min-w-0">
-                                <div className="w-8 h-8 rounded-full bg-[#713600]/10 flex items-center justify-center text-[#713600]">
+                                <div className="w-8 h-8 rounded-full bg-[#542A00]/10 flex items-center justify-center text-[#542A00]">
                                     <MessageCircle className="w-4 h-4 stroke-[2]" />
                                 </div>
                                 <div className="min-w-0">
-                                    <h3 className="text-sm font-bold text-[#38240D] uppercase tracking-wide truncate">
+                                    <h3 className="text-sm font-bold text-[#2B2119] uppercase tracking-wide truncate">
                                         Comments
                                     </h3>
-                                    <p className="text-[11px] text-[#38240D]/60 truncate max-w-[280px]">
+                                    <p className="text-[11px] text-[#2B2119]/60 truncate max-w-[280px]">
                                         {postTitle}
                                     </p>
                                 </div>
@@ -171,7 +171,7 @@ export default function CommentsModal({
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="w-8 h-8 rounded-full flex items-center justify-center text-[#38240D]/60 hover:text-[#38240D] hover:bg-[#713600]/10 transition-colors cursor-pointer"
+                                className="w-8 h-8 rounded-full flex items-center justify-center text-[#2B2119]/60 hover:text-[#2B2119] hover:bg-[#542A00]/10 transition-colors cursor-pointer"
                                 aria-label="Close comments"
                             >
                                 <X className="w-4 h-4" />
@@ -179,19 +179,19 @@ export default function CommentsModal({
                         </div>
 
                         {/* Comments List */}
-                        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 divide-y divide-[#713600]/08">
+                        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 divide-y divide-[#D8D0A6]/40">
                             {loading ? (
-                                <div className="flex flex-col items-center justify-center py-12 text-[#713600]/60">
-                                    <Loader2 className="w-6 h-6 animate-spin mb-2 text-[#713600]" />
+                                <div className="flex flex-col items-center justify-center py-12 text-[#542A00]/65">
+                                    <Loader2 className="w-6 h-6 animate-spin mb-2 text-[#542A00]" />
                                     <span className="text-xs font-mono">Loading discussion...</span>
                                 </div>
                             ) : comments.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center py-10 text-center">
-                                    <div className="w-10 h-10 rounded-full bg-[#713600]/08 flex items-center justify-center mb-2.5 text-lg">
+                                    <div className="w-10 h-10 rounded-full bg-[#542A00]/08 flex items-center justify-center mb-2.5 text-lg">
                                         💬
                                     </div>
-                                    <p className="text-xs font-semibold text-[#38240D]">No comments yet</p>
-                                    <p className="text-[11px] text-[#38240D]/60 mt-0.5">
+                                    <p className="text-xs font-semibold text-[#2B2119]">No comments yet</p>
+                                    <p className="text-[11px] text-[#2B2119]/60 mt-0.5">
                                         Be the first to start the conversation!
                                     </p>
                                 </div>
@@ -200,14 +200,14 @@ export default function CommentsModal({
                                     <div key={comment.id} className="pt-4 first:pt-0">
                                         <div className="flex items-center justify-between mb-1.5">
                                             <div className="flex items-center gap-2">
-                                                <div className="w-6 h-6 rounded-full bg-[#713600]/15 flex items-center justify-center text-[10px] font-bold text-[#713600]">
+                                                <div className="w-6 h-6 rounded-full bg-[#542A00]/12 flex items-center justify-center text-[10px] font-bold text-[#542A00]">
                                                     {comment.name?.[0]?.toUpperCase() || "A"}
                                                 </div>
-                                                <span className="text-xs font-semibold text-[#38240D]">
+                                                <span className="text-xs font-semibold text-[#2B2119]">
                                                     {comment.name}
                                                 </span>
                                             </div>
-                                            <span className="text-[10px] font-mono text-[#38240D]/50">
+                                            <span className="text-[10px] font-mono text-[#2B2119]/50">
                                                 {comment.createdAt
                                                     ? new Date(comment.createdAt).toLocaleDateString("en-US", {
                                                           month: "short",
@@ -216,7 +216,7 @@ export default function CommentsModal({
                                                     : ""}
                                             </span>
                                         </div>
-                                        <p className="text-xs text-[#38240D]/85 pl-8 leading-relaxed whitespace-pre-line">
+                                        <p className="text-xs text-[#2B2119]/85 pl-8 leading-relaxed whitespace-pre-line">
                                             {comment.body}
                                         </p>
                                     </div>
@@ -227,7 +227,7 @@ export default function CommentsModal({
                         {/* Add Comment Form */}
                         <form
                             onSubmit={handleSubmit}
-                            className="p-5 border-t border-[#713600]/12 bg-[#FAF7C8]/90 flex flex-col gap-3"
+                            className="p-5 border-t border-[#D8D0A6] bg-[#FFF8D8]/90 flex flex-col gap-3"
                         >
                             {error && (
                                 <p className="text-[11px] text-red-600 font-medium px-1">{error}</p>
@@ -240,7 +240,7 @@ export default function CommentsModal({
 
                             <div className="flex gap-2">
                                 <div className="relative flex-1">
-                                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-[#713600]/50">
+                                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-[#542A00]/55">
                                         <User className="w-3.5 h-3.5" />
                                     </div>
                                     <input
@@ -249,7 +249,7 @@ export default function CommentsModal({
                                         value={name}
                                         onChange={(e) => setName(e.target.value)}
                                         maxLength={60}
-                                        className="w-full pl-8.5 pr-3 py-2 text-xs bg-white/70 border border-[#713600]/20 rounded-xl text-[#38240D] placeholder-[#38240D]/40 focus:outline-none focus:ring-1 focus:ring-[#713600] focus:border-[#713600] transition-colors"
+                                        className="w-full pl-8.5 pr-3 py-2 text-xs bg-[#F5F1D5]/60 border border-[#D8D0A6] rounded-xl text-[#2B2119] placeholder-[#2B2119]/40 focus:outline-none focus:ring-1 focus:ring-[#542A00] focus:border-[#542A00] transition-colors"
                                     />
                                 </div>
                             </div>
@@ -261,18 +261,18 @@ export default function CommentsModal({
                                     value={body}
                                     onChange={(e) => setBody(e.target.value)}
                                     maxLength={2000}
-                                    className="w-full px-3.5 py-2.5 text-xs bg-white/70 border border-[#713600]/20 rounded-xl text-[#38240D] placeholder-[#38240D]/40 focus:outline-none focus:ring-1 focus:ring-[#713600] focus:border-[#713600] transition-colors resize-none leading-relaxed"
+                                    className="w-full px-3.5 py-2.5 text-xs bg-[#F5F1D5]/60 border border-[#D8D0A6] rounded-xl text-[#2B2119] placeholder-[#2B2119]/40 focus:outline-none focus:ring-1 focus:ring-[#542A00] focus:border-[#542A00] transition-colors resize-none leading-relaxed"
                                 />
                             </div>
 
                             <div className="flex items-center justify-between pt-0.5">
-                                <span className="text-[10px] font-mono text-[#38240D]/40">
+                                <span className="text-[10px] font-mono text-[#2B2119]/45">
                                     {body.length}/2000
                                 </span>
                                 <button
                                     type="submit"
                                     disabled={submitting || !body.trim() || !name.trim()}
-                                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-white bg-[#FF6719] hover:bg-[#E5570F] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xs cursor-pointer uppercase tracking-wider"
+                                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold text-[#FFF8D8] bg-[#542A00] hover:bg-[#3D1E00] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xs cursor-pointer uppercase tracking-wider"
                                 >
                                     {submitting ? (
                                         <Loader2 className="w-3.5 h-3.5 animate-spin" />

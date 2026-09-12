@@ -95,15 +95,15 @@ export default function LikeButton({ postId, initialLikes, className, variant = 
                     className={`w-[18px] h-[18px] stroke-[1.75] transition-all duration-300 ${
                         isLiked
                             ? "fill-[#FF3040] text-[#FF3040] scale-110"
-                            : "text-[#38240D]/60 group-hover:text-[#FF3040]"
+                            : "text-[#2B2119]/60 group-hover:text-[#FF3040]"
                     }`}
                 />
             ) : (
                 <ThumbsUp
                     className={`w-4 h-4 stroke-[1.75] transition-all duration-300 ${
                         isLiked
-                            ? "fill-[#C05800] text-[#C05800] scale-110"
-                            : "text-[#38240D]/60 group-hover:text-[#713600]"
+                            ? "fill-[#D97932] text-[#D97932] scale-110"
+                            : "text-[#2B2119]/60 group-hover:text-[#542A00]"
                     }`}
                 />
             )}
@@ -111,8 +111,8 @@ export default function LikeButton({ postId, initialLikes, className, variant = 
                 <span
                     className={`text-[12px] transition-colors ${
                         isLiked
-                            ? (variant === "heart" ? "text-[#FF3040] font-medium" : "text-[#C05800] font-bold")
-                            : "text-[#38240D]/70 group-hover:text-[#713600]"
+                            ? (variant === "heart" ? "text-[#FF3040] font-medium" : "text-[#D97932] font-bold")
+                            : "text-[#2B2119]/70 group-hover:text-[#542A00]"
                     }`}
                 >
                     {likes}

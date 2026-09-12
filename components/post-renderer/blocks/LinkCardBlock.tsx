@@ -23,7 +23,7 @@ export function LinkCardBlockView({ block }: LinkCardBlockViewProps) {
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
-                    className="flex-shrink-0 w-14 h-14 rounded-lg object-cover border border-[#713600]/10"
+                    className="flex-shrink-0 w-14 h-14 rounded-lg object-cover border border-[#D8D0A6]"
                 />
             )}
 
@@ -40,7 +40,7 @@ export function LinkCardBlockView({ block }: LinkCardBlockViewProps) {
                         <span className={ed.linkCardHost}>{block.host}</span>
                         <ExternalLink
                             className="w-2.5 h-2.5"
-                            style={{ color: 'rgba(113, 54, 0, 0.5)' }}
+                            style={{ color: 'rgba(84, 42, 0, 0.5)' }}
                             aria-hidden="true"
                             strokeWidth={2.5}
                         />
