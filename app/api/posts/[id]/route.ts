@@ -163,6 +163,8 @@ export async function PUT(
         console.error('Failed to process image upload during update:', uploadError);
         return NextResponse.json({ error: 'Failed to process image upload', details: uploadError }, { status: 500 });
       }
+    } else if (category.trim().toLowerCase() === 'note') {
+      dataToUpdate.image = null;
     }
 
     console.log('Updating database...');

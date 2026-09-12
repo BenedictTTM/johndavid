@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import {
     Image as ImageIcon,
-    Video,
     Smile,
     Calendar,
     MoreHorizontal,
@@ -21,7 +20,6 @@ import { EmojiPicker } from '@/components/admin/note/EmojiPicker';
 import { PollBuilder, type PollData } from '@/components/admin/note/PollBuilder';
 import { SchedulePopover } from '@/components/admin/note/SchedulePopover';
 import { FormattingToolbar } from '@/components/admin/note/FormattingToolbar';
-import { VideoAttachmentModal } from '@/components/admin/note/VideoAttachmentModal';
 import { DraftsModal, type DraftPost } from '@/components/admin/note/DraftsModal';
 import { CharacterProgressRing } from '@/components/admin/note/CharacterProgressRing';
 import type { PostDocument, ContentBlock } from '@/types/content';
@@ -36,9 +34,6 @@ export default function CreateNotePage() {
     // Media Attachments
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [videoFile, setVideoFile] = useState<File | null>(null);
-    const [videoPreview, setVideoPreview] = useState<string | null>(null);
-    const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
     // Poll State
     const [isPollActive, setIsPollActive] = useState(false);
@@ -54,7 +49,6 @@ export default function CreateNotePage() {
     // UI Popovers & Modals
     const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
     const [isFormattingOpen, setIsFormattingOpen] = useState(false);
-    const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
     const [isDraftsModalOpen, setIsDraftsModalOpen] = useState(false);
 
     // Submission & Draft Editing
@@ -63,15 +57,6 @@ export default function CreateNotePage() {
     const [isDragging, setIsDragging] = useState(false);
 
     const fileInputRef = useRef<HTMLInputElement>(null);
-
-    // Clean up object URLs on unmount
-    useEffect(() => {
-        return () => {
-            if (videoPreview && videoPreview.startsWith('blob:')) {
-                URL.revokeObjectURL(videoPreview);
-            }
-        };
-    }, [videoPreview]);
 
     // ── Image Attachment Handling ─────────────────────────────────────────────
     const handleImageSelect = (file: File) => {
@@ -95,28 +80,7 @@ export default function CreateNotePage() {
         if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
-    // ── Video Attachment Handling ─────────────────────────────────────────────
-    const handleAttachVideoFile = (file: File) => {
-        setVideoFile(file);
-        setVideoUrl(null);
-        const url = URL.createObjectURL(file);
-        setVideoPreview(url);
-    };
 
-    const handleAttachVideoUrl = (url: string) => {
-        setVideoUrl(url);
-        setVideoFile(null);
-        setVideoPreview(url);
-    };
-
-    const handleRemoveVideo = () => {
-        if (videoPreview && videoPreview.startsWith('blob:')) {
-            URL.revokeObjectURL(videoPreview);
-        }
-        setVideoFile(null);
-        setVideoPreview(null);
-        setVideoUrl(null);
-    };
 
     // ── Textarea Formatting & Insertion Helpers ───────────────────────────────
     const insertTextAtCursor = (prefix: string, suffix: string = '', defaultText: string = '') => {
@@ -167,11 +131,8 @@ export default function CreateNotePage() {
         if (file.type.startsWith('image/')) {
             handleImageSelect(file);
             toast.success('Image attached');
-        } else if (file.type.startsWith('video/')) {
-            handleAttachVideoFile(file);
-            toast.success('Video attached');
         } else {
-            toast.error('Please drop an image or video file');
+            toast.error('Please drop an image file');
         }
     };
 
@@ -186,13 +147,6 @@ export default function CreateNotePage() {
                 if (file) {
                     handleImageSelect(file);
                     toast.success('Image pasted from clipboard');
-                    break;
-                }
-            } else if (item.type.startsWith('video/')) {
-                const file = item.getAsFile();
-                if (file) {
-                    handleAttachVideoFile(file);
-                    toast.success('Video pasted from clipboard');
                     break;
                 }
             }
@@ -210,9 +164,6 @@ export default function CreateNotePage() {
             setImagePreview(null);
             setImageFile(null);
         }
-        setVideoFile(null);
-        setVideoPreview(null);
-        setVideoUrl(null);
         setIsPollActive(false);
         setScheduledDate(null);
         toast.info('Draft loaded into editor');
@@ -221,7 +172,7 @@ export default function CreateNotePage() {
     // ── Submit Note (Publish, Draft, or Schedule) ────────────────────────────
     const submitPost = async (publishStatus: boolean) => {
         const trimmedContent = content.trim();
-        const hasMedia = imageFile !== null || imagePreview !== null || videoFile !== null || videoUrl !== null;
+        const hasMedia = imageFile !== null || imagePreview !== null;
         const validPollOptions = poll.options.filter(o => o.trim().length > 0);
 
         if (!trimmedContent && !hasMedia && (!isPollActive || validPollOptions.length < 2)) {
@@ -255,10 +206,6 @@ export default function CreateNotePage() {
             ].join('\n');
         }
 
-        if (videoUrl && !videoFile) {
-            finalContent = [finalContent, finalContent ? '\n\n' : '', `🎥 Video: ${videoUrl}`].join('\n');
-        }
-
         // Build structured PostDocument blocks
         const blocks: ContentBlock[] = [];
         if (trimmedContent) {
@@ -282,16 +229,6 @@ export default function CreateNotePage() {
                     kind: 'text',
                     text: `${i + 1}. ${opt.trim()}${i < validPollOptions.length - 1 ? '\n' : ''}`,
                 })),
-            });
-        }
-
-        if (videoUrl && !videoFile) {
-            blocks.push({
-                id: `vid-${Date.now()}`,
-                type: 'link_card',
-                url: videoUrl,
-                title: 'Attached Video',
-                description: videoUrl,
             });
         }
 
@@ -321,8 +258,6 @@ export default function CreateNotePage() {
             // Media attachment
             if (imageFile) {
                 formData.append('image', imageFile);
-            } else if (videoFile) {
-                formData.append('image', videoFile);
             }
 
             const endpoint = activeDraftId ? `/api/posts/${activeDraftId}` : '/api/posts';
@@ -372,33 +307,7 @@ export default function CreateNotePage() {
         content.trim().length > 0 ||
         imageFile !== null ||
         imagePreview !== null ||
-        videoFile !== null ||
-        videoUrl !== null ||
         (isPollActive && poll.options.some(o => o.trim().length > 0));
-
-    // YouTube/Vimeo embed preview helper
-    const getEmbedUrl = (url: string) => {
-        try {
-            if (url.includes('youtube.com/watch')) {
-                const urlObj = new URL(url);
-                const v = urlObj.searchParams.get('v');
-                if (v) return `https://www.youtube.com/embed/${v}`;
-            }
-            if (url.includes('youtu.be/')) {
-                const id = url.split('youtu.be/')[1]?.split('?')[0];
-                if (id) return `https://www.youtube.com/embed/${id}`;
-            }
-            if (url.includes('vimeo.com/')) {
-                const id = url.split('vimeo.com/')[1]?.split('?')[0];
-                if (id) return `https://player.vimeo.com/video/${id}`;
-            }
-        } catch {
-            return null;
-        }
-        return null;
-    };
-
-    const embedUrl = videoUrl ? getEmbedUrl(videoUrl) : null;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs">
@@ -527,40 +436,7 @@ export default function CreateNotePage() {
                         </div>
                     )}
 
-                    {/* Video Attachment Preview */}
-                    {videoPreview && (
-                        <div className="relative w-full rounded-xl overflow-hidden my-3 border border-white/10 bg-black/40">
-                            {embedUrl ? (
-                                <div className="relative w-full aspect-[16/9]">
-                                    <iframe
-                                        src={embedUrl}
-                                        title="Video preview"
-                                        className="w-full h-full border-0 rounded-xl"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                    />
-                                </div>
-                            ) : (
-                                <div className="p-2">
-                                    <video
-                                        src={videoPreview}
-                                        controls
-                                        playsInline
-                                        className="w-full max-h-[300px] rounded-lg bg-black object-contain"
-                                    />
-                                </div>
-                            )}
 
-                            <button
-                                type="button"
-                                onClick={handleRemoveVideo}
-                                className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-black/80 hover:bg-black text-white flex items-center justify-center transition-colors cursor-pointer z-10 shadow-md"
-                                title="Remove video"
-                            >
-                                <X className="w-4 h-4" />
-                            </button>
-                        </div>
-                    )}
 
                     {/* Poll Builder Card */}
                     {isPollActive && (
@@ -602,17 +478,6 @@ export default function CreateNotePage() {
                             title="Add image"
                         >
                             <ImageIcon className="w-5 h-5 stroke-[1.75]" />
-                        </button>
-
-                        {/* Video Button */}
-                        <button
-                            type="button"
-                            onClick={() => setIsVideoModalOpen(true)}
-                            className={`transition-colors cursor-pointer p-1 -m-1 ${videoPreview ? 'text-[#FF6719]' : 'hover:text-white'
-                                }`}
-                            title="Add video"
-                        >
-                            <Video className="w-5 h-5 stroke-[1.75]" />
                         </button>
 
                         {/* Emoji Picker Button & Popover */}
@@ -730,13 +595,7 @@ export default function CreateNotePage() {
                 </div>
             </motion.div>
 
-            {/* Video Attachment Modal */}
-            <VideoAttachmentModal
-                isOpen={isVideoModalOpen}
-                onClose={() => setIsVideoModalOpen(false)}
-                onAttachVideoFile={handleAttachVideoFile}
-                onAttachVideoUrl={handleAttachVideoUrl}
-            />
+
 
             {/* Drafts Manager Modal */}
             <DraftsModal

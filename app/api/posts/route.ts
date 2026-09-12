@@ -114,6 +114,9 @@ export async function POST(request: Request) {
     const dateRaw = formData.get('date') as string | null;
     const date = dateRaw ? new Date(dateRaw) : undefined;
 
+    const isNote = category.trim().toLowerCase() === 'note';
+    const defaultImage = isNote ? null : 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop';
+
     console.log('Saving to database...');
     const post = await prisma.post.create({
       data: {
@@ -122,7 +125,7 @@ export async function POST(request: Request) {
         content: content || '',
         contentBlocks: contentBlocks ?? undefined,
         category,
-        image: imageUrl || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop',
+        image: imageUrl || defaultImage,
         readTime,
         published,
         ...(date && !isNaN(date.getTime()) ? { date } : {}),

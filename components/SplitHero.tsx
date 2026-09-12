@@ -156,7 +156,6 @@ export default function SplitHero() {
                   w-full
                   sm:w-auto
                   min-w-[200px]
-                  max-w-[280px]
                   sm:max-w-none
                   justify-center
                   rounded-lg
@@ -176,10 +175,11 @@ export default function SplitHero() {
                   items-center
                   gap-3
                   cursor-pointer
+                  whitespace-nowrap
                 "
               >
-                <span className="relative z-10 flex items-center gap-2.5 text-[#FFF8D8]">
-                  <Calendar size={14} className="text-[#FFF8D8]" />
+                <span className="relative z-10 flex items-center gap-2.5 text-[#FFF8D8] whitespace-nowrap">
+                  <Calendar size={14} className="text-[#FFF8D8] shrink-0" />
                   Schedule a Call
                 </span>
               </motion.button>

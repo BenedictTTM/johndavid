@@ -115,31 +115,33 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                         </motion.div>
                     </div>
 
-                    {/* Parallax Hero Image */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-                        className="w-full max-w-5xl mx-auto px-4 sm:px-6 mb-12 md:mb-20"
-                    >
-                        <div
-                            ref={targetRef}
-                            className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl bg-[#FFF8D8] border border-[#D8D0A6] group/image shadow-[0_12px_40px_rgba(43,33,25,0.06)]"
+                    {/* Parallax Hero Image (rendered only if post has an image) */}
+                    {post.image ? (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            className="w-full max-w-5xl mx-auto px-4 sm:px-6 mb-12 md:mb-20"
                         >
-                            <div className="relative w-full h-full overflow-hidden rounded-2xl">
-                                <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
-                                    <Image
-                                        src={post.image || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
-                                        alt={post.title}
-                                        fill
-                                        className="object-cover transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/image:scale-[1.03]"
-                                        priority
-                                        sizes="100vw"
-                                    />
-                                </motion.div>
+                            <div
+                                ref={targetRef}
+                                className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl bg-[#FFF8D8] border border-[#D8D0A6] group/image shadow-[0_12px_40px_rgba(43,33,25,0.06)]"
+                            >
+                                <div className="relative w-full h-full overflow-hidden rounded-2xl">
+                                    <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
+                                        <Image
+                                            src={post.image}
+                                            alt={post.title}
+                                            fill
+                                            className="object-cover transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/image:scale-[1.03]"
+                                            priority
+                                            sizes="100vw"
+                                        />
+                                    </motion.div>
+                                </div>
                             </div>
-                        </div>
-                    </motion.div>
+                        </motion.div>
+                    ) : null}
 
                     {/* Dual-Column Reading Structure */}
                     <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-12 relative overflow-x-hidden">
@@ -183,78 +185,73 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
 
                             {/* Article Body Column */}
                             <div className="col-span-1 lg:col-span-9 w-full min-w-0 overflow-x-hidden">
+                                {/* Main Text Area Card (Lighter, warmer white background) */}
+                                <div className="rounded-2xl border border-[#D8D0A6] bg-[#FFFDF5] p-6 sm:p-8 md:p-10 shadow-[0_4px_24px_rgba(43,33,25,0.04)] mb-12">
+                                    {/* Excerpt */}
+                                    {post.excerpt && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 15 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.8 }}
+                                            className="relative pl-5 md:pl-8 border-l-3 border-[#542A00] mb-8 md:mb-10"
+                                        >
+                                            <p className="text-[1.2rem] md:text-[1.4rem] leading-relaxed text-[#2B2119] font-serif italic font-normal tracking-wide">
+                                                {post.excerpt}
+                                            </p>
+                                        </motion.div>
+                                    )}
 
-                                {/* Excerpt */}
-                                {post.excerpt && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 15 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.8 }}
-                                        className="relative pl-5 md:pl-8 border-l-3 border-[#542A00] mb-10 md:mb-14"
-                                    >
-                                        <p className="text-[1.2rem] md:text-[1.4rem] leading-relaxed text-[#2B2119] font-serif italic font-normal tracking-wide">
-                                            {post.excerpt}
-                                        </p>
-                                    </motion.div>
-                                )}
+                                    {/* Main Body Content */}
+                                    {post.contentBlocks?.blocks?.length ? (
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.8, delay: 0.1 }}
+                                        >
+                                            <PostRenderer content={post.contentBlocks} />
+                                        </motion.div>
+                                    ) : (
+                                        /* ── Legacy HTML fallback (Quill-authored posts) ── */
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            whileInView={{ opacity: 1 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.8, delay: 0.1 }}
+                                            className={`
+                                                prose prose-neutral
+                                                w-full max-w-full overflow-x-hidden
+                                                break-words
+                                                [word-break:break-word]
+                                                [overflow-wrap:anywhere]
 
-                                {/* Main Body Content
-                                 *
-                                 * Rendering strategy:
-                                 *   1. If the post has structured contentBlocks → PostRenderer
-                                 *      (type-safe, XSS-free, block-level components)
-                                 *   2. Fallback → legacy Quill HTML string via dangerouslySetInnerHTML
-                                 *      (all existing posts; preserved indefinitely for backward compat)
-                                 */}
-                                {post.contentBlocks?.blocks?.length ? (
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.8, delay: 0.1 }}
-                                    >
-                                        <PostRenderer content={post.contentBlocks} />
-                                    </motion.div>
-                                ) : (
-                                    /* ── Legacy HTML fallback (Quill-authored posts) ── */
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        whileInView={{ opacity: 1 }}
-                                        viewport={{ once: true }}
-                                        transition={{ duration: 0.8, delay: 0.1 }}
-                                        className={`
-                                            prose prose-neutral
-                                            w-full max-w-full overflow-x-hidden
-                                            break-words
-                                            [word-break:break-word]
-                                            [overflow-wrap:anywhere]
+                                                prose-headings:font-serif prose-headings:text-[#2B2119] prose-headings:font-semibold prose-headings:tracking-tight
+                                                prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#D8D0A6]
+                                                prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
 
-                                            prose-headings:font-serif prose-headings:text-[#2B2119] prose-headings:font-semibold prose-headings:tracking-tight
-                                            prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#D8D0A6]
-                                            prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
+                                                prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#2B2119]/85 prose-p:mb-6 prose-p:font-normal
 
-                                            prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#2B2119]/85 prose-p:mb-6 prose-p:font-normal
+                                                prose-a:text-[#542A00] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#542A00]/30 hover:prose-a:border-[#D97932] hover:prose-a:text-[#D97932] prose-a:transition-all
 
-                                            prose-a:text-[#542A00] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#542A00]/30 hover:prose-a:border-[#D97932] hover:prose-a:text-[#D97932] prose-a:transition-all
+                                                prose-blockquote:border-l-3 prose-blockquote:border-[#542A00] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#2B2119] prose-blockquote:bg-[#FFF8D8] prose-blockquote:rounded-r-lg
 
-                                            prose-blockquote:border-l-3 prose-blockquote:border-[#542A00] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#2B2119] prose-blockquote:bg-[#FFF8D8] prose-blockquote:rounded-r-lg
+                                                prose-strong:font-semibold prose-strong:text-[#2B2119]
 
-                                            prose-strong:font-semibold prose-strong:text-[#2B2119]
+                                                prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#2B2119]/85
+                                                prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#2B2119]/85
 
-                                            prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#2B2119]/85
-                                            prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#2B2119]/85
+                                                prose-code:text-[#542A00] prose-code:bg-[#FFF8D8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
 
-                                            prose-code:text-[#542A00] prose-code:bg-[#FFF8D8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
+                                                prose-pre:bg-[#FFF8D8] prose-pre:border prose-pre:border-[#D8D0A6] prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
 
-                                            prose-pre:bg-[#FFF8D8] prose-pre:border prose-pre:border-[#D8D0A6] prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
-
-                                            prose-img:max-w-full prose-img:h-auto prose-img:rounded-lg
-                                        `}
-                                    >
-                                        <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
-                                    </motion.div>
-                                )}
+                                                prose-img:max-w-full prose-img:h-auto prose-img:rounded-lg
+                                            `}
+                                        >
+                                            <div dangerouslySetInnerHTML={{ __html: post.content || "" }} />
+                                        </motion.div>
+                                    )}
+                                </div>
 
                                 {/* Discussion & Comments Section */}
                                 <PostCommentsSection
