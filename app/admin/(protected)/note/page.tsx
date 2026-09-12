@@ -410,9 +410,8 @@ export default function CreateNotePage() {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
-                className={`w-full max-w-[640px] bg-[#161719] border ${
-                    isDragging ? 'border-[#FF6719] ring-2 ring-[#FF6719]/30' : 'border-white/[0.08]'
-                } rounded-2xl shadow-[0_24px_70px_rgba(0,0,0,0.7)] p-5 sm:p-6 flex flex-col justify-between min-h-[340px] text-white relative transition-all duration-150`}
+                className={`w-full max-w-[640px] bg-[#161719] border ${isDragging ? 'border-[#FF6719] ring-2 ring-[#FF6719]/30' : 'border-white/[0.08]'
+                    } rounded-2xl shadow-[0_24px_70px_rgba(0,0,0,0.7)] p-5 sm:p-6 flex flex-col justify-between min-h-[340px] text-white relative transition-all duration-150`}
             >
                 {/* Drag Overlay */}
                 <AnimatePresence>
@@ -436,14 +435,14 @@ export default function CreateNotePage() {
                             <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-white/10 bg-zinc-800">
                                 <Image
                                     src="/mba-headshot.jpg"
-                                    alt="Benedict Afotey"
+                                    alt="John David"
                                     fill
                                     className="object-cover"
                                 />
                             </div>
                             <div className="flex flex-col">
                                 <span className="font-semibold text-white text-[15px] tracking-tight">
-                                    Benedict Afotey
+                                    John David
                                 </span>
                                 {activeDraftId && (
                                     <span className="text-[10px] text-amber-400 font-mono flex items-center gap-1">
@@ -609,9 +608,8 @@ export default function CreateNotePage() {
                         <button
                             type="button"
                             onClick={() => setIsVideoModalOpen(true)}
-                            className={`transition-colors cursor-pointer p-1 -m-1 ${
-                                videoPreview ? 'text-[#FF6719]' : 'hover:text-white'
-                            }`}
+                            className={`transition-colors cursor-pointer p-1 -m-1 ${videoPreview ? 'text-[#FF6719]' : 'hover:text-white'
+                                }`}
                             title="Add video"
                         >
                             <Video className="w-5 h-5 stroke-[1.75]" />
@@ -622,9 +620,8 @@ export default function CreateNotePage() {
                             <button
                                 type="button"
                                 onClick={() => setIsEmojiPickerOpen(!isEmojiPickerOpen)}
-                                className={`transition-colors cursor-pointer p-1 -m-1 ${
-                                    isEmojiPickerOpen ? 'text-[#FF6719]' : 'hover:text-white'
-                                }`}
+                                className={`transition-colors cursor-pointer p-1 -m-1 ${isEmojiPickerOpen ? 'text-[#FF6719]' : 'hover:text-white'
+                                    }`}
                                 title="Add emoji"
                             >
                                 <Smile className="w-5 h-5 stroke-[1.75]" />
@@ -641,9 +638,8 @@ export default function CreateNotePage() {
                         <button
                             type="button"
                             onClick={() => setIsPollActive(!isPollActive)}
-                            className={`transition-colors cursor-pointer p-1 -m-1 ${
-                                isPollActive ? 'text-[#FF6719]' : 'hover:text-white'
-                            }`}
+                            className={`transition-colors cursor-pointer p-1 -m-1 ${isPollActive ? 'text-[#FF6719]' : 'hover:text-white'
+                                }`}
                             title={isPollActive ? 'Hide poll' : 'Create poll'}
                         >
                             <svg
@@ -666,9 +662,8 @@ export default function CreateNotePage() {
                             <button
                                 type="button"
                                 onClick={() => setIsScheduleOpen(!isScheduleOpen)}
-                                className={`transition-colors cursor-pointer p-1 -m-1 ${
-                                    scheduledDate ? 'text-[#FF6719]' : 'hover:text-white'
-                                }`}
+                                className={`transition-colors cursor-pointer p-1 -m-1 ${scheduledDate ? 'text-[#FF6719]' : 'hover:text-white'
+                                    }`}
                                 title="Schedule post"
                             >
                                 <Calendar className="w-5 h-5 stroke-[1.75]" />
@@ -686,9 +681,8 @@ export default function CreateNotePage() {
                         <button
                             type="button"
                             onClick={() => setIsFormattingOpen(!isFormattingOpen)}
-                            className={`transition-colors cursor-pointer p-1 -m-1 ${
-                                isFormattingOpen ? 'text-[#FF6719]' : 'hover:text-white'
-                            }`}
+                            className={`transition-colors cursor-pointer p-1 -m-1 ${isFormattingOpen ? 'text-[#FF6719]' : 'hover:text-white'
+                                }`}
                             title="Formatting options"
                         >
                             <MoreHorizontal className="w-5 h-5 stroke-[1.75]" />
@@ -718,11 +712,10 @@ export default function CreateNotePage() {
                             type="button"
                             onClick={handlePost}
                             disabled={!hasContent || isSubmitting}
-                            className={`flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                                hasContent && !isSubmitting
+                            className={`flex items-center justify-center gap-2 px-6 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${hasContent && !isSubmitting
                                     ? 'bg-[#FF6719] hover:bg-[#E5570F] text-white shadow-sm cursor-pointer'
                                     : 'bg-[#24262A] text-white/30 cursor-not-allowed'
-                            }`}
+                                }`}
                         >
                             {isSubmitting ? (
                                 <>

@@ -157,7 +157,7 @@ export default function Blog({ posts }: BlogProps) {
                     />
 
                     {/* Posts feed (Center Column) */}
-                    <div className="flex-1 min-w-0 max-w-[540px]">
+                    <div className="w-full flex-1 min-w-0 max-w-[540px]">
                         {/* Active filter pill */}
                         {(activeCategory !== "all" || activeType !== "all") && (
                             <motion.div
@@ -224,12 +224,13 @@ export default function Blog({ posts }: BlogProps) {
                         )}
 
                         {/* Post cards */}
-                        <div className="max-w-[540px] flex flex-col gap-6 md:gap-7 mb-5">
+                        <div className="w-full max-w-[540px] flex flex-col gap-6 md:gap-7 mb-5">
                             <AnimatePresence mode="popLayout">
                                 {visiblePosts.map((post, index) => (
                                     <motion.div
                                         key={post.id}
                                         layout
+                                        className="w-full"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -12, scale: 0.97 }}

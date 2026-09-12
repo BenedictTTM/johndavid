@@ -89,7 +89,7 @@ export default function CreatePostPage() {
     // Document fields
     const [title, setTitle] = useState('');
     const [excerpt, setExcerpt] = useState('');
-    const [authors, setAuthors] = useState<string[]>(['Benedict Afotey']);
+    const [authors, setAuthors] = useState<string[]>(['John David']);
 
     // Post settings
     const [readTime, setReadTime] = useState('3');
@@ -245,7 +245,7 @@ export default function CreatePostPage() {
     };
 
     return (
-        <div className="min-h-screen bg-white text-gray-900 flex flex-col font-sans selection:bg-[#FF6719]/20 selection:text-black">
+        <div className="min-h-screen bg-white text-gray-900 flex flex-col font-sans selection:bg-[#713600]/20 selection:text-black">
 
             {/* ═══════════════════════════════════════════════════════════════
                 TOP BAR — Global Substack Header
@@ -281,10 +281,10 @@ export default function CreatePostPage() {
                         type="button"
                         onClick={() => setSettingsOpen(true)}
                         disabled={mutation.isPending}
-                        className="flex items-center gap-1.5 px-4 h-8 rounded-md bg-[#FF6719] hover:bg-[#e65a12] text-white text-[13px] font-semibold transition-all shadow-xs disabled:opacity-50 select-none cursor-pointer"
+                        className="flex items-center gap-1.5 px-4 h-8 rounded-md bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] text-[13px] font-semibold transition-all shadow-xs disabled:opacity-50 select-none cursor-pointer"
                     >
                         {mutation.isPending ? (
-                            <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+                            <Loader2 className="w-3.5 h-3.5 animate-spin text-[#FDFBD4]" />
                         ) : null}
                         Continue
                     </button>
@@ -295,7 +295,7 @@ export default function CreatePostPage() {
                 FORMATTING TOOLBAR — Second Fixed Row
             ════════════════════════════════════════════════════════════════ */}
             <div className="fixed top-[50px] inset-x-0 z-30 bg-white border-b border-gray-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
-                <div className="max-w-[860px] mx-auto">
+                <div className="max-w-[860px] mx-auto w-full">
                     <TiptapToolbar editor={editor} />
                 </div>
             </div>
@@ -332,9 +332,8 @@ export default function CreatePostPage() {
                         placeholder="Title"
                         rows={1}
                         aria-label="Post title"
-                        className={`w-full bg-transparent border-0 outline-none resize-none overflow-hidden mb-2 font-bold leading-[1.15] text-[40px] sm:text-[48px] text-gray-900 placeholder:text-gray-300 placeholder:font-bold min-h-[58px] ${
-                            errors.title ? 'placeholder:text-red-300' : ''
-                        }`}
+                        className={`w-full bg-transparent border-0 outline-none resize-none overflow-hidden mb-2 font-bold leading-[1.15] text-[40px] sm:text-[48px] text-gray-900 placeholder:text-gray-300 placeholder:font-bold min-h-[58px] ${errors.title ? 'placeholder:text-red-300' : ''
+                            }`}
                         style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
                     />
                     {errors.title && (
@@ -475,9 +474,8 @@ export default function CreatePostPage() {
 
             <aside
                 aria-label="Post settings"
-                className={`fixed top-0 right-0 h-full w-84 sm:w-96 bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                    settingsOpen ? 'translate-x-0' : 'translate-x-full'
-                }`}
+                className={`fixed top-0 right-0 h-full w-84 sm:w-96 bg-white border-l border-gray-200 shadow-2xl z-50 flex flex-col transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${settingsOpen ? 'translate-x-0' : 'translate-x-full'
+                    }`}
             >
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
@@ -502,9 +500,8 @@ export default function CreatePostPage() {
                         <label className="block text-[11px] font-bold uppercase tracking-[0.15em] text-gray-500">
                             Cover Image
                         </label>
-                        <div className={`relative border border-dashed rounded-xl min-h-[150px] flex flex-col items-center justify-center text-center transition-colors hover:bg-gray-50 overflow-hidden ${
-                            errors.image ? 'border-red-400' : 'border-gray-200'
-                        }`}>
+                        <div className={`relative border border-dashed rounded-xl min-h-[150px] flex flex-col items-center justify-center text-center transition-colors hover:bg-gray-50 overflow-hidden ${errors.image ? 'border-red-400' : 'border-gray-200'
+                            }`}>
                             {imagePreview ? (
                                 <div className="w-full relative">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -583,11 +580,10 @@ export default function CreatePostPage() {
                                     key={v}
                                     type="button"
                                     onClick={() => setVisibility(v)}
-                                    className={`py-2 rounded-lg border text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                                        visibility === v
+                                    className={`py-2 rounded-lg border text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer ${visibility === v
                                             ? 'bg-gray-900 text-white border-gray-900 shadow-xs'
                                             : 'bg-gray-50 text-gray-500 border-gray-200 hover:border-gray-300'
-                                    }`}
+                                        }`}
                                 >
                                     {v}
                                 </button>
@@ -604,7 +600,7 @@ export default function CreatePostPage() {
                             <button
                                 type="button"
                                 onClick={openAddAuthor}
-                                className="text-[11px] text-[#FF6719] font-medium hover:underline flex items-center gap-1 cursor-pointer"
+                                className="text-[11px] text-[#713600] font-medium hover:underline flex items-center gap-1 cursor-pointer"
                             >
                                 <UserPlus className="w-3 h-3" />
                                 Add
@@ -629,9 +625,9 @@ export default function CreatePostPage() {
                             handleSave(true);
                         }}
                         disabled={mutation.isPending}
-                        className="w-full py-2.5 rounded-lg bg-[#FF6719] hover:bg-[#e65a12] text-white text-[13px] font-semibold transition-all shadow-sm disabled:opacity-40 flex items-center justify-center gap-2 cursor-pointer"
+                        className="w-full py-2.5 rounded-lg bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] text-[13px] font-semibold transition-all shadow-sm disabled:opacity-40 flex items-center justify-center gap-2 cursor-pointer"
                     >
-                        {mutation.isPending && <Loader2 className="w-4 h-4 animate-spin text-white" />}
+                        {mutation.isPending && <Loader2 className="w-4 h-4 animate-spin text-[#FDFBD4]" />}
                         Publish now
                     </button>
                     <button
@@ -695,7 +691,7 @@ export default function CreatePostPage() {
 
                             {/* Author & Meta */}
                             <div className="flex items-center gap-3 py-4 border-y border-gray-100 mb-8 text-xs text-gray-500">
-                                <div className="w-8 h-8 rounded-full bg-orange-100 text-[#FF6719] font-bold flex items-center justify-center">
+                                <div className="w-8 h-8 rounded-full bg-[#713600]/10 text-[#713600] font-bold flex items-center justify-center">
                                     {authors[0]?.charAt(0) || 'A'}
                                 </div>
                                 <div>
@@ -720,7 +716,7 @@ export default function CreatePostPage() {
                                     setPreviewOpen(false);
                                     setSettingsOpen(true);
                                 }}
-                                className="px-4 py-1.5 rounded-md bg-[#FF6719] text-white text-xs font-semibold hover:bg-[#e65a12] transition-colors"
+                                className="px-4 py-1.5 rounded-md bg-[#713600] text-[#FDFBD4] text-xs font-semibold hover:bg-[#C05800] transition-colors cursor-pointer"
                             >
                                 Continue to Publish →
                             </button>
@@ -737,7 +733,7 @@ export default function CreatePostPage() {
                     <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
                         <div className="flex items-center justify-between">
                             <h3 className="font-semibold text-sm text-gray-900 flex items-center gap-2">
-                                <Mail className="w-4 h-4 text-[#FF6719]" />
+                                <Mail className="w-4 h-4 text-[#713600]" />
                                 Email Header & Footer
                             </h3>
                             <button
@@ -783,7 +779,7 @@ export default function CreatePostPage() {
                     <div className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150 border border-gray-100">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2.5">
-                                <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-[#FF6719]">
+                                <div className="w-8 h-8 rounded-full bg-[#713600]/10 flex items-center justify-center text-[#713600]">
                                     <UserPlus className="w-4 h-4" />
                                 </div>
                                 <div>
@@ -801,7 +797,7 @@ export default function CreatePostPage() {
                                 <X className="w-4 h-4" />
                             </button>
                         </div>
-                        
+
                         <p className="text-xs text-gray-500 leading-relaxed">
                             Enter the contributor&apos;s name to display their byline on this article.
                         </p>
@@ -830,7 +826,7 @@ export default function CreatePostPage() {
                                 <button
                                     type="submit"
                                     disabled={!newAuthorName.trim()}
-                                    className="px-4 py-2 rounded-lg bg-[#FF6719] hover:bg-[#e65a12] text-white text-xs font-semibold transition-all shadow-xs disabled:opacity-40 cursor-pointer flex items-center gap-1.5"
+                                    className="px-4 py-2 rounded-lg bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] text-xs font-semibold transition-all shadow-xs disabled:opacity-40 cursor-pointer flex items-center gap-1.5"
                                 >
                                     Add Contributor
                                 </button>

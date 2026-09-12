@@ -1,14 +1,43 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { 
+  Menu, 
+  X, 
+  Home, 
+  User, 
+  BookOpen, 
+  Mail, 
+  ArrowRight, 
+  Linkedin, 
+  Twitter, 
+  Instagram, 
+  Send 
+} from "lucide-react";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
+
+interface NavItem {
+  to: string;
+  label: string;
+  desc: string;
+  coord: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const navItems: NavItem[] = [
+  { to: "/", label: "Home", desc: "Main portfolio & executive overview", coord: "01", icon: Home },
+  { to: "/#about", label: "About", desc: "Biography, mindset & consultation", coord: "02", icon: User },
+  { to: "/blog", label: "Blog & Notes", desc: "Publications, thoughts & dispatches", coord: "03", icon: BookOpen },
+  { to: "/#contact", label: "Contact", desc: "Direct inquiries & editorial message", coord: "04", icon: Mail },
+];
 
 const TopBar = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeHash, setActiveHash] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,12 +47,16 @@ const TopBar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { to: "/", label: "Home" },
-    { to: "/#about", label: "About" },
-    { to: "/#contact", label: "Contact" },
-    { to: "/blog", label: "Blog" },
-  ];
+  useEffect(() => {
+    const updateHash = () => {
+      if (typeof window !== "undefined") {
+        setActiveHash(window.location.hash);
+      }
+    };
+    updateHash();
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -49,109 +82,317 @@ const TopBar = () => {
     return null;
   }
 
+  const isItemActive = (item: NavItem) => {
+    if (item.to === "/") return pathname === "/" && !activeHash;
+    if (item.to === "/blog") return pathname?.startsWith("/blog");
+    if (item.to === "/#about") return pathname === "/" && activeHash === "#about";
+    if (item.to === "/#contact") return pathname === "/" && activeHash === "#contact";
+    return pathname === item.to;
+  };
+
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-3 md:pt-4">
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 pt-2.5 sm:pt-3 md:pt-4 pointer-events-none">
       <div
-        className={`container mx-auto transition-all duration-300 ${isScrolled ? "max-w-4xl px-4" : "max-w-7xl px-6"}`}>
+        className={`mx-auto px-3.5 sm:px-6 transition-all duration-500 pointer-events-auto ${
+          isScrolled ? "max-w-4xl" : "max-w-5xl"
+        }`}>
         <nav
-          className={`flex items-center justify-between px-6 py-2.5 md:py-3 transition-all duration-300 ${
+          className={`flex items-center justify-between px-4 sm:px-6 py-1.5 sm:py-2 rounded-full transition-all duration-300 border ${
             isScrolled
-              ? "bg-[#FAF7C8]/90 backdrop-blur-md rounded-full border border-[#713600]/15 shadow-md shadow-[#713600]/5"
-              : "bg-transparent border-b border-transparent"
+              ? "bg-[#FAF7C8]/92 backdrop-blur-xl border-[#713600]/18 shadow-[0_8px_30px_rgba(56,36,13,0.08)] ring-1 ring-white/50"
+              : "bg-[#FAF7C8]/85 backdrop-blur-lg border-[#713600]/14 shadow-[0_4px_20px_rgba(56,36,13,0.05)] ring-1 ring-white/40"
           }`}>
           {/* Logo */}
-          <div className="flex-1 md:flex-initial md:w-[160px]">
-            <Link href="/" className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300">
-              David <span className="not-italic text-lg text-[#713600]">ッ</span>
+          <div className="flex items-center">
+            <Link 
+              href="/" 
+              onClick={() => setActiveHash("")}
+              className="group flex items-center gap-1.5 py-0.5 select-none"
+            >
+              <span className="text-[17px] sm:text-[19px] font-serif italic tracking-wide text-[#38240D] group-hover:text-[#713600] transition-colors duration-300">
+                David
+              </span>
+              <span className="text-base sm:text-lg text-[#713600] font-sans not-italic font-bold transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
+                ッ
+              </span>
             </Link>
+
+            {/* Subtle editorial status badge on desktop */}
+            <span className="hidden lg:inline-flex items-center gap-1.5 ml-3 pl-3 border-l border-[#713600]/15 text-[9px] font-mono uppercase tracking-[0.2em] text-[#713600]/60 font-semibold select-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+              Editorial
+            </span>
           </div>
 
           {/* Centered Desktop Nav Items */}
-          <div className="hidden md:flex flex-1 justify-center items-center gap-10">
+          <div className="hidden md:flex flex-1 justify-center items-center gap-8 lg:gap-10">
             {navItems
               .filter(item => item.label !== "Contact")
-              .map((item) => (
-                <Link
-                  key={item.to}
-                  href={item.to}
-                  className="relative text-xs uppercase tracking-[0.2em] font-semibold text-[#38240D]/80 hover:text-[#713600] transition-colors duration-300 group py-1.5"
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#713600] transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
+              .map((item) => {
+                const active = isItemActive(item);
+                return (
+                  <Link
+                    key={item.to}
+                    href={item.to}
+                    className={`relative text-[11px] uppercase tracking-[0.22em] font-semibold transition-colors duration-300 group py-1 ${
+                      active ? "text-[#713600]" : "text-[#38240D]/75 hover:text-[#713600]"
+                    }`}
+                  >
+                    {item.label}
+                    <span 
+                      className={`absolute bottom-0 left-0 h-[1.5px] bg-[#713600] transition-all duration-300 ${
+                        active ? "w-full" : "w-0 group-hover:w-full"
+                      }`} 
+                    />
+                  </Link>
+                );
+              })}
           </div>
 
           {/* Right Side: Contact Button on Desktop, Menu Button on Mobile */}
-          <div className="flex items-center justify-end md:w-[160px]">
+          <div className="flex items-center gap-2">
             {navItems
               .filter(item => item.label === "Contact")
               .map((item) => (
                 <Link
                   key={item.to}
                   href={item.to}
-                  className="hidden md:inline-flex items-center justify-center bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] font-semibold tracking-widest uppercase text-[11px] px-5 py-2.5 rounded-full shadow-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  className="hidden md:inline-flex items-center justify-center bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] font-semibold tracking-widest uppercase text-[10px] px-4.5 py-1.5 rounded-full shadow-[0_2px_10px_rgba(113,54,0,0.18)] hover:shadow-[0_4px_16px_rgba(192,88,0,0.25)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 >
                   {item.label}
                 </Link>
               ))}
 
-            {/* Mobile Menu Button */}
+            {/* Custom Animated Mobile Menu Trigger */}
             <button
-              className="md:hidden p-2 text-[#38240D] hover:text-[#713600] transition-colors"
+              className="md:hidden w-8 h-8 rounded-full flex items-center justify-center text-[#38240D] hover:text-[#713600] hover:bg-[#713600]/[0.08] active:scale-90 transition-all duration-200 cursor-pointer"
               onClick={toggleMenu}
-              aria-label="Toggle menu"
+              aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
               type="button"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              <div className="w-4 h-3.5 flex flex-col justify-between items-end" aria-hidden="true">
+                <span 
+                  className={`h-[1.5px] bg-[#38240D] rounded-full transition-all duration-300 ${
+                    isOpen ? "w-4 rotate-45 translate-y-[5.5px]" : "w-4"
+                  }`} 
+                />
+                <span 
+                  className={`h-[1.5px] bg-[#713600] rounded-full transition-all duration-200 ${
+                    isOpen ? "opacity-0 w-0" : "w-2.5"
+                  }`} 
+                />
+                <span 
+                  className={`h-[1.5px] bg-[#38240D] rounded-full transition-all duration-300 ${
+                    isOpen ? "w-4 -rotate-45 -translate-y-[5.5px]" : "w-4"
+                  }`} 
+                />
+              </div>
             </button>
           </div>
         </nav>
 
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="md:hidden fixed inset-0 z-40" role="dialog" aria-modal="true">
-            {/* backdrop */}
-            <div
-              className="absolute inset-0 bg-[#38240D]/40 backdrop-blur-xs"
-              onClick={closeMenu}
-            />
+        {/* ── Enhanced Editorial Mobile Menu ────────────────────────── */}
+        <AnimatePresence>
+          {isOpen && (
+            <div className="md:hidden fixed inset-0 z-50 overflow-y-auto pointer-events-auto" role="dialog" aria-modal="true">
+              {/* Backdrop with rich blur */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="fixed inset-0 bg-[#38240D]/45 backdrop-blur-sm"
+                onClick={closeMenu}
+              />
 
-            {/* panel */}
-            <div className="absolute top-[20px] left-4 right-4 mx-auto max-w-md">
-              <div
-                className="bg-[#FAF7C8] backdrop-blur-xl rounded-2xl shadow-xl p-6 border border-[#713600]/20 transform transition duration-250"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="flex items-center justify-between mb-6 pb-4 border-b border-[#713600]/15">
-                  <Link href="/" onClick={closeMenu} className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300">
-                    David <span className="not-italic text-lg text-[#713600]">ッ</span>
-                  </Link>
-                  <button onClick={closeMenu} aria-label="Close menu" className="p-2 text-[#38240D]/70 hover:text-[#713600] hover:bg-[#713600]/5 rounded-full transition-colors">
-                    <X className="h-6 w-6" />
-                  </button>
-                </div>
+              {/* Centered Panel */}
+              <div className="relative min-h-full flex items-start justify-center p-3.5 pt-4 sm:p-5">
+                <motion.div
+                  initial={{ opacity: 0, y: -20, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -16, scale: 0.97 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative w-full max-w-md bg-[#FAF7C8] border border-[#713600]/18 rounded-[24px] shadow-[0_20px_50px_rgba(56,36,13,0.22)] overflow-hidden flex flex-col"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Subtle decorative grid lines background */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,54,0,0.025)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,54,0,0.025)_1px,transparent_1px)] bg-[size:2.5rem_2.5rem] pointer-events-none" />
 
-                <nav className="flex flex-col gap-3">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.to}
-                      href={item.to}
-                      onClick={closeMenu}
-                      className="block text-[#38240D] hover:text-[#713600] text-xs uppercase tracking-[0.2em] py-3.5 px-4 rounded-lg font-semibold hover:bg-[#713600]/8 transition-all duration-300"
+                  {/* Modal Header */}
+                  <div className="relative z-10 flex items-center justify-between px-5 pt-5 pb-4 border-b border-[#713600]/12">
+                    <div className="flex flex-col">
+                      <Link 
+                        href="/" 
+                        onClick={() => {
+                          setActiveHash("");
+                          closeMenu();
+                        }} 
+                        className="text-xl font-serif italic tracking-wide text-[#38240D] hover:text-[#713600] transition-colors duration-300"
+                      >
+                        David <span className="not-italic text-lg text-[#713600]">ッ</span>
+                      </Link>
+                      <span className="text-[9px] font-mono uppercase tracking-[0.25em] text-[#713600]/60 font-bold mt-0.5">
+                        00 // NAVIGATION INDEX
+                      </span>
+                    </div>
+
+                    <button 
+                      onClick={closeMenu} 
+                      aria-label="Close menu" 
+                      className="w-9 h-9 rounded-full border border-[#713600]/20 bg-[#FDFBD4] text-[#38240D] hover:bg-[#713600] hover:text-[#FDFBD4] hover:border-transparent flex items-center justify-center transition-all duration-200 cursor-pointer shadow-2xs active:scale-95"
                     >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
+                      <X className="h-4 w-4 stroke-[2.25]" />
+                    </button>
+                  </div>
+
+                  {/* Nav links with editorial coordinates & micro-animations */}
+                  <nav className="relative z-10 p-3.5 flex flex-col gap-1.5">
+                    {navItems.map((item, idx) => {
+                      const active = isItemActive(item);
+                      const Icon = item.icon;
+
+                      return (
+                        <motion.div
+                          key={item.to}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.04 * idx, duration: 0.25 }}
+                        >
+                          <Link
+                            href={item.to}
+                            onClick={() => {
+                              if (item.to.startsWith("/#")) {
+                                setActiveHash(item.to.substring(1));
+                              } else {
+                                setActiveHash("");
+                              }
+                              closeMenu();
+                            }}
+                            className={`group flex items-center justify-between p-3 rounded-2xl transition-all duration-200 border ${
+                              active
+                                ? "bg-[#713600]/[0.08] border-[#713600]/25 shadow-2xs"
+                                : "border-transparent hover:bg-[#713600]/[0.05] hover:border-[#713600]/12"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3.5 min-w-0">
+                              {/* Icon Container */}
+                              <div
+                                className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 transition-colors duration-200 ${
+                                  active
+                                    ? "bg-[#713600] border-[#713600] text-[#FDFBD4]"
+                                    : "bg-[#FDFBD4] border-[#713600]/15 text-[#713600] group-hover:bg-[#713600] group-hover:text-[#FDFBD4] group-hover:border-[#713600]"
+                                }`}
+                              >
+                                <Icon className="w-4 h-4" />
+                              </div>
+
+                              {/* Label & Description */}
+                              <div className="flex flex-col min-w-0 text-left">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-[#713600]/60">
+                                    {item.coord}
+                                  </span>
+                                  <span className="text-sm font-semibold tracking-wide text-[#38240D] uppercase group-hover:text-[#713600] transition-colors">
+                                    {item.label}
+                                  </span>
+                                </div>
+                                <span className="text-[11px] text-[#38240D]/60 font-serif italic truncate mt-0.5">
+                                  {item.desc}
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* Right Status / Arrow Indicator */}
+                            <div className="flex items-center shrink-0 pl-2">
+                              {active ? (
+                                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-[#713600] text-[#FDFBD4]">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+                                  Current
+                                </span>
+                              ) : (
+                                <ArrowRight className="w-4 h-4 text-[#713600]/40 group-hover:text-[#713600] group-hover:translate-x-0.5 transition-all" />
+                              )}
+                            </div>
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </nav>
+
+                  {/* ── Bottom Section: Direct Dispatch & Socials ───────── */}
+                  <div className="relative z-10 px-4 pt-3.5 pb-4.5 bg-[#FAF7C8]/90 border-t border-[#713600]/12 flex flex-col gap-3">
+                    {/* Quick Dispatch Banner */}
+                    <div className="p-3.5 rounded-2xl bg-[#FDFBD4] border border-[#713600]/12 flex flex-col gap-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#713600]/60 flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6719] animate-pulse" />
+                          Direct Dispatch
+                        </span>
+                        <span className="text-[9px] font-mono text-[#38240D]/50 uppercase font-semibold">
+                          Ghana // GMT
+                        </span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between gap-3">
+                        <a 
+                          href="mailto:johndavid@yorku.ca"
+                          className="text-xs font-semibold text-[#38240D] hover:text-[#713600] transition-colors truncate"
+                        >
+                          johndavid@yorku.ca
+                        </a>
+
+                        <Link
+                          href="/#contact"
+                          onClick={() => {
+                            setActiveHash("contact");
+                            closeMenu();
+                          }}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#713600] hover:bg-[#C05800] text-[#FDFBD4] transition-all shrink-0 shadow-2xs"
+                        >
+                          <Send className="w-3 h-3" />
+                          <span>Write</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Socials & Technical Coordinate */}
+                    <div className="flex items-center justify-between pt-1 px-1">
+                      <div className="flex items-center gap-2">
+                        {[
+                          { Icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
+                          { Icon: Twitter, href: "https://twitter.com", label: "Twitter" },
+                          { Icon: Instagram, href: "https://instagram.com", label: "Instagram" },
+                          { Icon: Mail, href: "mailto:johndavid@yorku.ca", label: "Email" },
+                        ].map((social, i) => (
+                          <a
+                            key={i}
+                            href={social.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={social.label}
+                            className="w-8 h-8 rounded-full border border-[#713600]/15 bg-[#FDFBD4] text-[#38240D]/75 hover:bg-[#713600] hover:text-[#FDFBD4] hover:border-transparent flex items-center justify-center transition-all duration-200"
+                          >
+                            <social.Icon className="w-3.5 h-3.5" />
+                          </a>
+                        ))}
+                      </div>
+
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-[#713600]/40 font-semibold select-none">
+                        SYS_NAV_01
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
 };
 
 export default TopBar;
+

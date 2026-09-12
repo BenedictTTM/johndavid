@@ -210,7 +210,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 {/* ── Main Post Card Container ── */}
                 {post.image ? (
                     /* ── Image Post: Dark media card (matching Substack article cards) ── */
-                    <div className="overflow-hidden rounded-2xl bg-[#28313A] border border-[#713600]/15 shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 group/card">
+                    <div className="w-full overflow-hidden rounded-2xl bg-[#28313A] border border-[#713600]/15 shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 group/card">
                         {/* Media / Image Container */}
                         <Link
                             href={`/blog/${post.id}`}
@@ -275,7 +275,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                     </div>
                 ) : (
                     /* ── Substack Quote Card (Matches user reference screenshot) ── */
-                    <div className="rounded-2xl bg-[#312C25] p-6 sm:p-7 border border-white/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 flex flex-col justify-between group/card">
+                    <div className="w-full rounded-2xl bg-[#312C25] p-6 sm:p-7 border border-white/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 flex flex-col justify-between group/card">
                         {/* Top Quotation Mark Icon */}
                         <div className="select-none mb-3">
                             <svg
