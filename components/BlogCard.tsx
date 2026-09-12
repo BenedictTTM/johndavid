@@ -133,7 +133,7 @@ export default function BlogCard({ post }: BlogCardProps) {
 
     return (
         <>
-            <article className="group flex flex-col w-full border-b border-[#713600]/10 pb-7 sm:pb-8 last:border-b-0">
+            <article className="group flex flex-col w-full border-b border-[#542A00]/10 pb-7 sm:pb-8 last:border-b-0">
                 {/* ── Substack Note Header: Author + Timestamp + Options Menu ── */}
                 <div className="flex items-center justify-between mb-2.5 px-1">
                     <div className="flex items-center gap-3 min-w-0">
@@ -142,11 +142,11 @@ export default function BlogCard({ post }: BlogCardProps) {
 
                         {/* Author Name and Date */}
                         <div className="flex items-center gap-2 min-w-0 text-sm">
-                            <span className="font-semibold text-[#38240D] hover:underline cursor-pointer truncate">
+                            <span className="font-semibold text-[#2B2119] hover:underline cursor-pointer truncate">
                                 {displayAuthor}
                             </span>
-                            <span className="text-[#38240D]/40 text-xs shrink-0">•</span>
-                            <span className="text-[#38240D]/60 text-xs font-normal shrink-0">
+                            <span className="text-[#2B2119]/40 text-xs shrink-0">•</span>
+                            <span className="text-[#2B2119]/60 text-xs font-normal shrink-0">
                                 {formattedDate}
                             </span>
                         </div>
@@ -159,7 +159,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                             <button
                                 type="button"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                                className="w-7 h-7 flex items-center justify-center text-[#38240D]/50 hover:text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#713600]/30"
+                                className="w-7 h-7 flex items-center justify-center text-[#2B2119]/50 hover:text-[#2B2119] hover:bg-[#542A00]/08 transition-colors cursor-pointer rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#542A00]/30"
                                 aria-label="More options"
                                 aria-haspopup="true"
                                 aria-expanded={isMenuOpen}
@@ -174,30 +174,30 @@ export default function BlogCard({ post }: BlogCardProps) {
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.95, y: -4 }}
                                         transition={{ duration: 0.15 }}
-                                        className="absolute right-0 top-full mt-1.5 w-44 bg-[#FDFBD4] border border-[#713600]/15 rounded-2xl shadow-[0_8px_30px_rgba(56,36,13,0.15)] py-1.5 z-40 overflow-hidden text-xs"
+                                        className="absolute right-0 top-full mt-1.5 w-44 bg-[#FFF8D8] border border-[#D8D0A6] rounded-2xl shadow-[0_8px_30px_rgba(43,33,25,0.12)] py-1.5 z-40 overflow-hidden text-xs"
                                     >
                                         <button
                                             type="button"
                                             onClick={handleCopyLink}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#2B2119] hover:bg-[#542A00]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#542A00]/08"
                                         >
-                                            <Copy className="w-3.5 h-3.5 text-[#713600]" />
+                                            <Copy className="w-3.5 h-3.5 text-[#542A00]" />
                                             <span>Copy link</span>
                                         </button>
                                         <Link
                                             href={`/blog/${post.id}`}
                                             onClick={() => setIsMenuOpen(false)}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#2B2119] hover:bg-[#542A00]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#542A00]/08"
                                         >
-                                            <ExternalLink className="w-3.5 h-3.5 text-[#713600]" />
+                                            <ExternalLink className="w-3.5 h-3.5 text-[#542A00]" />
                                             <span>Open full post</span>
                                         </Link>
                                         <button
                                             type="button"
                                             onClick={handleShare}
-                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#38240D] hover:bg-[#713600]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#713600]/08"
+                                            className="w-full px-3.5 py-2 flex items-center gap-2.5 text-[#2B2119] hover:bg-[#542A00]/08 transition-colors cursor-pointer text-left focus-visible:outline-none focus-visible:bg-[#542A00]/08"
                                         >
-                                            <Share2 className="w-3.5 h-3.5 text-[#713600]" />
+                                            <Share2 className="w-3.5 h-3.5 text-[#542A00]" />
                                             <span>Share post</span>
                                         </button>
                                     </motion.div>
@@ -210,7 +210,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 {/* ── Main Post Card Container ── */}
                 {post.image ? (
                     /* ── Image Post: Dark media card (matching Substack article cards) ── */
-                    <div className="w-full overflow-hidden rounded-2xl bg-[#28313A] border border-[#713600]/15 shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 group/card">
+                    <div className="w-full overflow-hidden rounded-2xl bg-[#292B2B] border border-[#542A00]/20 shadow-[0_4px_20px_rgba(0,0,0,0.14)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.22)] transition-all duration-300 group/card">
                         {/* Media / Image Container */}
                         <Link
                             href={`/blog/${post.id}`}
@@ -226,20 +226,20 @@ export default function BlogCard({ post }: BlogCardProps) {
                         </Link>
 
                         {/* Dark Slate Info Banner */}
-                        <div className="px-5 py-2 sm:py-2.5 bg-[#28313A] border-t border-white/[0.08]">
+                        <div className="px-5 py-2 sm:py-2.5 bg-[#292B2B] border-t border-white/[0.08]">
                             {/* Top Row: Avatar Badge + Channel / Category & Bookmark */}
                             <div className="flex items-center justify-between gap-3 mb-1">
                                 <div className="flex items-center gap-2 min-w-0">
                                     <PublicationAvatar publication={displayAuthor} size="sm" />
 
-                                    <span className="text-xs font-medium text-slate-300 truncate tracking-tight">
+                                    <span className="text-xs font-medium text-[#D8D0A6] truncate tracking-tight">
                                         {displayAuthor}
                                     </span>
 
                                     {post.readTime && (
                                         <>
-                                            <span className="text-slate-500 text-xs shrink-0">•</span>
-                                            <span className="text-slate-400 text-[11px] shrink-0 font-normal">
+                                            <span className="text-[#CFC7A0]/60 text-xs shrink-0">•</span>
+                                            <span className="text-[#CFC7A0] text-[11px] shrink-0 font-normal">
                                                 {post.readTime.includes("min") ? post.readTime : `${post.readTime} min read`}
                                             </span>
                                         </>
@@ -250,12 +250,12 @@ export default function BlogCard({ post }: BlogCardProps) {
                                     type="button"
                                     onClick={handleBookmark}
                                     aria-label={isBookmarked ? "Remove bookmark" : "Bookmark post"}
-                                    className="text-slate-300 hover:text-white transition-colors p-0.5 cursor-pointer shrink-0 rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
+                                    className="text-[#D8D0A6] hover:text-[#FFF8D8] transition-colors p-0.5 cursor-pointer shrink-0 rounded focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/40"
                                 >
                                     <Bookmark
                                         className={`w-4 h-4 transition-all duration-200 ${
                                             isBookmarked
-                                                ? "fill-white text-white scale-105"
+                                                ? "fill-[#FFF8D8] text-[#FFF8D8] scale-105"
                                                 : "stroke-[1.75] hover:scale-105"
                                         }`}
                                     />
@@ -263,10 +263,10 @@ export default function BlogCard({ post }: BlogCardProps) {
                             </div>
 
                             {/* Bottom Row: Bold Title */}
-                            <h3 className="text-sm sm:text-[15px] font-bold text-white tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
+                            <h3 className="text-sm sm:text-[15px] font-bold text-[#FFF8D8] tracking-tight leading-snug line-clamp-1 sm:line-clamp-2">
                                 <Link
                                     href={`/blog/${post.id}`}
-                                    className="hover:text-slate-200 transition-colors"
+                                    className="hover:text-[#F5F1D5] transition-colors"
                                 >
                                     {post.title}
                                 </Link>
@@ -275,11 +275,11 @@ export default function BlogCard({ post }: BlogCardProps) {
                     </div>
                 ) : (
                     /* ── Substack Quote Card (Matches user reference screenshot) ── */
-                    <div className="w-full rounded-2xl bg-[#312C25] p-6 sm:p-7 border border-white/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.12)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.18)] transition-all duration-300 flex flex-col justify-between group/card">
+                    <div className="w-full rounded-2xl bg-[#292B2B] p-6 sm:p-7 border border-white/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.14)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.22)] transition-all duration-300 flex flex-col justify-between group/card">
                         {/* Top Quotation Mark Icon */}
                         <div className="select-none mb-3">
                             <svg
-                                className="w-7 h-6 text-[#F5F2EB] opacity-90"
+                                className="w-7 h-6 text-[#F5F1D5] opacity-90"
                                 viewBox="0 0 24 18"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -290,14 +290,14 @@ export default function BlogCard({ post }: BlogCardProps) {
 
                         {/* Body Text in Serif */}
                         <Link href={`/blog/${post.id}`} className="block my-2 group-hover/card:opacity-95 transition-opacity">
-                            <p className="font-serif text-[#F5F2EB] text-[17px] sm:text-[19px] leading-relaxed font-normal tracking-normal whitespace-pre-line line-clamp-6">
+                            <p className="font-serif text-[#FFF8D8] text-[17px] sm:text-[19px] leading-relaxed font-normal tracking-normal whitespace-pre-line line-clamp-6">
                                 {quoteText}
                             </p>
                         </Link>
 
                         {/* Bottom Row: Author + Bookmark */}
-                        <div className="flex items-center justify-between pt-5 mt-2 text-[#9E9689]">
-                            <span className="text-sm font-sans text-[#9E9689] font-normal tracking-wide">
+                        <div className="flex items-center justify-between pt-5 mt-2 text-[#CFC7A0]">
+                            <span className="text-sm font-sans text-[#CFC7A0] font-normal tracking-wide">
                                 {displayAuthor.toLowerCase()}
                             </span>
 
@@ -305,12 +305,12 @@ export default function BlogCard({ post }: BlogCardProps) {
                                 type="button"
                                 onClick={handleBookmark}
                                 aria-label={isBookmarked ? "Remove bookmark" : "Bookmark post"}
-                                className="text-[#9E9689] hover:text-[#F5F2EB] transition-colors p-1 cursor-pointer"
+                                className="text-[#CFC7A0] hover:text-[#FFF8D8] transition-colors p-1 cursor-pointer"
                             >
                                 <Bookmark
                                     className={`w-4 h-4 transition-all duration-200 ${
                                         isBookmarked
-                                            ? "fill-[#F5F2EB] text-[#F5F2EB] scale-105"
+                                            ? "fill-[#FFF8D8] text-[#FFF8D8] scale-105"
                                             : "stroke-[1.75] hover:scale-105"
                                     }`}
                                 />
@@ -320,7 +320,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                 )}
 
                 {/* ── Social Action Bar Underneath Card ── */}
-                <div className="flex items-center gap-6 sm:gap-7 pt-2.5 px-1 text-[#38240D]/65 select-none">
+                <div className="flex items-center gap-6 sm:gap-7 pt-2.5 px-1 text-[#2B2119]/65 select-none">
                     {/* Likes (Heart with Substack Red #FF3040) */}
                     <LikeButton
                         postId={post.id}
@@ -333,11 +333,11 @@ export default function BlogCard({ post }: BlogCardProps) {
                     <button
                         type="button"
                         onClick={() => setIsCommentsOpen(true)}
-                        className="flex items-center gap-1.5 p-1 group hover:text-[#38240D] transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 p-1 group hover:text-[#2B2119] transition-colors cursor-pointer"
                         aria-label="Comments"
                     >
                         <MessageCircle className="w-[18px] h-[18px] stroke-[1.75] transition-transform group-hover:scale-110" />
-                        <span className="text-[12px] font-medium text-[#38240D]/70 group-hover:text-[#38240D]">
+                        <span className="text-[12px] font-medium text-[#2B2119]/70 group-hover:text-[#2B2119]">
                             {commentsCount}
                         </span>
                     </button>
@@ -347,7 +347,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                         <button
                             type="button"
                             onClick={handleShare}
-                            className="flex items-center p-1 hover:text-[#38240D] transition-colors group cursor-pointer"
+                            className="flex items-center p-1 hover:text-[#2B2119] transition-colors group cursor-pointer"
                             aria-label="Share post"
                         >
                             <svg
@@ -362,7 +362,7 @@ export default function BlogCard({ post }: BlogCardProps) {
                             </svg>
                         </button>
                         {copied && (
-                            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-0.5 text-[10px] font-medium bg-[#38240D] text-[#FDFBD4] rounded shadow-md whitespace-nowrap flex items-center gap-1">
+                            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-0.5 text-[10px] font-medium bg-[#2B2119] text-[#FFF8D8] rounded shadow-md whitespace-nowrap flex items-center gap-1">
                                 <Check className="w-3 h-3 text-emerald-400" />
                                 Copied!
                             </span>

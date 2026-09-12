@@ -4,18 +4,18 @@ import { useEffect, useRef, useCallback } from "react";
 import { usePathname } from "next/navigation";
 
 // ─── Warm Atmospheric Blob Config ──────────────────────────────────────────
-// Custom warm ambient lights floating gracefully on #FDFBD4 background
+// Custom warm ambient lights floating gracefully on #F5F1D5 ivory background
 const BLOBS = [
   // Warm Primary Amber Glow — bottom-left
-  { x: 0.15, y: 0.75, rx: 0.50, ry: 0.44, color: [240, 225, 175] as const, alpha: 0.35, phase: 0.00, speed: 0.00045, driftX: 0.050, driftY: 0.040 },
+  { x: 0.15, y: 0.75, rx: 0.50, ry: 0.44, color: [238, 222, 185] as const, alpha: 0.32, phase: 0.00, speed: 0.00045, driftX: 0.050, driftY: 0.040 },
   // Soft Accent Honey Glow — top-right
-  { x: 0.82, y: 0.20, rx: 0.42, ry: 0.36, color: [245, 215, 160] as const, alpha: 0.28, phase: 2.10, speed: 0.00035, driftX: 0.045, driftY: 0.055 },
+  { x: 0.82, y: 0.20, rx: 0.42, ry: 0.36, color: [242, 218, 175] as const, alpha: 0.25, phase: 2.10, speed: 0.00035, driftX: 0.045, driftY: 0.055 },
   // Centre Subtle Diffusion — mid
-  { x: 0.50, y: 0.50, rx: 0.36, ry: 0.30, color: [250, 238, 195] as const, alpha: 0.22, phase: 4.30, speed: 0.00055, driftX: 0.035, driftY: 0.030 },
+  { x: 0.50, y: 0.50, rx: 0.36, ry: 0.30, color: [248, 241, 215] as const, alpha: 0.20, phase: 4.30, speed: 0.00055, driftX: 0.035, driftY: 0.030 },
   // Warm Terracotta Accent — bottom-right
-  { x: 0.85, y: 0.82, rx: 0.28, ry: 0.24, color: [235, 185, 130] as const, alpha: 0.18, phase: 1.20, speed: 0.00040, driftX: 0.040, driftY: 0.035 },
-  // Soft Cream Highlight — top area
-  { x: 0.28, y: 0.15, rx: 0.30, ry: 0.25, color: [255, 252, 225] as const, alpha: 0.40, phase: 3.50, speed: 0.00050, driftX: 0.040, driftY: 0.045 },
+  { x: 0.85, y: 0.82, rx: 0.28, ry: 0.24, color: [225, 175, 125] as const, alpha: 0.15, phase: 1.20, speed: 0.00040, driftX: 0.040, driftY: 0.035 },
+  // Soft Ivory Highlight — top area
+  { x: 0.28, y: 0.15, rx: 0.30, ry: 0.25, color: [255, 248, 216] as const, alpha: 0.35, phase: 3.50, speed: 0.00050, driftX: 0.040, driftY: 0.045 },
 ] as const;
 
 const GRAIN_SIZE = 192;
@@ -70,12 +70,12 @@ export default function AmbientBackground() {
     const h = canvas.offsetHeight;
     tickRef.current++;
 
-    // 1 ── Base warm cream environment gradient (#FDFBD4 base)
+    // 1 ── Base warm ivory environment gradient (#F5F1D5 base)
     ctx.clearRect(0, 0, w, h);
     const base = ctx.createLinearGradient(0, 0, 0, h);
-    base.addColorStop(0, "#FDFBD4");
-    base.addColorStop(0.5, "#FAF7C8");
-    base.addColorStop(1, "#F5F1BC");
+    base.addColorStop(0, "#F5F1D5");
+    base.addColorStop(0.5, "#F0ECCF");
+    base.addColorStop(1, "#E8E2C0");
     ctx.fillStyle = base;
     ctx.fillRect(0, 0, w, h);
 
@@ -112,9 +112,9 @@ export default function AmbientBackground() {
 
     // 3 ── Subtle warm vignette framing
     const vig = ctx.createRadialGradient(w * 0.5, h * 0.5, 0, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
-    vig.addColorStop(0, "rgba(253,251,212,0)");
-    vig.addColorStop(0.65, "rgba(253,251,212,0)");
-    vig.addColorStop(1, "rgba(113,54,0,0.06)");
+    vig.addColorStop(0, "rgba(245,241,213,0)");
+    vig.addColorStop(0.65, "rgba(245,241,213,0)");
+    vig.addColorStop(1, "rgba(84,42,0,0.04)");
     ctx.fillStyle = vig;
     ctx.fillRect(0, 0, w, h);
 

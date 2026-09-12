@@ -40,20 +40,20 @@ export default async function BlogPage() {
 
     return (
         <div 
-            className="min-h-screen bg-[#FDFBD4] text-[#38240D] font-sans relative overflow-hidden"
+            className="min-h-screen bg-[#F5F1D5] text-[#2B2119] font-sans relative overflow-hidden"
         >
             {/* Fine grid lines */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,54,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,54,0,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(84,42,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(84,42,0,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
 
             <main className="pt-24 md:pt-28 pb-16">
                 <div className="max-w-[1240px] mx-auto px-4 md:px-6 lg:px-12 xl:px-20 mb-2">
                     {/* Back to Home Button */}
                     <Link
                         href="/"
-                        className="inline-flex items-center text-[10px] font-bold tracking-[0.25em] text-[#38240D] hover:text-[#713600] transition-all duration-300 uppercase py-2 group"
+                        className="inline-flex items-center text-[10px] font-bold tracking-[0.25em] text-[#2B2119] hover:text-[#542A00] transition-all duration-300 uppercase py-2 group"
                     >
-                        <span className="relative flex items-center justify-center w-6 h-6 mr-3 rounded-full border border-[#713600]/20 group-hover:border-[#713600] transition-colors bg-[#FAF7C8]">
-                            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5 text-[#713600]" />
+                        <span className="relative flex items-center justify-center w-6 h-6 mr-3 rounded-full border border-[#D8D0A6] group-hover:border-[#542A00] transition-colors bg-[#FFF8D8]">
+                            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5 text-[#542A00]" />
                         </span>
                         Back to Home
                     </Link>

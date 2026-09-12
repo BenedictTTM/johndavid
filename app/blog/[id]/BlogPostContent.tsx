@@ -44,21 +44,21 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
 
     return (
         <div
-            className="min-h-screen bg-[#FDFBD4] text-[#38240D] font-sans relative overflow-x-hidden antialiased w-full"
+            className="min-h-screen bg-[#F5F1D5] text-[#2B2119] font-sans relative overflow-x-hidden antialiased w-full"
         >
             {/* Satin Reading Progress Line */}
             <motion.div
-                className="fixed top-0 left-0 right-0 h-[2px] bg-[#713600] z-50 origin-left"
+                className="fixed top-0 left-0 right-0 h-[2px] bg-[#542A00] z-50 origin-left"
                 style={{ scaleX }}
             />
 
             {/* Fine grid lines */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(113,54,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(113,54,0,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(84,42,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(84,42,0,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none -z-10" />
 
             {/* Header Coordinate */}
-            <div className="max-w-[1200px] mx-auto px-4 md:px-6 pt-24 md:pt-24 flex justify-between items-center text-[9px] text-[#38240D]/50 tracking-[0.35em] uppercase select-none pointer-events-none font-mono">
+            <div className="max-w-[1200px] mx-auto px-4 md:px-6 pt-24 md:pt-24 flex justify-between items-center text-[9px] text-[#2B2119]/50 tracking-[0.35em] uppercase select-none pointer-events-none font-mono">
                 <span className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#713600] animate-pulse" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#542A00] animate-pulse" />
                     03 // ARTICLE DISPATCH
                 </span>
                 <span>{post.category || "BIOENGINEERING"}</span>
@@ -71,14 +71,14 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                         href="/blog"
                         onMouseMove={handleBackMouseMove}
                         onMouseLeave={handleBackMouseLeave}
-                        className="group pointer-events-auto inline-flex items-center text-[10px] font-semibold tracking-[0.25em] text-[#38240D] hover:text-[#713600] transition-all duration-300 uppercase py-2"
+                        className="group pointer-events-auto inline-flex items-center text-[10px] font-semibold tracking-[0.25em] text-[#2B2119] hover:text-[#542A00] transition-all duration-300 uppercase py-2"
                     >
                         <motion.span
                             animate={{ x: backCoords.x, y: backCoords.y }}
                             transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.1 }}
-                            className="relative flex items-center justify-center w-6 h-6 mr-3 rounded-full border border-[#713600]/20 bg-[#FAF7C8] group-hover:border-[#713600] transition-colors"
+                            className="relative flex items-center justify-center w-6 h-6 mr-3 rounded-full border border-[#D8D0A6] bg-[#FFF8D8] group-hover:border-[#542A00] transition-colors"
                         >
-                            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5 text-[#713600]" />
+                            <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-0.5 text-[#542A00]" />
                         </motion.span>
                         Back to Blog
                     </Link>
@@ -93,22 +93,22 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                             className="max-w-3xl mx-auto text-center"
                         >
-                            <div className="flex items-center justify-center gap-3 mb-6 select-none font-mono text-[10px] tracking-[0.35em] text-[#713600] uppercase font-bold">
+                            <div className="flex items-center justify-center gap-3 mb-6 select-none font-mono text-[10px] tracking-[0.35em] text-[#542A00] uppercase font-bold">
                                 <span>{post.category || "Editorial"}</span>
                             </div>
 
-                            <h1 className="font-serif font-semibold text-[clamp(2rem,5vw,3.75rem)] text-[#38240D] tracking-tight leading-[1.15] mb-6 md:mb-8 px-2 md:px-0">
+                            <h1 className="font-serif font-semibold text-[clamp(2rem,5vw,3.75rem)] text-[#2B2119] tracking-tight leading-[1.15] mb-6 md:mb-8 px-2 md:px-0">
                                 {post.title}
                             </h1>
 
-                            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[11px] text-[#38240D]/70 font-mono uppercase tracking-widest">
+                            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5 text-[11px] text-[#2B2119]/70 font-mono uppercase tracking-widest">
                                 <span className="flex items-center gap-2">
-                                    <Calendar className="w-3.5 h-3.5 text-[#713600] stroke-[1.75]" />
+                                    <Calendar className="w-3.5 h-3.5 text-[#542A00] stroke-[1.75]" />
                                     {dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                                 </span>
-                                <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#713600]/30" />
+                                <span className="hidden sm:inline w-1.5 h-1.5 rounded-full bg-[#542A00]/30" />
                                 <span className="flex items-center gap-2">
-                                    <Clock className="w-3.5 h-3.5 text-[#713600] stroke-[1.75]" />
+                                    <Clock className="w-3.5 h-3.5 text-[#542A00] stroke-[1.75]" />
                                     {post.readTime || "5 min"} read
                                 </span>
                             </div>
@@ -124,7 +124,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                     >
                         <div
                             ref={targetRef}
-                            className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl bg-[#FAF7C8] border border-[#713600]/15 group/image shadow-[0_12px_40px_rgba(56,36,13,0.06)]"
+                            className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[21/9] overflow-hidden rounded-2xl bg-[#FFF8D8] border border-[#D8D0A6] group/image shadow-[0_12px_40px_rgba(43,33,25,0.06)]"
                         >
                             <div className="relative w-full h-full overflow-hidden rounded-2xl">
                                 <motion.div style={{ y }} className="relative w-full h-[120%] -top-[10%]">
@@ -146,24 +146,24 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
                             {/* Sticky Editorial Sidebar Card */}
-                            <div className="hidden lg:block lg:col-span-3 sticky top-32 space-y-4 text-[#38240D]">
-                                <div className="rounded-2xl border border-[#713600]/12 bg-[#FAF7C8]/70 backdrop-blur-sm p-5 shadow-[0_2px_12px_rgba(56,36,13,0.06)] space-y-5">
-                                    <div className="space-y-1 pb-4 border-b border-[#713600]/10">
-                                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#713600]/60 block select-none">
+                            <div className="hidden lg:block lg:col-span-3 sticky top-32 space-y-4 text-[#2B2119]">
+                                <div className="rounded-2xl border border-[#D8D0A6] bg-[#FFF8D8]/80 backdrop-blur-sm p-5 shadow-[0_2px_12px_rgba(43,33,25,0.05)] space-y-5">
+                                    <div className="space-y-1 pb-4 border-b border-[#542A00]/10">
+                                        <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-[#542A00]/60 block select-none">
                                             Author
                                         </span>
-                                        <p className="text-sm font-serif font-bold text-[#38240D]">John David</p>
-                                        <p className="text-[11px] text-[#38240D]/65 leading-normal">Bioengineering Scholar</p>
+                                        <p className="text-sm font-serif font-bold text-[#2B2119]">John David</p>
+                                        <p className="text-[11px] text-[#2B2119]/65 leading-normal">Bioengineering Scholar</p>
                                     </div>
 
-                                    <div className="space-y-2 pb-4 border-b border-[#713600]/10 font-mono text-[11px]">
-                                        <div className="flex items-center justify-between text-[#38240D]/70">
+                                    <div className="space-y-2 pb-4 border-b border-[#542A00]/10 font-mono text-[11px]">
+                                        <div className="flex items-center justify-between text-[#2B2119]/70">
                                             <span>Read Time</span>
-                                            <span className="font-semibold text-[#713600]">{post.readTime || "5 min"}</span>
+                                            <span className="font-semibold text-[#542A00]">{post.readTime || "5 min"}</span>
                                         </div>
-                                        <div className="flex items-center justify-between text-[#38240D]/70">
+                                        <div className="flex items-center justify-between text-[#2B2119]/70">
                                             <span>Category</span>
-                                            <span className="font-semibold text-[#713600]">{post.category || "General"}</span>
+                                            <span className="font-semibold text-[#542A00]">{post.category || "General"}</span>
                                         </div>
                                     </div>
 
@@ -174,7 +174,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                             variant="heart"
                                             className="scale-110"
                                         />
-                                        <span className="text-[10px] font-mono tracking-widest uppercase text-[#38240D]/60 font-semibold">
+                                        <span className="text-[10px] font-mono tracking-widest uppercase text-[#2B2119]/60 font-semibold">
                                             Like Post
                                         </span>
                                     </div>
@@ -191,9 +191,9 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ duration: 0.8 }}
-                                        className="relative pl-5 md:pl-8 border-l-3 border-[#713600] mb-10 md:mb-14"
+                                        className="relative pl-5 md:pl-8 border-l-3 border-[#542A00] mb-10 md:mb-14"
                                     >
-                                        <p className="text-[1.2rem] md:text-[1.4rem] leading-relaxed text-[#38240D] font-serif italic font-normal tracking-wide">
+                                        <p className="text-[1.2rem] md:text-[1.4rem] leading-relaxed text-[#2B2119] font-serif italic font-normal tracking-wide">
                                             {post.excerpt}
                                         </p>
                                     </motion.div>
@@ -230,24 +230,24 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                             [word-break:break-word]
                                             [overflow-wrap:anywhere]
 
-                                            prose-headings:font-serif prose-headings:text-[#38240D] prose-headings:font-semibold prose-headings:tracking-tight
-                                            prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#713600]/15
+                                            prose-headings:font-serif prose-headings:text-[#2B2119] prose-headings:font-semibold prose-headings:tracking-tight
+                                            prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-10 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b prose-h2:border-[#D8D0A6]
                                             prose-h3:text-xl md:prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-3
 
-                                            prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#38240D]/85 prose-p:mb-6 prose-p:font-normal
+                                            prose-p:font-sans prose-p:text-[16px] md:prose-p:text-[17px] prose-p:leading-[1.8] prose-p:text-[#2B2119]/85 prose-p:mb-6 prose-p:font-normal
 
-                                            prose-a:text-[#713600] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#713600]/30 hover:prose-a:border-[#C05800] hover:prose-a:text-[#C05800] prose-a:transition-all
+                                            prose-a:text-[#542A00] prose-a:font-semibold prose-a:no-underline prose-a:border-b prose-a:border-[#542A00]/30 hover:prose-a:border-[#D97932] hover:prose-a:text-[#D97932] prose-a:transition-all
 
-                                            prose-blockquote:border-l-3 prose-blockquote:border-[#713600] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#38240D] prose-blockquote:bg-[#FAF7C8] prose-blockquote:rounded-r-lg
+                                            prose-blockquote:border-l-3 prose-blockquote:border-[#542A00] prose-blockquote:pl-5 prose-blockquote:py-4 prose-blockquote:my-8 prose-blockquote:italic prose-blockquote:text-lg prose-blockquote:font-serif prose-blockquote:text-[#2B2119] prose-blockquote:bg-[#FFF8D8] prose-blockquote:rounded-r-lg
 
-                                            prose-strong:font-semibold prose-strong:text-[#38240D]
+                                            prose-strong:font-semibold prose-strong:text-[#2B2119]
 
-                                            prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#38240D]/85
-                                            prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#38240D]/85
+                                            prose-ul:list-disc prose-ul:pl-5 prose-ul:mb-6 prose-ul:space-y-2 prose-ul:text-[#2B2119]/85
+                                            prose-ol:list-decimal prose-ol:pl-5 prose-ol:mb-6 prose-ol:space-y-2 prose-ol:text-[#2B2119]/85
 
-                                            prose-code:text-[#713600] prose-code:bg-[#FAF7C8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
+                                            prose-code:text-[#542A00] prose-code:bg-[#FFF8D8] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-xs
 
-                                            prose-pre:bg-[#FAF7C8] prose-pre:border prose-pre:border-[#713600]/15 prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
+                                            prose-pre:bg-[#FFF8D8] prose-pre:border prose-pre:border-[#D8D0A6] prose-pre:p-4 prose-pre:rounded-lg prose-pre:font-mono prose-pre:text-xs md:prose-pre:text-sm prose-pre:overflow-x-auto
 
                                             prose-img:max-w-full prose-img:h-auto prose-img:rounded-lg
                                         `}
